@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { singUp } from "@/lib/firebase/service";
+import { singUp, update } from "@/lib/firebase/service";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { json } from "stream/consumers";
 
@@ -19,7 +19,15 @@ export default async function handler(
         res.status(status ? 200 : 400).json({status, message})
       }
     );
-  } else {
+  } if (req.method === "PUT") {
+    await update(
+      req.body,
+      ({ status, message }: { status: boolean; message: string }) => {
+        res.status(status ? 200 : 400).json({status, message})
+      }
+    )
+  }
+  else {
     res.status(405).json({status : false, message : "method not allowed"})
   }
 }

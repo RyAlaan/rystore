@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 interface ButtonType {
   type: "button" | "submit" | "reset";
-  children?: string | React.ReactElement;
+  children?: any;
   onClick?: () => void; // Corrected the function type
   className?: string;
 }
@@ -16,7 +16,7 @@ function Button(props: ButtonType) {
       onClick={onClick}
       className={clsx(
         "bg-secondary text-white flex items-center gap-x-2 rounded text-center",
-        className
+        className,
       )}
     >
       <p>{children}</p>

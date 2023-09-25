@@ -13,7 +13,6 @@ import Footer from "@/components/layouts/Footer";
 
 const HomePage = () => {
   return (
-    <div>
       <div className="flex flex-col font-poppins px-3">
         <div className="mt-12 py-8 px-8">
           <div className="">
@@ -26,20 +25,19 @@ const HomePage = () => {
             <Categories />
           </div>
           <div className="pt-[70px] pb-[120px]">
-            <BestPoruduct />
+            {/* <BestPoruduct /> */}
           </div>
           <div className="">
             <Ads />
           </div>
           <div className="pt-[70px]">
-            <ProductsSection />
+            {/* <ProductsSection /> */}
           </div>
           <div className="py-16 md:py-36">
             <Featured />
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

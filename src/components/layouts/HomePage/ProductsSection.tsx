@@ -1,10 +1,10 @@
 import SectionTitle from "@/components/elements/SectionTitle";
 import Card from "@/components/fragments/Card/Card";
-import { cardType } from "@/types/cardType";
+import { productType } from "@/types/productType";
 import Link from "next/link";
 
 const ProductsSection = () => {
-  const cards: cardType[] = [
+  const cards: productType[] = [
     {
       image:
         "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/w_411,c_limit/30f8062f-0f8e-4fb5-9d32-1da71f6dd8e8/nikecourt-legacy-next-nature-shoes-m5FZ0S.png",

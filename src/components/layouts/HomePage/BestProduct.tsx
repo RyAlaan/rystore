@@ -1,10 +1,10 @@
 import SectionTitle from "@/components/elements/SectionTitle";
 import Card from "@/components/fragments/Card/Card";
-import { cardType } from "@/types/cardType";
+import { productType } from "@/types/productType";
 import Link from "next/link";
 
 const BestProduct = () => {
-  const cards: cardType[] = [
+  const cards: productType[] = [
     {
       image:
         "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/bf461a6e-17f0-468a-a61a-2a74cafdb0d9/lebron-xx-ep-basketball-shoes-nPKcbs.png",

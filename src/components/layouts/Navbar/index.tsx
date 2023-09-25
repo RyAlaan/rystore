@@ -7,7 +7,7 @@ import {
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import clsx from "clsx";
 import { signOut, useSession } from "next-auth/react"; // Import useSession
 import SearchBox from "@/components/fragments/SearcBox";

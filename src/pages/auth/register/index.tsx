@@ -15,7 +15,9 @@ const RegisterPage = () => {
     setError("");
     const data = {
       email: event.target.email.value,
-      fullname: event.target.fullname.value,
+      firstname: event.target.firstname.value,
+      lastname: event.target.lastname.value,
+      fullname: event.target.firstname.value + " " + event.target.lastname.value,
       password: event.target.password.value,
     };
     const result = await fetch("/api/register", {
@@ -47,19 +49,28 @@ const RegisterPage = () => {
               className="flex justify-center align-center flex-col gap-x-8 w-96 mt-4"
               onSubmit={handleRegister}
             >
+              <div className="flex justify-between gap-x-2">
+                <Form
+                  className="w-full"
+                  type="text"
+                  label="First Name"
+                  name="firstname"
+                  required={true}
+                />
+                <Form
+                  className="w-full"
+                  type="type"
+                  label="Last Name"
+                  required={true}
+                  name="lastname"
+                />
+              </div>
               <Form
                 className="w-full"
                 type="email"
                 label="Email"
                 name="email"
                 required={true}
-              />
-              <Form
-                className="w-full"
-                type="type"
-                label="Name"
-                required={true}
-                name="fullname"
               />
               <Form
                 className="w-full"

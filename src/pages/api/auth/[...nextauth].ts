@@ -65,9 +65,11 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt({ token, account, profile, user }: any) {
+    jwt({ token, account, user }: any) {
       if (account?.provider === "credentials") {
         token.email = user.email;
+        token.firstname = user.firstname;
+        token.lastname = user.lastname;
         token.fullname = user.fullname;
         token.role = user.role;
       }
@@ -76,6 +78,12 @@ const authOptions: NextAuthOptions = {
     async session({ session, token }: any): Promise<SessionData> {
       if ("email" in token) {
         session.user.email = token.email;
+      }
+      if ("firstname" in token) {
+        session.user.firstname = token.firstname;
+      }
+      if ("lastname" in token) {
+        session.user.lastname = token.lastname;
       }
       if ("fullname" in token) {
         session.user.fullname = token.fullname;
