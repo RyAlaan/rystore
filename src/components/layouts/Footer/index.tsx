@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="bg-black py-20 px-16 md:px-32 flex gap-y-10 gap-x-20 flex-col-reverse lg:flex-row text-white">
+    <div className="bg-black py-20 px-16 md:px-32 flex gap-y-10 justify-between flex-col-reverse lg:flex-row text-white">
       <div className="flex flex-col gap-y-4 md:gap-y-8">
         <h4 className="font-bold text-lg">Exclusive</h4>
         <p>Subscribe</p>

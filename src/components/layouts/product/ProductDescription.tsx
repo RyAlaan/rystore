@@ -7,7 +7,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 const ProductDescription = ({ product }: { product: productType }) => {
-  const { textShow, isShowMore, toggleText } = useShowText(product.description);
+  const { textShow, isShowMore, toggleText } = useShowText(product?.description);
   const [totalPrice, setTotalPrice] = useState<number>(product.price);
 
   useEffect(() => {

@@ -1,19 +1,38 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { retrieveData } from "@/lib/firebase/service";
+import { createData, retrieveData } from "@/lib/firebase/service";
+import { productType } from "@/types/productType";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-  status: boolean;
+  message: string;
   statusCode: number;
-  data: any;
+  data?: productType[] | null;
 };
 
-// Define a request type
-// Dont forget the async
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const data = await retrieveData("products");
-  res.status(200).json({ status: true, statusCode: 200, data });
+  switch (req.method) {
+    case "POST":
+      await createData("products", { data: req.body }); 
+      res.status(200).json({ message: "Data created successfully", statusCode: 200 });
+      break;
+
+    case "GET":
+      const data = (await retrieveData("products")) as productType[] | null;
+      if (data) {
+        res
+          .status(200)
+          .json({ message: "Data found successfuly", statusCode: 200, data });
+      } else {
+        res
+          .status(404)
+          .json({ message: "Data not found", statusCode: 404, data: null });
+      }
+      break;
+
+    default:
+      break;
+  }
 }

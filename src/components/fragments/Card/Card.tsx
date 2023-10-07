@@ -52,10 +52,7 @@ const Card = ({ product }: { product: productType }) => {
                   style: "currency",
                   currency: "USD",
                 })
-              : product.price.toLocaleString("en-EN", {
-                  style: "currency",
-                  currency: "USD",
-                })}
+              : "" }
           </p>
           {product.discount && (
             <p className="text-sm text-slate-500 line-through" id="price">

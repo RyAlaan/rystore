@@ -7,7 +7,7 @@ type ShowText = {
 };
 
 const useShowText = (initialText: string): ShowText => {
-  const [textShow, setTextShow] = useState<string>(initialText)
+  const [textShow, setTextShow] = useState<string>(initialText.slice(0, 100) + "...")
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
 
   console.log(initialText);

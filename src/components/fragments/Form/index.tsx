@@ -4,7 +4,7 @@ import { formType } from "@/types/fromType";
 import React, { useState } from "react";
 
 const Form = (props: formType) => {
-  const { type, className, required, label, name  } = props;
+  const { type, className, required, label, name, pattern, disabled, value, onChange, min, max  } = props;
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -19,9 +19,15 @@ const Form = (props: formType) => {
     <div className={clsx(styles.inputBox, className)}>
       <input
         type={type}
+        disabled={disabled}
+        value={value}
+        onChange={onChange}
+        pattern={pattern}
         className={clsx(styles.inputField, { [styles.focused]: isFocused })}
         required={required}
         name={name}
+        min={min}
+        max={max}
         onFocus={handleFocus}
         onBlur={handleBlur}
       />

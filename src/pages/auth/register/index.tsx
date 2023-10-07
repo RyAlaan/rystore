@@ -20,7 +20,7 @@ const RegisterPage = () => {
       fullname: event.target.firstname.value + " " + event.target.lastname.value,
       password: event.target.password.value,
     };
-    const result = await fetch("/api/register", {
+    const result = await fetch("/api/users/[users]", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,10 +32,14 @@ const RegisterPage = () => {
       setIsLoading(false);
       push("/auth/login");
     } else {
+      if (result.status === 400) {
+        setError("email already exist");
+      } else {
+        setError(
+          result.status === 405 ? "method not allowed" : "something wrong"
+        );
+      }
       setIsLoading(false);
-      setError(
-        result.status === 400 ? "email already exist" : "something wrong"
-      );
     }
   };
 
@@ -81,7 +85,7 @@ const RegisterPage = () => {
               />
               <Button
                 type="submit"
-                className="text-center text-bold px-4 py-3 rounded-sm"
+                className="text-center text-bold px-4 py-3 rounded-sm text-white"
               >
                 Sign Up
               </Button>

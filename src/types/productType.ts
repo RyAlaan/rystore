@@ -1,13 +1,13 @@
 export type productType = {
-  isDiscount?: boolean;
-  discount?: number;
-  description: string;
-  images: string[];
+  id: string;
   name: string;
   price: number;
+  description: string;
+  images: string[];
+  stock: number;
   rating: number;
   people: number;
-  id: string;
-  stock: number;
+  isDiscount?: boolean;
+  discount?: number;
   sizes?: string[];
 };

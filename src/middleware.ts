@@ -6,4 +6,4 @@ export function mainMiddleware(req: NextRequest) {
   return res;
 }
 
-export default withAuth(mainMiddleware, ["/profile/:path*"]);
+export default withAuth(mainMiddleware, ["/profile/:path*", "/dashboard", "/dashboard/:path*", "/test"]);

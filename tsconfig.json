@@ -17,6 +17,12 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/auth/login/index.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages/auth/login/index.tsx",
+    "src/components/layouts/Dashboard/products"
+  ],
   "exclude": ["node_modules"]
 }

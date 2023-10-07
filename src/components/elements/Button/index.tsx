@@ -15,7 +15,7 @@ function Button(props: ButtonType) {
       type={type}
       onClick={onClick}
       className={clsx(
-        "bg-secondary text-white flex items-center gap-x-2 rounded text-center",
+        "bg-secondary flex items-center gap-x-2 rounded text-center",
         className,
       )}
     >

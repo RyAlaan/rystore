@@ -14,16 +14,24 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mapbox/node-pre-gyp": "^1.0.11",
     "@svgr/webpack": "^8.1.0",
+    "@types/bcrypt": "^5.0.0",
+    "@types/formidable": "^3.4.3",
     "@types/node": "20.5.6",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "@uploadthing/react": "^5.6.1",
+    "@uploadthing/solid": "^5.3.0",
     "autoprefixer": "10.4.15",
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "clsx": "^2.0.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
-    "firebase": "^10.3.1",
+    "firebase": "^10.4.0",
+    "formidable": "^3.5.1",
+    "fs": "^0.0.1-security",
     "next": "13.4.19",
     "next-auth": "^4.23.1",
     "postcss": "8.4.28",
@@ -33,9 +41,10 @@
     "swiper": "^10.2.0",
     "swr": "^2.2.2",
     "tailwindcss": "3.3.3",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "uploadthing": "^5.6.1"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0"
+    "@types/bcryptjs": "^2.4.4"
   }
 }
