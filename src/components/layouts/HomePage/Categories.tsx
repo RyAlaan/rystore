@@ -9,7 +9,7 @@ import Tile from "@/components/elements/Tile";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Autoplay, Navigation } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 const categories: { title: string; href: string; icon: React.FC }[] = [
   {
@@ -51,14 +51,6 @@ const Categories: React.FC = () => {
   const [swiper, setSwiper] = useState(null);
 
   const options = {
-    // slidesPerView: "auto" as const,
-    // autoplay: {
-    //   delay: 3000,
-    // },
-    // module={[Autoplay, Navigation]},
-    // pagination: {
-    //   el: ".swiper-pagination",
-    // },
     navigation: {
       nextEl: "#swiper-button-next",
       prevEl: "#swiper-button-prev",
@@ -96,19 +88,19 @@ const Categories: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex jusitfy-center py-10">
+      <div className="flex jusitfy-between py-10">
         <Swiper
           {...options}
           loop={true}
-          slidesPerView={"auto"}
+          slidesPerView={6}
           autoplay={{
-            delay: 2500,
+            delay: 1500,
             disableOnInteraction: false,
           }}
           centeredSlides={true}
           modules={[Autoplay, Navigation]}
           ref={onSwiperInit}
-          className="w-full"
+          className="w-full py-10"
         >
           {categories.map((category, index) => (
             <SwiperSlide key={index} className="w-full">

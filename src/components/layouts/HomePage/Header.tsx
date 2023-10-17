@@ -30,22 +30,14 @@ export default function Header() {
         className="mySwiper rounded-md"
         id="Hero"
       >
-        <SwiperSlide>
-          <img src="https://placehold.co/1300x500" alt="" />
+        <SwiperSlide className="object-cover">
+          <img src="https://placehold.co/1300x500" className="w-full" alt="" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="rounded-md"
-            src="https://placehold.co/1300x500"
-            alt=""
-          />
+        <SwiperSlide className="object-cover">
+          <img src="https://placehold.co/1300x500" className="w-full" alt="" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="rounded-md"
-            src="https://placehold.co/1300x500"
-            alt=""
-          />
+        <SwiperSlide className="object-cover">
+          <img src="https://placehold.co/1300x500" className="w-full" alt="" />
         </SwiperSlide>
       </Swiper>
     </>

@@ -16,23 +16,34 @@ const AuthLayout = (props: { children: React.ReactElement }) => {
       </div>
       <div className="w-full flex flex-col align-middle justify-center h-[100%] lg:w-1/2">
         <div className="flex-flex-col w-fit self-center">
-          <h2 className="text-4xl font-bolder">Create an account</h2>
+          {router.pathname === "/auth/login" && (
+            <h2 className="text-4xl font-bolder">Login to your account</h2>
+          )}
+          {router.pathname === "/auth/register" && (
+            <h2 className="text-4xl font-bolder">Create an account</h2>
+          )}
           <p className="py-4">Enter your detail below</p>
           {children}
           <div className="text-center pt-8 text-slate-400">
             {router.pathname === "/auth/login" && (
               <p>
                 Dont have an account ?
-                <Link href={"/auth/register"} className="text-underline">
+                <Link
+                  href={"/auth/register"}
+                  className="text-underline text-black"
+                >
                   {" "}
-                  register
+                  Register
                 </Link>
               </p>
             )}
             {router.pathname === "/auth/register" && (
               <p>
                 already have an account ?
-                <Link href={"/auth/login"} className="text-underline">
+                <Link
+                  href={"/auth/login"}
+                  className="text-underline text-black"
+                >
                   {" "}
                   Login
                 </Link>

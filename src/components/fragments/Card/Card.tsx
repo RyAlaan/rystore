@@ -28,7 +28,7 @@ const Card = ({ product }: { product: productType }) => {
           alt=""
           className="rounded-md w-full aspect-square object-cover"
         />
-        {product.isDiscount && (
+        {product.isDiscount == true && (
           <div
             id="discount"
             className="bg-secondary rounded-md text-white w-fit p-1 text-xs absolute top-2 left-2 z-10"
@@ -40,7 +40,8 @@ const Card = ({ product }: { product: productType }) => {
       <div className="pt-2">
         <Link
           href={`/products/${product.id}`}
-          className="text-sm overflow-hidden text-ellipsis whitespace-nowrap w-[calc(100%-1rem)]"
+          // className="text-sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[calc(100%-1rem)]"
+          className="text-sm line-clamp-2"
           id="title"
         >
           {product.name}

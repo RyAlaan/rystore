@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 import NextAuth from "next-auth";
 
 declare module "next-auth" {
@@ -12,7 +13,12 @@ declare module "next-auth" {
       address?: string;
       firstName?: string;
       lastName?: string;
-      image?:string;
+      image?: string;
+      id: string;
+      password: string;
+      phone?: string;
+      dataAdded?: Timestamp;
+      dataUpdated?: Timestamp;
     } & DefaultSession["user"];
   }
 }

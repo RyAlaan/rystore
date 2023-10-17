@@ -20,7 +20,7 @@ const LoginPage = () => {
     setError("");
     try {
       const res = await signIn("credentials", {
-        redirect: false,
+        // redirect: false,
         email: event.target.email.value,
         password: event.target.password.value,
         callbackUrl,
@@ -66,9 +66,10 @@ const LoginPage = () => {
             />
             <Button
               type="submit"
-              className="text-center text-bold px-4 py-3 rounded-sm"
+              className="text-center text-bold px-4 py-3 rounded-sm text-white"
+              
             >
-              Sign Up
+              Sign In
             </Button>
           </form>
           </>

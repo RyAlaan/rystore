@@ -2,6 +2,7 @@ import {
   faBars,
   faCartShopping,
   faHome,
+  faListCheck,
   faRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
@@ -10,11 +11,13 @@ import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import clsx from "clsx";
 import { signOut, useSession } from "next-auth/react"; // Import useSession
-import SearchBox from "@/components/fragments/SearcBox";
+import SearchBox from "@/components/fragments/SearchBox";
 
 const Navbar = () => {
   const pathname = usePathname();
   const { data: session } = useSession(); // Get the user session data
+
+  console.log(session);
 
   const Nav = [
     {
@@ -77,6 +80,19 @@ const Navbar = () => {
             >
               <FontAwesomeIcon icon={faRightToBracket} className="md:hidden" />
               <p className="">SignIn</p>
+            </div>
+          </Link>
+        )}
+        {session && session.user.role === "admin" && (
+          <Link href={"/dashboard"}>
+            <div
+              className={clsx(
+                "items-center flex flex-col text-xs font-semibold md:text-base",
+                pathname === "/dashboard" ? "text-secondary md:underline" : ""
+              )}
+            >
+              <FontAwesomeIcon icon={faListCheck} className="md:hidden" />
+              <p className="">Dahsboard</p>
             </div>
           </Link>
         )}
