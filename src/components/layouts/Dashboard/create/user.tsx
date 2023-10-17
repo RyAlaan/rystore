@@ -24,15 +24,11 @@ const CreateUserLayout = () => {
       fullname:
         event.target.firstname.value + " " + event.target.lastname.value,
       password: event.target.password.value,
-      address: event.target.address.value,
-      phone: event.target.phone.value,
-      image:
-        Date.now().toString() +
-        "_" +
-        event.target.email.value.split("@")[0] +
-        ".jpg",
+      address: event.target.address.value ? event.target.address.value : "",
+      phone: event.target.phone.value ? event.target.phone.value : "",
+      Image: "",
     };
-    const result = await fetch("/api/users/[user]", {
+    const result = await fetch("/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +137,7 @@ const CreateUserLayout = () => {
               type="submit"
               className="w-fit px-5 py-3 text-white rounded-sm"
             >
-              Submit
+              {isLoading ? "Loading..." : "Submit"}
             </Button>
           </div>
         </div>

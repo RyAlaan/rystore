@@ -2,47 +2,72 @@ import Form from "@/components/fragments/Form";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/components/elements/Button";
 import SelectInput from "@/components/fragments/Select";
+import { useRouter } from "next/router";
+import { fetcher } from "@/lib/swr/fetcher";
+import useSWR from "swr";
+import { productType } from "@/types/productType";
 
-const CreateProductLayout = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const UpdateProductLayout = () => {
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
-  const [imageData, setImageData] = useState([
-    { name: "image1", label: "Image 1", value: "", hidden: false },
-    { name: "image2", label: "Image 2", value: "", hidden: true },
-    { name: "image3", label: "Image 3", value: "", hidden: true },
-    { name: "image4", label: "Image 4", value: "", hidden: true },
-    { name: "image5", label: "Image 5", value: "", hidden: true },
-    { name: "imageBuangan", label: "Image 5", value: "", hidden: true },
-  ]);
+  const [isError, setIsError] = useState("");
+  const router = useRouter();
+  console.log(router.query.product);
 
-  const handleInputChange = (event: any, index: number) => {
-    const { value } = event.target;
-    const updatedImageData = [...imageData];
+  const [product, setProduct] = useState({
+    name: "",
+    price: 0,
+    category: "camera",
+    stock: 0,
+    isDiscount: false,
+    discount: 0,
+    description: "",
+    people: 0,
+    images: ["", "", "", "", ""],
+  });
 
-    updatedImageData[index].value = value;
+  const { data, isLoading, error } = useSWR(
+    "/api/products/" + router.query.product,
+    fetcher
+  );
+  console.log(data?.data);
 
-    if (value && index < updatedImageData.length - 2) {
-      updatedImageData[index + 1].hidden = false;
-    } else {
-      updatedImageData[index + 1].hidden = true;
+  useEffect(() => {
+    if (data?.data) {
+      setProduct({
+        name: data.data.name,
+        price: data.data.price,
+        category: data.data.category,
+        stock: data.data.stock,
+        isDiscount: data.data.isDiscount,
+        discount: data.data.discount,
+        description: data.data.description,
+        people: data.data.people,
+        images: [
+          data.data.images[0],
+          data.data.images[1],
+          data.data.images[2],
+          data.data.images[3],
+          data.data.images[4],
+        ],
+      });
     }
+  }, [data]);
 
-    setImageData(updatedImageData);
-  };
+  console.log(product);
 
-  const handleCreateProduct = async (event: any) => {
+  const handleUpdateProduct = async (event: any) => {
     event.preventDefault();
-    setIsLoading(true);
+    setLoading(true);
     setSuccess("");
-    setError("");
+    setIsError("");
     const discount =
       event.target.isDiscount.value === "true"
         ? event.target.discount.value
-        : null;
+        : 0;
     const data = {
       name: event.target.name.value,
       price: parseInt(event.target.price.value),
@@ -60,22 +85,23 @@ const CreateProductLayout = () => {
         event.target.image5.value,
       ],
     };
-    const result = await fetch("/api/products", {
-      method: "POST",
+    const result = await fetch("/api/products/" + router.query.product, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
 
-    const response = await result.json();
-    if (response.status === 200) {
-      setSuccess(response.message);
+    if (result.status === 200) {
+      setSuccess("Data added successfully");
     } else {
-      setError(response.message);
-    }  
+      setIsError(
+        result.status === 405 ? "method not allowed" : "something wrong"
+      );
+    }
 
-    setIsLoading(false);
+    setLoading(false);
   };
 
   return (
@@ -85,19 +111,22 @@ const CreateProductLayout = () => {
           <p>{success}</p>
         </div>
       )}
-      {error && (
+      {isError && (
         <div className="w-fit rounded-md text-red-600 self-center px-10 py-2 border-2 border-red-500">
-          <p>{error}</p>
+          <p>{isError}</p>
         </div>
       )}
-      <form className="py-6" onSubmit={handleCreateProduct}>
+      <form className="py-6" onSubmit={handleUpdateProduct}>
         <div className="flex flex-col md:flex-row w-full justify-between gap-x-4">
           <Form
             type="text"
             name="name"
             label="Product Name"
             className="w-full md:w-1/3"
-            required={true}
+            value={product.name}
+            onChange={(e: any) =>
+              setProduct({ ...product, name: e.target.value })
+            }
           />
           <Form
             type="number"
@@ -105,7 +134,10 @@ const CreateProductLayout = () => {
             label="Price"
             className="w-full md:w-1/3"
             min={0}
-            required={true}
+            value={product.price}
+            onChange={(e: any) =>
+              setProduct({ ...product, price: e.target.value })
+            }
           />
           {/* cannot be negative*/}
           <SelectInput
@@ -141,6 +173,11 @@ const CreateProductLayout = () => {
             className="w-full md:w-1/2"
             min={0}
             max={100}
+            required={product.isDiscount}
+            value={product.discount}
+            onChange={(e: any) =>
+              setProduct({ ...product, discount: e.target.value })
+            }
           />
           {/* if isDiscount is true, discount enable */}
         </div>
@@ -149,22 +186,33 @@ const CreateProductLayout = () => {
           name="stock"
           label="Stock"
           min={0}
-          required={true}
+          value={product.stock}
+          onChange={(e: any) =>
+            setProduct({ ...product, stock: e.target.value })
+          }
         />
         {/* cannot be negative*/}
-        <Form type="textarea" name="description" label="Description" />
-        {imageData.map((field, index) => (
+        <Form
+          type="textarea"
+          name="description"
+          label="Description"
+          value={product.description}
+          onChange={(e: any) =>
+            setProduct({ ...product, description: e.target.value })
+          }
+        />
+        {product.images.map((image, index) => (
           <Form
             type="text"
-            name={field.name}
-            label={field.label}
+            name={"image" + index + 1}
+            label={"image" + index + 1}
             key={index}
-            className={field.hidden ? "hidden" : "flex"}
-            value={field.value}
-            onChange={(e) => handleInputChange(e, index)}
+            value={image}
+            onChange={(e: any) =>
+              setProduct({ ...product, images: e.target.value })
+            }
           />
         ))}
-        {/* max image link 5 */}
         <div className="flex flex-row pt-5 gap-x-3 w-full justify-between">
           <Link
             href={"/dashboard/users"}
@@ -183,7 +231,7 @@ const CreateProductLayout = () => {
               type="submit"
               className="w-fit px-5 py-3 text-white rounded-sm"
             >
-              {isLoading ? "loading..." : "Submit"}
+              {loading ? "loading..." : "Submit"}
             </Button>
           </div>
         </div>
@@ -192,4 +240,4 @@ const CreateProductLayout = () => {
   );
 };
 
-export default CreateProductLayout;
+export default UpdateProductLayout;

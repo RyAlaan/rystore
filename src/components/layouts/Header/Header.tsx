@@ -5,6 +5,9 @@ import { usePathname } from "next/navigation";
 const Header = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
+  if (pathname === null) {
+    return null;
+  }
   const paths = pathname.split("/").filter(Boolean);
 
   return (

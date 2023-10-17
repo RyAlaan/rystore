@@ -14,9 +14,11 @@ const Sidebar: React.FC = () => {
       <ul className="px-8">
         {session?.user.role ? (
           <li>
-            <Link href={"/dashboard"} className="font-semibold">Dashboard</Link>
+            <Link href={"/dashboard"} className="font-semibold">
+              Dashboard
+            </Link>
             <ul className="pl-10 py-3">
-              <li className="">
+              <li className="text-stone-400">
                 <Link href={"/dashboard/users"}>Users</Link>
               </li>
               <li className="text-stone-400">
@@ -37,7 +39,7 @@ const Sidebar: React.FC = () => {
         <li>
           <p className="font-semibold">Manage My Account</p>
           <ul className="pl-10 py-3">
-            <li className="text-secondary">
+            <li className="text-stone-400">
               <Link href={"/profile"}>My Profile</Link>
             </li>
             <li className="text-stone-400">

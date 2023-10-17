@@ -1,22 +1,57 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { retrieveData } from "@/lib/firebase/service";
+import { retrieveData, singUp } from "@/lib/firebase/service";
 import { userType } from "@/types/userType";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
   message: string;
   statusCode: number;
-  data: userType[] | null;
+  data : {data: userType} | null | userType[];
 };
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const data = (await retrieveData("users")) as userType[] | null;
-  if (data) {
-    res.status(200).json({ message: "Data found successfuly", statusCode: 200, data });
-  } else {
-    res.status(404).json({ message: "Data not found", statusCode: 404, data: null });
+  switch (req.method) {
+    case "POST":
+      await singUp(
+        req.body,
+        ({
+          statusCode,
+          message,
+          data,
+        }: {
+          statusCode: number;
+          message: string;
+          data: {data :userType} | null;
+        }) => {
+          res
+            .status(statusCode)
+            .json({ statusCode, message, data });
+        }
+      );
+      break;
+
+    case "GET":
+      await retrieveData(
+        "users",
+        ({
+          statusCode,
+          message,
+          data,
+        }: {
+          statusCode: number;
+          message: string;
+          data: userType[] | null;
+        }) => {
+          res.status(statusCode).json({ statusCode, message, data });
+        }
+      );
+      break;
+
+    default:
+      res.status(500).json({ message: "Method not allowed", statusCode: 500, data: null });
+      break;
   }
 }

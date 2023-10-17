@@ -1,13 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { deleteDataById, retrieveDataById, singUp } from "@/lib/firebase/service";
+import {
+  deleteDataById,
+  retrieveDataById,
+  singUp,
+  updateDataById,
+} from "@/lib/firebase/service";
 import { userType } from "@/types/userType";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
   message: string;
   statusCode?: Number;
-  status? :boolean;
-  data?: userType[] | null;
+  data?: any;
 };
 
 export default async function handler(
@@ -15,39 +19,65 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   switch (req.method) {
-    case "POST":
-      await singUp(
-      req.body,
-      ({ status, message }: { status: boolean; message: string }) => {
-        res.status(status ? 200 : 400).json({status, message})
-      }
-    );
-    break;
-
     case "GET":
-      const data = (await retrieveDataById(
+      await retrieveDataById(
         "users",
-        req.query.user as string
-      )) as userType[] | null;
-      if (data) {
-        res.status(200).json({ message: "Data found", statusCode: 200, data });
-      } else {
-        res
-          .status(404)
-          .json({ message: "Data not found", statusCode: 404, data: null });
-      }
+        req.query.user as string,
+        ({
+          statusCode,
+          message,
+          data,
+        }: {
+          statusCode: number;
+          message: string;
+          data: { data: userType } | null;
+        }) => {
+          res.status(statusCode).json({ statusCode, message, data });
+        }
+      );
       break;
 
     case "PUT":
-      // await updateDataById("users", req.query.user as string, req.body);
+      await updateDataById(
+        "users",
+        req.query.user as string,
+        req.body,
+        ({
+          statusCode,
+          message,
+          data,
+        }: {
+          statusCode: number;
+          message: string;
+          data: { data: userType } | null;
+        }) => {
+          res.status(statusCode).json({ statusCode, message, data });
+        }
+      );
       break;
 
     case "DELETE":
-      await deleteDataById("users", req.query.user as string);
-      res.status(200).json({ message: "Data deleted successfully", statusCode: 200 });
+      await deleteDataById(
+        "users",
+        req.query.user as string,
+        ({
+          statusCode,
+          message,
+          data,
+        }: {
+          statusCode: number;
+          message: string;
+          data: { data: userType } | null;
+        }) => {
+          res.status(statusCode).json({ statusCode, message, data });
+        }
+      );
       break;
 
     default:
+      res
+        .status(405)
+        .json({ message: "Method not allowed", statusCode: 405, data: null });
       break;
   }
 }

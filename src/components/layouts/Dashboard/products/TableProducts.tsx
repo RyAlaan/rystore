@@ -51,7 +51,7 @@ const TableProducts = ({
         />
       </div>
       <div className="w-40 h-full flex flex-col justify-center">
-        <p className="h-full">{product.name}</p>
+        <p className="h-full line-clamp-2 ">{product.name}</p>
       </div>
       <div className="w-20 h-full flex flex-col justify-center text-center">
         <p className="text-md ">
@@ -75,7 +75,7 @@ const TableProducts = ({
       </div>
       <div className="w-28 flex flex-row justify-between text-center p-2 ">
         <Link
-          href={"/"}
+          href={`/dashboard/update/product/${product.id}`}
           className="bg-blue-600 rounded-md aspect-square flex justify-center items-center"
         >
           <FontAwesomeIcon icon={faEdit} className="text-white" />

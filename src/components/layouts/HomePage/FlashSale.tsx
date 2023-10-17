@@ -10,7 +10,7 @@ import { productType } from "@/types/productType";
 const FlashSale = () => {
   const [products, setProducts] = useState([]);
 
-  const { data, error, isLoading } = useSWR("/api/products", fetcher);
+  const { data, error, isLoading } = useSWR("/api/products?discount=true", fetcher);
   console.log(data);
 
   useEffect(() => {
@@ -33,7 +33,6 @@ const FlashSale = () => {
         {data?.data.map((product: productType, index: number) => (
           <Card key={index} product={product} />
         ))}
-        {/* <Card /> */}
       </div>
       <div className="w-full flex justify-center py-16">
         <Link

@@ -60,7 +60,7 @@ const TableUser = ({
       </div>
       <div className="w-28 flex flex-row justify-between text-center p-2 ">
         <Link
-          href={"/"}
+          href={`/dashboard/update/user/${user.id}`}
           className="bg-blue-600 rounded-md aspect-square flex justify-center items-center"
         >
           <FontAwesomeIcon icon={faEdit} className="text-white" />

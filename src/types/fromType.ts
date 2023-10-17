@@ -10,4 +10,5 @@ export type formType = {
   onChange? : (e : any) => void;
   min?: number;
   max?: number;
+  title?: string;
 };
