@@ -10,9 +10,6 @@ const useShowText = (initialText: string): ShowText => {
   const [textShow, setTextShow] = useState<string>(initialText.slice(0, 100) + "...")
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
 
-  console.log(initialText);
-  console.log(textShow);
-
   const toggleText = () => {
     setIsShowMore(!isShowMore);
     if (!isShowMore) {
@@ -21,8 +18,6 @@ const useShowText = (initialText: string): ShowText => {
       setTextShow(initialText.slice(0, 100) + "...");
     }
   };
-
-  console.log(textShow, isShowMore);
 
   return { textShow, isShowMore, toggleText };
 };

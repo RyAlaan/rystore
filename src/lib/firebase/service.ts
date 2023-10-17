@@ -97,7 +97,10 @@ export async function retrieveDataById(
   callback: Function
 ) {
   const snapshot = await getDoc(doc(firestore, collectionName, id));
-  const data = snapshot.data();
+  const data = {
+    id: id,
+    ...snapshot.data()
+  }
 
   if (data) {
     callback({ statusCode: 200, message: "Data found successfuly", data });

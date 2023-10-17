@@ -11,8 +11,8 @@ const AuthLayout = (props: { children: React.ReactElement }) => {
   
   return (
     <>
-      <div className="hidden lg:flex w-1/2 py-6">
-        <img src={`/images/SideImage.jpg`} alt="" />
+      <div className="hidden lg:flex w-1/2 pt-6">
+        <img src={`/images/SideImage.jpg`} alt="" className="w-full"/>
       </div>
       <div className="w-full flex flex-col align-middle justify-center h-[100%] lg:w-1/2">
         <div className="flex-flex-col w-fit self-center">

@@ -41,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center overflow-hidden font-poppins h-screen w-full">
+    <div className="flex items-center justify-center overflow-hidden font-poppins h-fit w-full">
       <div className="flex items-center justify-center w-full">
         <AuthLayout>
           <>
