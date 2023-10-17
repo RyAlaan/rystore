@@ -18,6 +18,9 @@ const ProductDescription = ({ product }: { product: productType }) => {
     }
   }, []);
 
+  console.log(product.isDiscount);
+  
+
   return (
     <div className="flex flex-col gap-y-1 border-b-4 pb-6">
       <h2 className="text-2xl font-bold">{product.name}</h2>
@@ -47,7 +50,7 @@ const ProductDescription = ({ product }: { product: productType }) => {
       <div className="checkDiscount flex flex-row gap-x-2">
         <h4
           className={clsx(
-            product.isDiscount ? "line-through text-neutral-400" : "",
+            product.isDiscount === true ? "line-through text-neutral-400" : "text-secondary",
             "text-xl"
           )}
         >
@@ -56,7 +59,7 @@ const ProductDescription = ({ product }: { product: productType }) => {
             currency: "USD",
           })}
         </h4>
-        {product.isDiscount && (
+        {product.isDiscount === true && (
           <h4 className="text-xl text-secondary">
             {totalPrice.toLocaleString("en-EN", {
               style: "currency",

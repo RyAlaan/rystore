@@ -10,12 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import clsx from "clsx";
-import { signOut, useSession } from "next-auth/react"; // Import useSession
+import { signOut, useSession } from "next-auth/react";
 import SearchBox from "@/components/fragments/SearchBox";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const { data: session } = useSession(); // Get the user session data
+  const { data: session } = useSession();
 
   console.log(session);
 

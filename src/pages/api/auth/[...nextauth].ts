@@ -14,7 +14,6 @@ interface SessionData {
   expires: string;
 }
 
-
 const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
@@ -67,15 +66,21 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     jwt({ token, account, user }: any) {
       if (account?.provider === "credentials") {
+        token.id = user.id;
         token.email = user.email;
         token.firstname = user.firstname;
         token.lastname = user.lastname;
         token.fullname = user.fullname;
         token.role = user.role;
+        token.address = user.address;
+        token.phone = user.phone
       }
       return token;
     },
     async session({ session, token }: any): Promise<SessionData> {
+      if ("id" in token) {
+        session.user.id = token.id
+      }
       if ("email" in token) {
         session.user.email = token.email;
       }
@@ -90,6 +95,12 @@ const authOptions: NextAuthOptions = {
       }
       if ("role" in token) {
         session.user.role = token.role;
+      }
+      if ("address" in token) {
+        session.user.address = token.address
+      }
+      if ("phone" in token) {
+        session.user.phone = token.phone
       }
 
       console.log(session);
