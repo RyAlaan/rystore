@@ -109,7 +109,7 @@ const ProductDetail = () => {
                 </button>
               </div>
               <Button type="submit" className="px-6 py-2 text-white">
-                Add To Cart <FontAwesomeIcon icon={faCartPlus} className="text-white"/>
+                Add To Cart<FontAwesomeIcon icon={faCartPlus} className="text-white"/>
               </Button>
               <button
                 type="submit"
