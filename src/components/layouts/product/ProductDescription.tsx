@@ -7,7 +7,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 const ProductDescription = ({ product }: { product: productType }) => {
-  const { textShow, isShowMore, toggleText } = useShowText(product?.description);
+  const { textShow, isShowMore, toggleText } = useShowText(product.description);
   const [totalPrice, setTotalPrice] = useState<number>(product.price);
 
   useEffect(() => {
@@ -18,8 +18,7 @@ const ProductDescription = ({ product }: { product: productType }) => {
     }
   }, []);
 
-  console.log(product.isDiscount);
-  
+  console.log(product.images)
 
   return (
     <div className="flex flex-col gap-y-1 border-b-4 pb-6">
