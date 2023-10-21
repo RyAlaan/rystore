@@ -57,10 +57,10 @@ const ProductDetail = () => {
   };
 
   async function handleAddToCart() {
-    // if (!session) {
-    //   router.push("/auth/login");
-    //   return;
-    // }
+    if (!session) {
+      router.push("/auth/login");
+      return;
+    }
     setLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
@@ -79,8 +79,9 @@ const ProductDetail = () => {
     });
 
     const response = await result.json();
-    if (response.status === 200) {
+    if (response.status == 200) {
       setSuccessMessage(response.message);
+      router.push("/cart");
     } else {
       setErrorMessage(response.message);
     }
@@ -91,7 +92,6 @@ const ProductDetail = () => {
   return (
     <div className="flex flex-col font-poppins">
       <div className="lg:pb-14 lg:px-32 flex flex-col lg:flex-row justify-between">
-        {/* <div className="z-[99] border-green-500 text-green-500 border-2 h-fit rounded-md px-4 py-2 ">Some message</div> */}
         <div className="sideImage flex flex-row md:flex-col gap-y-4 w-fit">
           {product && product.images ? (
             product.images.map((image, index) =>
