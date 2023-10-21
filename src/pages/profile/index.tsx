@@ -1,6 +1,6 @@
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
-import Header from "@/components/layouts/Header/Header";
+import Header from "@/components/layouts/Breadcumb";
 import Sidebar from "@/components/layouts/Sidebar";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -22,9 +22,6 @@ const UpdateUserPage: React.FC = () => {
 
   return (
     <div>
-      <div className="flex flex-col font-poppins px-3">
-        <Header />
-      </div>
       <div className="flex flex-row justify-center">
         <Sidebar />
         <div className="lg:w-5/6 px-8 py-6 lg:py-10 lg:px-20 flex flex-col justify-center gap-y-4"></div>

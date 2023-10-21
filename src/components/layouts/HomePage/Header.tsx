@@ -27,17 +27,17 @@ export default function Header() {
         }}
         // navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper rounded-md"
+        className="mySwiper rounded-md overflow-hidden"
         id="Hero"
       >
-        <SwiperSlide className="object-cover">
-          <img src="https://placehold.co/1300x500" className="w-full" alt="" />
+        <SwiperSlide className="object-cover overflow-hidden">
+          <img src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
         </SwiperSlide>
         <SwiperSlide className="object-cover">
-          <img src="https://placehold.co/1300x500" className="w-full" alt="" />
+          <img src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
         </SwiperSlide>
         <SwiperSlide className="object-cover">
-          <img src="https://placehold.co/1300x500" className="w-full" alt="" />
+          <img src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
         </SwiperSlide>
       </Swiper>
     </>

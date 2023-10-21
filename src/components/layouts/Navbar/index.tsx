@@ -92,7 +92,7 @@ const Navbar = () => {
               )}
             >
               <FontAwesomeIcon icon={faListCheck} className="md:hidden" />
-              <p className="">Dahsboard</p>
+              <p className="">Dashboard</p>
             </div>
           </Link>
         )}
@@ -107,7 +107,7 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faUser} className="text-black" />
           </Link>
         )}
-        <Link href="/" className="bg-transparent p-0">
+        <Link href="/cart" className="bg-transparent p-0">
           <FontAwesomeIcon icon={faCartShopping} className="text-black" />
         </Link>
         <Link href="/" className="bg-transparent p-0">
