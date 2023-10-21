@@ -1,10 +1,12 @@
-import Form from "@/components/fragments/Form";
+import Coupon from "@/components/fragments/Coupon";
+import Message from "@/components/fragments/Message";
+import CartCard from "@/components/layouts/CartPage/CartCard";
+import UpdateCart from "@/components/layouts/CartPage/UpdateCart";
 import { fetcher } from "@/lib/swr/fetcher";
 import { cartType } from "@/types/cartType";
 import { productType } from "@/types/productType";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -62,14 +64,6 @@ const CartPage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   setSubTotal(
-  //     quantities.map(
-  //       (quantity, index) => productData[index].price * quantities[index]
-  //     )
-  //   );
-  // }, [quantities]);
-
   useEffect(() => {
     setSubTotal(
       quantities.map((quantity, index) => {
@@ -77,7 +71,10 @@ const CartPage = () => {
         const discount = product && product.discount ? product.discount : 0;
 
         if (discount > 0) {
-          return (product.price - (discount / 100) * product.price ) * quantities[index];
+          return (
+            (product.price - (discount / 100) * product.price) *
+            quantities[index]
+          );
         } else {
           return product.price * quantities[index];
         }
@@ -145,7 +142,7 @@ const CartPage = () => {
 
     if (discount > 0) {
       return (
-        acc +(product.price - (discount / 100) * product.price) * quantity
+        acc + (product.price - (discount / 100) * product.price) * quantity
       );
     } else {
       return product.price * quantity;
@@ -173,19 +170,14 @@ const CartPage = () => {
     setLoading(false);
   };
 
+  const handleCheckout = () => {
+    console.log("checkout");
+  };
+
   return (
     <div className="flex flex-col font-poppins">
       <div className="lg:px-8 flex flex-col justify-between gap-y-3">
-        <div
-          className={clsx(
-            "text-center self-center border-2 rounded-md px-6 py-2",
-            success || failed ? "flex" : "hidden",
-            success && "text-green-500 border-green-500",
-            failed && "text-red-500 border-red-500"
-          )}
-        >
-          {success || failed}
-        </div>
+        <Message success={success} failed={failed} />
         <div className="flex flex-col gap-y-20 w-full lg:pb-36">
           <div className="flex flex-col w-full md:gap-y-6">
             <div className="flex flex-col w-full lg:gap-y-10">
@@ -227,10 +219,19 @@ const CartPage = () => {
                     </Link>
                   </div>
                   <div className="">
-                    {product.price.toLocaleString("en-EN", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
+                    {product.isDiscount === true &&
+                    product.discount !== undefined
+                      ? (
+                          product.price -
+                          (product.discount / 100) * product.price
+                        ).toLocaleString("en-EN", {
+                          style: "currency",
+                          currency: "USD",
+                        })
+                      : product.price.toLocaleString("en-EN", {
+                          style: "currency",
+                          currency: "USD",
+                        })}
                   </div>
                   <div className="">
                     <div className="flex flex-row rounded-md overflow-hidden">
@@ -274,67 +275,16 @@ const CartPage = () => {
                 </div>
               ))}
             </div>
-            <div className="flex justify-between w-full">
-              <Link href={"/"} className="border-2 px-12 py-4">
-                Return To Shop
-              </Link>
-              <button onClick={updateCart} className="border-2 px-12 py-4">
-                Update Cart
-              </button>
-            </div>
+            <UpdateCart updateCart={updateCart} />
           </div>
           <div className="flex flex-row justify-between w-full gap-x-44">
-            <form action="" className="flex flex-row  gap-x-4 w-full">
-              <Form
-                type="string"
-                name="Coupon Code"
-                label="Coupon Code"
-                className="w-full h-full md:w-1/3"
-                required={true}
-              />{" "}
-              <button
-                type="submit"
-                className="px-12 py-3 h-fit text-white rounded-sm bg-secondary text-md"
-              >
-                {" "}
-                {isLoading ? "loading..." : "Apply Coupon"}
-              </button>
-            </form>
-            <div className="flex flex-col border-2 rounded-lg py-8 px-6 w-full">
-              <p className="bold pb-3">Cart Total</p>
-              <div className="flex flex-row justify-between py-3">
-                <p>SubTotal</p>
-                <p>
-                  {selectedSubTotal.toLocaleString("en-EN", {
-                    style: "currency",
-                    currency: "USD",
-                  })}
-                </p>
-              </div>
-              <div className="flex flex-row justify-between py-3 border-y">
-                <p>Shipping</p>
-                <p>
-                  {shipping == 0
-                    ? "Free"
-                    : shipping.toLocaleString("en-EN", {
-                        style: "currency",
-                        currency: "USD",
-                      })}
-                </p>
-              </div>
-              <div className="flex flex-row justify-between py-3">
-                <p>Total:</p>
-                <p>
-                  {totalPrice.toLocaleString("en-EN", {
-                    style: "currency",
-                    currency: "USD",
-                  })}
-                </p>
-              </div>
-              <button className="px-12 py-4 self-center text-white bg-secondary rounded-md">
-                Process To Checkout
-              </button>
-            </div>
+            <Coupon />
+            <CartCard
+              totalPrice={totalPrice}
+              shipping={shipping}
+              selectedSubTotal={selectedSubTotal}
+              onClick={handleCheckout}
+            />
           </div>
         </div>
       </div>

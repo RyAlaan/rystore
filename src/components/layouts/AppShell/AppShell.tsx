@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
-import Breadcumb from "../Breadcumb";
+import Breadcumb from "../../fragments/Breadcumb";
 
 type AppShellProps = {
   children: React.ReactNode;
