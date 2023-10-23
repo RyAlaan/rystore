@@ -67,7 +67,6 @@ const ProductDetail = () => {
   };
 
   async function handleAddToCart() {
-    // event.preventDefault();
     setLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
