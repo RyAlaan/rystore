@@ -57,13 +57,10 @@ const ProductDetail = () => {
   };
 
   async function handleAddToCart() {
-<<<<<<< HEAD
-=======
     if (!session) {
       router.push("/auth/login");
       return;
     }
->>>>>>> e021d6b3ba4743aa516eae5240461f5bf47339f2
     setLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
