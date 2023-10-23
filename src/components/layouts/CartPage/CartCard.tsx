@@ -15,7 +15,7 @@ const CartCard: React.FC<CartCardProps> = ({
 }) => {
   return (
     <div className="flex flex-col border-2 rounded-lg py-8 px-6 w-full">
-      <p className="bold pb-3">Cart Total</p>
+      <p className="font-bold pb-3">Cart Total</p>
       <div className="flex flex-row justify-between py-3">
         <p>SubTotal</p>
         <p>

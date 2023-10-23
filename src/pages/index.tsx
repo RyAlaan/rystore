@@ -1,15 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Card from "../components/fragments/Card/Card";
-import Navbar from "../components/layouts/Navbar";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Header from "@/components/layouts/HomePage/Header";
 import FlashSale from "@/components/layouts/HomePage/FlashSale";
 import Categories from "@/components/layouts/HomePage/Categories";
-import BestPoruduct from "@/components/layouts/HomePage/BestProduct";
 import Ads from "@/components/layouts/HomePage/Ads";
-import ProductsSection from "@/components/layouts/HomePage/ProductsSection";
 import Featured from "@/components/layouts/HomePage/Featured";
-import Footer from "@/components/layouts/Footer";
 
 const HomePage = () => {
   return (

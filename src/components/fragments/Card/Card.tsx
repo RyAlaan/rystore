@@ -40,7 +40,6 @@ const Card = ({ product }: { product: productType }) => {
       <div className="pt-2">
         <Link
           href={`/products/${product.id}`}
-          // className="text-sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[calc(100%-1rem)]"
           className="text-sm line-clamp-2"
           id="title"
         >

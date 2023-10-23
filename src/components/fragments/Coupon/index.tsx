@@ -15,7 +15,7 @@ const Coupon = () => {
       />{" "}
       <button
         type="submit"
-        className="px-12 py-3 h-fit text-white rounded-sm bg-secondary text-md"
+        className="h-full lg:h-fit lg:px-12 lg:py-3 text-white rounded-sm bg-secondary text-md"
       >
         {" "}
         {isLoading ? "loading..." : "Apply Coupon"}
