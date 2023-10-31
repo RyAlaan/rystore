@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Form from "../Form";
 
 const Coupon = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
-    <form action="" className="flex flex-row  gap-x-4 w-full">
+    <form
+      className="flex flex-row  gap-x-4 w-full"
+    >
       <Form
         type="string"
         name="Coupon Code"

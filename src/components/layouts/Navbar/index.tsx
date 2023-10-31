@@ -1,4 +1,5 @@
 import {
+  faBarcode,
   faBars,
   faCartShopping,
   faHome,
@@ -54,6 +55,19 @@ const Navbar = () => {
             </div>
           </Link>
         ))}
+        {session && session.user.role === "admin" && (
+          <Link href={"/dashboard"}>
+            <div
+              className={clsx(
+                "items-center flex flex-col text-xs font-semibold md:text-base",
+                pathname === "/dashboard" ? "text-secondary md:underline" : ""
+              )}
+            >
+              <FontAwesomeIcon icon={faListCheck} className="md:hidden" />
+              <p className="">Dashboard</p>
+            </div>
+          </Link>
+        )}
         {session ? (
           <button
             onClick={() => {
@@ -83,19 +97,6 @@ const Navbar = () => {
             </div>
           </Link>
         )}
-        {session && session.user.role === "admin" && (
-          <Link href={"/dashboard"}>
-            <div
-              className={clsx(
-                "items-center flex flex-col text-xs font-semibold md:text-base",
-                pathname === "/dashboard" ? "text-secondary md:underline" : ""
-              )}
-            >
-              <FontAwesomeIcon icon={faListCheck} className="md:hidden" />
-              <p className="">Dashboard</p>
-            </div>
-          </Link>
-        )}
       </div>
       <SearchBox className="w-fit border" />
       <div className="buttons flex flex-row pl-2 gap-x-4 md:gap-x-6">
@@ -109,6 +110,9 @@ const Navbar = () => {
         )}
         <Link href="/cart" className="bg-transparent p-0">
           <FontAwesomeIcon icon={faCartShopping} className="text-black" />
+        </Link>
+        <Link href="/orders" className="bg-transparent p-0">
+          <FontAwesomeIcon icon={faBarcode} className="text-black" />
         </Link>
         <Link href="/" className="bg-transparent p-0">
           <FontAwesomeIcon icon={faBars} className="text-black" />

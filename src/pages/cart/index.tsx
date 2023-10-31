@@ -25,6 +25,7 @@ const CartPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [selectedSubTotal, setSelectedSubTotal] = useState<number>(0);
   const { data: session } = useSession();
 
   const { data, error, isLoading } = useSWR(
@@ -65,6 +66,24 @@ const CartPage = () => {
     }
   };
 
+  const toggleAllItems = () => {
+    const allIndexes = productData.map((product, index) => index);
+    if (selectAll) {
+      setSelectedItems([]);
+    } else {
+      setSelectedItems(allIndexes);
+    }
+    setSelectAll(!selectAll);
+  };
+
+  const toggleItem = (index: number) => {
+    if (selectedItems.includes(index)) {
+      setSelectedItems(selectedItems.filter((item) => item !== index));
+    } else {
+      setSelectedItems([...selectedItems, index]);
+    }
+  };
+
   useEffect(() => {
     setSubTotal(
       quantities.map((quantity, index) => {
@@ -82,24 +101,6 @@ const CartPage = () => {
       })
     );
   }, [quantities, productData]);
-
-  const toggleAllItems = () => {
-    const allIndexes = productData.map((_, index) => index);
-    if (selectAll) {
-      setSelectedItems([]);
-    } else {
-      setSelectedItems(allIndexes);
-    }
-    setSelectAll(!selectAll);
-  };
-
-  const toggleItem = (index: number) => {
-    if (selectedItems.includes(index)) {
-      setSelectedItems(selectedItems.filter((item) => item !== index));
-    } else {
-      setSelectedItems([...selectedItems, index]);
-    }
-  };
 
   const updateCart = async () => {
     setLoading(true);
@@ -123,37 +124,35 @@ const CartPage = () => {
       } else {
         setFailed(response.message);
       }
-
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
-    if (selectedItems.length !== productData.length) {
+    if (
+      selectedItems.length !== productData.length ||
+      productData.length === 0
+    ) {
       setSelectAll(false);
     } else {
       setSelectAll(true);
     }
+    console.log(selectedItems);
   }, [selectedItems, productData]);
 
-  const selectedSubTotal = selectedItems.reduce((acc, index) => {
-    const product = productData[index];
-    const quantity = quantities[index];
-    const discount = product && product.discount ? product.discount : 0;
-
-    if (discount > 0) {
-      return (
-        acc + (product.price - (discount / 100) * product.price) * quantity
-      );
-    } else {
-      return product.price * quantity;
-    }
-  }, 0);
-
   useEffect(() => {
-    setTotalPrice(selectedSubTotal + shipping);
-  }, [selectedSubTotal, shipping]);
+    const total: number[] = [];
+    selectedItems.forEach((item) => {
+      total.push(subTotal[item]);
+    });
 
+    setSelectedSubTotal(total.reduce((acc, item) => acc + item, 0));
+    const roundedPrice = totalPrice.toFixed(2);
+
+    setTotalPrice(selectedSubTotal + shipping);
+  }, [selectedItems, shipping, selectedSubTotal]);
+
+  console.log(totalPrice);
   const handleDelete = async (id: string) => {
     setLoading(true);
     const result = await fetch(`/api/cart/${id}`, {
@@ -171,8 +170,80 @@ const CartPage = () => {
     setLoading(false);
   };
 
-  const handleCheckout = () => {
-    console.log("checkout");
+  const handleCheckout = async () => {
+    setLoading(true);
+    const selectedProducts = selectedItems.map((index) => {
+      if (index >= 0 && index <= productData.length) {
+        return productData[index];
+      }
+    });
+
+    const selectedQuantity = selectedItems.map((index) => {
+      if (index >= 0 && index <= productData.length) {
+        return quantities[index];
+      }
+    });
+
+    const selectedTotalPrice = selectedItems.map((index) => {
+      if (index >= 0 && index <= productData.length) {
+        return subTotal[index];
+      }
+    });
+
+    if (selectedItems.length > 0) {
+      const result = await fetch("/api/orders/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderCode: "RY251023000001",
+          orderStatus: "Awaiting Payment",
+          totalPrice: totalPrice,
+          userid: session?.user?.id,
+          image: null,
+        }),
+      });
+
+      if (result.status === 200) {
+        for (const product of selectedProducts) {
+          const resAddDetailOrder = await fetch("/api/orders/orderDetail", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              orderCode: "RY251023000001",
+              productId: product?.id,
+              quantity: selectedQuantity[selectedProducts.indexOf(product)],
+              totalPrice: selectedTotalPrice[selectedProducts.indexOf(product)],
+            }),
+          });
+          
+          if (resAddDetailOrder.status === 200) {
+            const resDeleteCart = await fetch(`/api/cart/${cartData[selectedProducts.indexOf(product)].id}`, {
+              method: "DELETE",
+            });
+            console.log(resDeleteCart.status);
+            
+            if (resDeleteCart.status === 200) {
+              setSuccess("Create order successfully");
+              window.location.reload();
+            } else {
+              setFailed("Cannot create Detail Order");
+            }
+          }
+        }
+      } else {
+        setFailed("Cannot create order");
+      }
+    } else {
+      setFailed("Please select product");
+    }
+
+    console.log(selectedProducts[0]);
+
+    setLoading(false);
   };
 
   return (

@@ -1,18 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {
-  createData,
-  deleteDataById,
-  getCartData,
-  retrieveData,
-  updateDataById,
-} from "@/lib/firebase/service";
-import { cartType } from "@/types/cartType";
+import { createData, retrieveData } from "@/lib/firebase/service";
+import { orderType } from "@/types/orderTypes";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
   message: string;
   statusCode: number;
-  data: { data: cartType } | null;
+  data: orderType[] | null;
 };
 
 export default async function handler(
@@ -20,11 +14,10 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   switch (req.method) {
-    case "PUT":
-      await updateDataById(
-        "cart",
-        req.query.userId as string,
-        req.body,
+    case "POST":
+      await createData(
+        "orders",
+        { data: req.body },
         ({
           statusCode,
           message,
@@ -32,7 +25,7 @@ export default async function handler(
         }: {
           statusCode: number;
           message: string;
-          data: { data: cartType } | null;
+          data: orderType[];
         }) => {
           res.status(statusCode).json({ statusCode, message, data });
         }
@@ -40,8 +33,8 @@ export default async function handler(
       break;
 
     case "GET":
-      await getCartData(
-        req.query.userId as string,
+      await retrieveData(
+        "orders",
         ({
           statusCode,
           message,
@@ -49,25 +42,7 @@ export default async function handler(
         }: {
           statusCode: number;
           message: string;
-          data: { data: cartType } | null;
-        }) => {
-          res.status(statusCode).json({ statusCode, message, data });
-        }
-      );
-      break;
-
-    case "DELETE":
-      await deleteDataById(
-        "cart",
-        req.query.userId as string,
-        ({
-          statusCode,
-          message,
-          data,
-        }: {
-          statusCode: number;
-          message: string;
-          data: { data: cartType } | null;
+          data: orderType[] | null;
         }) => {
           res.status(statusCode).json({ statusCode, message, data });
         }
