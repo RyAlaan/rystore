@@ -7,7 +7,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 const ProductDescription = ({ product }: { product: productType }) => {
-  const { textShow, isShowMore, toggleText } = useShowText(product?.description);
+  const { textShow, isShowMore, toggleText } = useShowText(product.description);
   const [totalPrice, setTotalPrice] = useState<number>(product.price);
 
   useEffect(() => {
@@ -17,6 +17,8 @@ const ProductDescription = ({ product }: { product: productType }) => {
       setTotalPrice(discountedPrice);
     }
   }, []);
+
+  console.log(product.images)
 
   return (
     <div className="flex flex-col gap-y-1 border-b-4 pb-6">
@@ -47,7 +49,7 @@ const ProductDescription = ({ product }: { product: productType }) => {
       <div className="checkDiscount flex flex-row gap-x-2">
         <h4
           className={clsx(
-            product.isDiscount ? "line-through text-neutral-400" : "",
+            product.isDiscount === true ? "line-through text-neutral-400" : "text-secondary",
             "text-xl"
           )}
         >
@@ -56,7 +58,7 @@ const ProductDescription = ({ product }: { product: productType }) => {
             currency: "USD",
           })}
         </h4>
-        {product.isDiscount && (
+        {product.isDiscount === true && (
           <h4 className="text-xl text-secondary">
             {totalPrice.toLocaleString("en-EN", {
               style: "currency",

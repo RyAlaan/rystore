@@ -3,7 +3,7 @@ import clsx from "clsx";
 interface ButtonType {
   type: "button" | "submit" | "reset";
   children?: any;
-  onClick?: () => void; // Corrected the function type
+  onClick?: () => void;
   className?: string;
 }
 

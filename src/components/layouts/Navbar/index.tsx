@@ -10,12 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import clsx from "clsx";
-import { signOut, useSession } from "next-auth/react"; // Import useSession
+import { signOut, useSession } from "next-auth/react";
 import SearchBox from "@/components/fragments/SearchBox";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const { data: session } = useSession(); // Get the user session data
+  const { data: session } = useSession();
 
   console.log(session);
 
@@ -92,7 +92,7 @@ const Navbar = () => {
               )}
             >
               <FontAwesomeIcon icon={faListCheck} className="md:hidden" />
-              <p className="">Dahsboard</p>
+              <p className="">Dashboard</p>
             </div>
           </Link>
         )}
@@ -107,7 +107,7 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faUser} className="text-black" />
           </Link>
         )}
-        <Link href="/" className="bg-transparent p-0">
+        <Link href="/cart" className="bg-transparent p-0">
           <FontAwesomeIcon icon={faCartShopping} className="text-black" />
         </Link>
         <Link href="/" className="bg-transparent p-0">

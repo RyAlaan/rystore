@@ -1,4 +1,4 @@
-import Header from "../Header/Header";
+import Breadcumb from "../../fragments/Breadcumb";
 import Sidebar from "../Sidebar";
 
 const DashboardTemplate = (props: { children: React.ReactElement }) => {
@@ -6,9 +6,6 @@ const DashboardTemplate = (props: { children: React.ReactElement }) => {
 
   return (
     <div className="">
-      <div className="flex flex-col font-poppins px-3">
-        <Header />
-      </div>
       <div className="border-t-4 flex flex-row">
         <Sidebar />
         {children}

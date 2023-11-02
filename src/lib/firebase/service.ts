@@ -14,6 +14,7 @@ import {
 import bcrypt from "bcryptjs";
 import { userType } from "@/types/userType";
 import { productType } from "@/types/productType";
+import { cartType } from "@/types/cartType";
 
 const firestore = app;
 
@@ -23,17 +24,16 @@ export async function createData(
   { data }: { data: productType },
   callback: Function
 ) {
-  const docRef = await addDoc(collection(firestore, collectionName), {
-    ...data,
-    dataAdded: serverTimestamp(),
-    dataUpdated: serverTimestamp(),
-  })
-    .then(() => {
-      callback({ statusCode: 200, message: "Register success", data: docRef });
-    })
-    .catch((error: any) => {
-      callback({ statusCode: 500, message: error.message, data: null });
+  try {
+    const docRef = await addDoc(collection(firestore, collectionName), {
+      ...data,
+      dataAdded: serverTimestamp(),
+      dataUpdated: serverTimestamp(),
     });
+    callback({ statusCode: 200, message: "Register success", data: docRef });
+  } catch (error : any) {
+    callback({ statusCode: 500, message: error.message, data: null });
+  }
 }
 
 export async function singUp(userData: userType, callback: Function) {
@@ -67,17 +67,19 @@ export async function singUp(userData: userType, callback: Function) {
         callback({ statusCode: 500, message: error.message, data: null });
       });
   }
-
 }
 
 // READ
 export async function retrieveData(collectionName: string, callback: Function) {
   const q = query(
     collection(firestore, collectionName),
-    // where("isDiscount", "==", true),
+    // where("isDiscount", "==", true)
     // where("stock", ">", 0)
   );
+  
   const snapshot = await getDocs(q);
+
+    // .filter((doc)=> doc.data().stock > 0)
 
   const data = snapshot.docs.map((doc) => ({
     id: doc.id,
@@ -97,7 +99,10 @@ export async function retrieveDataById(
   callback: Function
 ) {
   const snapshot = await getDoc(doc(firestore, collectionName, id));
-  const data = snapshot.data();
+  const data = {
+    id: id,
+    ...snapshot.data(),
+  };
 
   if (data) {
     callback({ statusCode: 200, message: "Data found successfuly", data });
@@ -122,6 +127,47 @@ export async function signIn(userData: { email: string }) {
     return data[0];
   } else {
     throw new Error("user not found");
+  }
+}
+
+export async function getCartData(userId: string, callback: Function) {
+  try {
+    const cartQuery = query(
+      collection(firestore, "cart"),
+      where("userId", "==", userId)
+    );
+    const cartSnapshot = await getDocs(cartQuery);
+    const cartData = cartSnapshot.docs.map((cartDoc) => ({
+      id: cartDoc.id,
+      ...cartDoc.data(),
+    })as cartType);
+
+    if (cartData.length === 0) {
+      callback({ statusCode: 404, message: "You have no items in your cart", data: null });
+      return;
+    }
+
+    const productIds = cartData.map((cartItem) => cartItem.productId);
+    const productData = [];
+
+    for (const productId of productIds) {
+      const productDocRef = doc(firestore, "products", productId);
+      const productSnapshot = await getDoc(productDocRef);
+      const product = {
+        id: productId,
+        ...productSnapshot.data(),
+      };
+      productData.push(product);
+    }
+
+    callback({
+      statusCode: 200,
+      message: "Data found successfully",
+      data: { cartData, productData },
+    });
+  } catch (error) {
+    console.error("Error fetching cart data:", error);
+    callback({ statusCode: 500, message: "Internal server error", data: null });
   }
 }
 
