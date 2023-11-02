@@ -9,6 +9,7 @@ import useSWR from "swr";
 import Button from "@/components/elements/Button";
 import ProductDescription from "@/components/layouts/product/ProductDescription";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const ProductDetail = () => {
   const { query } = useRouter();
@@ -80,8 +81,7 @@ const ProductDetail = () => {
 
     const response = await result.json();
     if (response.status == 200) {
-      setSuccessMessage(response.message);
-      router.push("/cart");
+      redirect("/cart")
     } else {
       setErrorMessage(response.message);
     }

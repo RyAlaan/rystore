@@ -16,7 +16,7 @@ export default async function handler(
   switch (req.method) {
     case "POST":
       await createData(
-        "orders",
+        "orderDetails",
         { data: req.body },
         ({
           statusCode,
@@ -34,7 +34,7 @@ export default async function handler(
 
     case "GET":
       await retrieveData(
-        "orders",
+        "orderDetails",
         ({
           statusCode,
           message,
