@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
@@ -24,6 +25,7 @@ const CartPage = () => {
   const [failed, setFailed] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [selectAll, setSelectAll] = useState<boolean>(false);
+  const [selectedSubTotal, setSelectedSubTotal] = useState<number>(0);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const { data: session } = useSession();
 
@@ -129,26 +131,23 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    if (selectedItems.length !== productData.length) {
+    if (
+      selectedItems.length !== productData.length ||
+      productData.length == 0
+    ) {
       setSelectAll(false);
     } else {
       setSelectAll(true);
     }
   }, [selectedItems, productData]);
 
-  const selectedSubTotal = selectedItems.reduce((acc, index) => {
-    const product = productData[index];
-    const quantity = quantities[index];
-    const discount = product && product.discount ? product.discount : 0;
-
-    if (discount > 0) {
-      return (
-        acc + (product.price - (discount / 100) * product.price) * quantity
-      );
-    } else {
-      return product.price * quantity;
-    }
-  }, 0);
+  useEffect(() => {
+    const subTotalArray: number[] = [];
+    selectedItems.map((index) => {
+      subTotalArray.push(subTotal[index]);
+    });
+    setSelectedSubTotal(subTotalArray.reduce((a, b) => a + b, 0));
+  }, [selectedItems, subTotal]);
 
   useEffect(() => {
     setTotalPrice(selectedSubTotal + shipping);
@@ -171,8 +170,76 @@ const CartPage = () => {
     setLoading(false);
   };
 
-  const handleCheckout = () => {
-    console.log("checkout");
+  const handleCheckout = async () => {
+    const selectedCart = selectedItems.map((index) => {
+      if (selectedItems.length == 0) {
+        setFailed("Please Select Product");
+      } else {
+        return cartData[index];
+      }
+    });
+
+    const selectedSubTotal = selectedItems.map((index) => {
+      if (selectedItems.length == 0) {
+        setFailed("Please Select Product");
+      } else {
+        return subTotal[index];
+      }
+    });
+
+    console.log(selectedSubTotal);
+    console.log(selectedItems);
+    console.log(selectedCart);
+
+    setLoading(true);
+    const result = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        orderCode: "RY311023000001",
+        userId: session?.user?.id,
+        orderStatus: "Awaiting Payment",
+        totalPrice: totalPrice,
+        image: null,
+      }),
+    });
+    if (result.status == 200) {
+      let curIdx = 0;
+      for (const cart of selectedCart) {
+        const resDetail = await fetch("/api/orders/orderDetail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderCode: "RY311023000001",
+            productId: cart?.productId,
+            quantity: cart?.quantity,
+            subTotal: selectedSubTotal[curIdx],
+          }),
+        });
+        curIdx++;
+        console.log(resDetail.status);
+        if (resDetail.status == 200) {
+          const resDelete = await fetch("/api/cart/" + cart?.id, {
+            method: "DELETE",
+          });
+          if (resDelete.status == 200) {
+            // return redirect("/checkout/" + "RY311023000001");
+            setSuccess("Checkout Success");
+          } else {
+            setFailed("failed delete cart");
+          }
+        } else {
+          setFailed("failed create order detail");
+        }
+      }
+    } else {
+      setFailed("failed create order");
+    }
+    setLoading(false);
   };
 
   return (

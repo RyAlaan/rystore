@@ -24,17 +24,16 @@ export async function createData(
   { data }: { data: productType },
   callback: Function
 ) {
-  const docRef = await addDoc(collection(firestore, collectionName), {
-    ...data,
-    dataAdded: serverTimestamp(),
-    dataUpdated: serverTimestamp(),
-  })
-    .then(() => {
-      callback({ statusCode: 200, message: "Register success", data: docRef });
-    })
-    .catch((error: any) => {
-      callback({ statusCode: 500, message: error.message, data: null });
+  try {
+    const docRef = await addDoc(collection(firestore, collectionName), {
+      ...data,
+      dataAdded: serverTimestamp(),
+      dataUpdated: serverTimestamp(),
     });
+    callback({ statusCode: 200, message: "Register success", data: docRef });
+  } catch (error : any) {
+    callback({ statusCode: 500, message: error.message, data: null });
+  }
 }
 
 export async function singUp(userData: userType, callback: Function) {

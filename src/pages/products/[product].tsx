@@ -1,6 +1,6 @@
 import { fetcher } from "@/lib/swr/fetcher";
 import { productType } from "@/types/productType";
-import { faCartPlus, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
@@ -9,6 +9,7 @@ import useSWR from "swr";
 import Button from "@/components/elements/Button";
 import ProductDescription from "@/components/layouts/product/ProductDescription";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const ProductDetail = () => {
   const { query } = useRouter();
@@ -80,8 +81,7 @@ const ProductDetail = () => {
 
     const response = await result.json();
     if (response.status == 200) {
-      setSuccessMessage(response.message);
-      router.push("/cart");
+      redirect("/cart")
     } else {
       setErrorMessage(response.message);
     }
