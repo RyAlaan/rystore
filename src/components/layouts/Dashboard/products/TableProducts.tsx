@@ -34,8 +34,6 @@ const TableProducts = ({
     setLoading(false);
   };
 
-  console.log(error);
-
   return (
     <div
       className={clsx(

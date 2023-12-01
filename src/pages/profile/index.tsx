@@ -11,15 +11,6 @@ const UpdateUserPage: React.FC = () => {
   const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // const handleChanges = async (e: any) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   setError("");
-  //   try {
-  //     // const res = await
-  //   } catch (error) {}
-  // };
-
   return (
     <div>
       <div className="flex flex-row justify-center">

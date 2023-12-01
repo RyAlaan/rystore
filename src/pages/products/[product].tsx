@@ -20,14 +20,12 @@ const ProductDetail = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const { data: session } = useSession();
   const router = useRouter();
-  console.log(session);
 
-  const { data, isLoading, error } = useSWR(
-    `/api/products/${query.product}`,
-    fetcher
-  );
+   const { data, isLoading, error } = useSWR(
+     `/api/products/${query.product}`,
+     fetcher
+   );
 
-  console.log(data);
 
   useEffect(() => {
     if (data?.data) {

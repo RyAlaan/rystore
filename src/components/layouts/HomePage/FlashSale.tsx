@@ -29,10 +29,12 @@ const FlashSale = () => {
           <Countdown targetDate={"10/6/23 12:00:00"} />
         </div>
       </div>
-      <div className="pt-8 flex flex-row gap-x-6">
-        {data?.data.map((product: productType, index: number) => (
-          <Card key={index} product={product} />
-        ))}
+      <div className="overflow-x-auto w-full">
+        <div className="pt-8 flex flex-row gap-x-6 w-max pb-8">
+          {data?.data.map((product: productType, index: number) => (
+            <Card key={index} product={product} />
+          ))}
+        </div>
       </div>
       <div className="w-full flex justify-center py-16">
         <Link

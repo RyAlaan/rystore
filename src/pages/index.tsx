@@ -13,7 +13,7 @@ import Footer from "@/components/layouts/Footer";
 
 const HomePage = () => {
   return (
-      <div className="flex flex-col font-poppins px-3">
+      <div className="flex flex-col font-poppins px-3 overflow-x-hidden">
         <div className="mt-12 py-8 px-8">
           <div className="">
             <Header />

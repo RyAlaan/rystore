@@ -1,4 +1,5 @@
 import {
+  faBarcode,
   faBars,
   faCartShopping,
   faHome,
@@ -16,8 +17,6 @@ import SearchBox from "@/components/fragments/SearchBox";
 const Navbar = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
-
-  console.log(session);
 
   const Nav = [
     {
@@ -107,6 +106,9 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faUser} className="text-black" />
           </Link>
         )}
+        <Link href="/orders" className="bg-transparent p-0">
+          <FontAwesomeIcon icon={faBarcode} className="text-black" />
+        </Link>
         <Link href="/cart" className="bg-transparent p-0">
           <FontAwesomeIcon icon={faCartShopping} className="text-black" />
         </Link>

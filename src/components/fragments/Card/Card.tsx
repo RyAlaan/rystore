@@ -21,12 +21,12 @@ const Card = ({ product }: { product: productType }) => {
   }, [product.isDiscount, product.price, product.discount]);
 
   return (
-    <div className="w-28 md:w-48 container">
-      <div className="rounded-md overflow-hidden relative">
+    <div className="w-20 md:w-48 container">
+      <div className="rounded-md w-20 md:w-48  overflow-hidden relative">
         <img
           src={product.images[0]}
           alt=""
-          className="rounded-md w-full aspect-square object-cover"
+          className="rounded-md aspect-square object-cover w-20 md:w-48  "
         />
         {product.isDiscount == true && (
           <div
@@ -37,7 +37,7 @@ const Card = ({ product }: { product: productType }) => {
           </div>
         )}
       </div>
-      <div className="pt-2">
+      <div className="pt-2 w-20 md:w-48  ">
         <Link
           href={`/products/${product.id}`}
           // className="text-sm overflow-hidden text-ellipsis whitespace-nowrap max-w-[calc(100%-1rem)]"

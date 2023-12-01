@@ -186,11 +186,6 @@ const CartPage = () => {
         return subTotal[index];
       }
     });
-
-    console.log(selectedSubTotal);
-    console.log(selectedItems);
-    console.log(selectedCart);
-
     setLoading(true);
     const result = await fetch("/api/orders", {
       method: "POST",
@@ -198,7 +193,7 @@ const CartPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        orderCode: "RY311023000001",
+        orderCode: "RY0411000003",
         userId: session?.user?.id,
         orderStatus: "Awaiting Payment",
         totalPrice: totalPrice,
@@ -214,20 +209,20 @@ const CartPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            orderCode: "RY311023000001",
+            orderCode: "RY0411000003",
             productId: cart?.productId,
             quantity: cart?.quantity,
             subTotal: selectedSubTotal[curIdx],
           }),
         });
         curIdx++;
-        console.log(resDetail.status);
+        resDetail.status;
         if (resDetail.status == 200) {
           const resDelete = await fetch("/api/cart/" + cart?.id, {
             method: "DELETE",
           });
           if (resDelete.status == 200) {
-            // return redirect("/checkout/" + "RY311023000001");
+            // return redirect("/checkout/" + "RY0411000003");
             setSuccess("Checkout Success");
           } else {
             setFailed("failed delete cart");
