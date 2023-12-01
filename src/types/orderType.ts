@@ -9,6 +9,7 @@ export type orderType = {
     | "Awaiting Confirmation"
     | "Awaiting Pickup"
     | "Completed"
+    | "Canceled"
     | "Rejected";
   totalPrice: number;
   image: string | null;

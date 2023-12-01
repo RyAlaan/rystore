@@ -15,7 +15,6 @@ const UpdateProductLayout = () => {
   const [success, setSuccess] = useState("");
   const [isError, setIsError] = useState("");
   const router = useRouter();
-  console.log(router.query.product);
 
   const [product, setProduct] = useState({
     name: "",
@@ -33,7 +32,6 @@ const UpdateProductLayout = () => {
     "/api/products/" + router.query.product,
     fetcher
   );
-  console.log(data?.data);
 
   useEffect(() => {
     if (data?.data) {
@@ -57,7 +55,6 @@ const UpdateProductLayout = () => {
     }
   }, [data]);
 
-  console.log(product);
 
   const handleUpdateProduct = async (event: any) => {
     event.preventDefault();
@@ -173,7 +170,7 @@ const UpdateProductLayout = () => {
             className="w-full md:w-1/2"
             min={0}
             max={100}
-            required={product.isDiscount}
+            // required={product.isDiscount}
             value={product.discount}
             onChange={(e: any) =>
               setProduct({ ...product, discount: e.target.value })
@@ -201,7 +198,7 @@ const UpdateProductLayout = () => {
             setProduct({ ...product, description: e.target.value })
           }
         />
-        {product.images.map((image, index) => (
+        {/* {product.images.map((image, index) => (
           <Form
             type="text"
             name={"image" + index + 1}
@@ -211,6 +208,20 @@ const UpdateProductLayout = () => {
             onChange={(e: any) =>
               setProduct({ ...product, images: e.target.value })
             }
+          />
+        ))} */}
+        {product.images.map((image, index) => (
+          <Form
+            type="text"
+            name={"image" + (index + 1)} // Corrected index + 1
+            label={"image" + (index + 1)} // Corrected index + 1
+            key={index}
+            value={image}
+            onChange={(e: any) => {
+              const updatedImages = [...product.images];
+              updatedImages[index] = e.target.value; // Update the image at the correct index
+              setProduct({ ...product, images: updatedImages });
+            }}
           />
         ))}
         <div className="flex flex-row pt-5 gap-x-3 w-full justify-between">

@@ -1,16 +1,16 @@
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import {
-  createData,
   deleteDataById,
-  retrieveDataById,
+  getOrderData,
   updateDataById,
 } from "@/lib/firebase/service";
-import { productType } from "@/types/productType";
+import { orderType } from "@/types/orderType";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
   message: string;
   statusCode: number;
-  data: productType | any;
+  data: { data: orderType } | null;
 };
 
 export default async function handler(
@@ -18,28 +18,10 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   switch (req.method) {
-    case "GET":
-      await retrieveDataById(
-        "products",
-        req.query.product as string,
-        ({
-          statusCode,
-          message,
-          data,
-        }: {
-          statusCode: number;
-          message: string;
-          data: { data: productType } | null;
-        }) => {
-          res.status(statusCode).json({ statusCode, message, data });
-        }
-      );
-      break;
-
     case "PUT":
       await updateDataById(
-        "products",
-        req.query.product as string,
+        "orders",
+        req.query.userId as string,
         req.body,
         ({
           statusCode,
@@ -48,7 +30,24 @@ export default async function handler(
         }: {
           statusCode: number;
           message: string;
-          data: { data: productType } | null;
+          data: { data: orderType } | null;
+        }) => {
+          res.status(statusCode).json({ statusCode, message, data });
+        }
+      );
+      break;
+
+    case "GET":
+      await getOrderData(
+        req.query.userId as string,
+        ({
+          statusCode,
+          message,
+          data,
+        }: {
+          statusCode: number;
+          message: string;
+          data: { data: orderType } | null;
         }) => {
           res.status(statusCode).json({ statusCode, message, data });
         }
@@ -57,8 +56,8 @@ export default async function handler(
 
     case "DELETE":
       await deleteDataById(
-        "products",
-        req.query.product as string,
+        "prders",
+        req.query.userId as string,
         ({
           statusCode,
           message,
@@ -66,7 +65,7 @@ export default async function handler(
         }: {
           statusCode: number;
           message: string;
-          data: { data: productType } | null;
+          data: { data: orderType } | null;
         }) => {
           res.status(statusCode).json({ statusCode, message, data });
         }
@@ -75,8 +74,8 @@ export default async function handler(
 
     default:
       res
-        .status(405)
-        .json({ message: "Method not allowed", statusCode: 405, data: null });
+        .status(400)
+        .json({ message: "Bad Request", statusCode: 400, data: null });
       break;
   }
 }

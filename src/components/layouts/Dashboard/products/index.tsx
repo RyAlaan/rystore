@@ -12,7 +12,7 @@ const ProductsDashboard = ({ products }: { products: productType[] }) => {
           href={"/dashboard/create/product"}
           className="bg-blue-500 text-white px-4 py-2 rounded-md"
         >
-          Add User <FontAwesomeIcon icon={faPlus} />
+          Add product {" "} <FontAwesomeIcon icon={faPlus} />
         </Link>
       </div>
       <div className="w-full  rounded-md px-2 py-2 flex flex-row justify-between">

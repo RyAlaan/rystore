@@ -5,7 +5,6 @@ import useSWR from "swr";
 
 const DashboardUsers = () => {
   const { data, isLoading, error } = useSWR("/api/users", fetcher);
-  console.log(data?.data);
 
   return (
     <DashboardTemplate>
