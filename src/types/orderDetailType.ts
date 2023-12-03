@@ -5,7 +5,7 @@ export type orderDetailType = {
   orderCode: string;
   productId: string;
   quantity: number;
-  price: number;
+  totalPrice: number;
   dateAdded: Timestamp;
   dateUpdated: Timestamp;
 };

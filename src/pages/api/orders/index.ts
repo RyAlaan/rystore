@@ -1,12 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { createData, retrieveData } from "@/lib/firebase/service";
-import { orderType } from "@/types/orderTypes";
+import { createData, retrieveData, singUp } from "@/lib/firebase/service";
+import { orderType } from "@/types/orderType";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
   message: string;
   statusCode: number;
-  data: orderType[] | null;
+  data: { data: orderType } | null | orderType[];
 };
 
 export default async function handler(
@@ -25,8 +25,9 @@ export default async function handler(
         }: {
           statusCode: number;
           message: string;
-          data: orderType[];
+          data: orderType[] | null;
         }) => {
+          console.log(req.body);
           res.status(statusCode).json({ statusCode, message, data });
         }
       );
@@ -51,8 +52,8 @@ export default async function handler(
 
     default:
       res
-        .status(400)
-        .json({ message: "Bad Request", statusCode: 400, data: null });
+        .status(500)
+        .json({ message: "Method not allowed", statusCode: 500, data: null });
       break;
   }
 }

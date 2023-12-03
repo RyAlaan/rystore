@@ -1,4 +1,4 @@
-import app from "./init";
+import app, { storage } from "./init";
 import {
   addDoc,
   collection,
@@ -15,6 +15,8 @@ import bcrypt from "bcryptjs";
 import { userType } from "@/types/userType";
 import { productType } from "@/types/productType";
 import { cartType } from "@/types/cartType";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { promises as fsPromises } from "fs";
 
 const firestore = app;
 
@@ -24,25 +26,69 @@ export async function createData(
   { data }: { data: productType },
   callback: Function
 ) {
-  if (!data) {
-    callback({
-      statusCode: 400,
-      message: "Data is required",
-      data: null,
-    });
-  }
-
   try {
     const docRef = await addDoc(collection(firestore, collectionName), {
       ...data,
       dataAdded: serverTimestamp(),
       dataUpdated: serverTimestamp(),
     });
-
-    // Move the callback function inside the .then block
-    callback({ statusCode: 200, message: "Data Created Successfully", data: docRef });
-  } catch (error : any) {
+    callback({ statusCode: 200, message: "Register success", data: docRef });
+    console.log(docRef.id);
+  } catch (error: any) {
     callback({ statusCode: 500, message: error.message, data: null });
+  }
+}
+
+export async function uploadImage(
+  folder: string,
+  imageNames: string[],
+  images: any[],
+  callback: Function
+) {
+  console.log(folder);
+  console.log(imageNames);
+  console.log(images);
+
+  try {
+    const downloadURLs: string[] = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+      const imageName = imageNames[i];
+
+      const fileBuffer = await fsPromises.readFile(image.path);
+
+      console.log("fileBuffer", fileBuffer.length, "bytes"); //  'fileBuffer' 845101 'bytes'
+
+      const storagePath = `${folder}/${imageName}`; 
+      const storageRef = ref(storage, storagePath);
+
+      const metadata = {
+        contentType: "image/png",
+      };
+
+      const snapshot = await uploadBytes(storageRef, fileBuffer, metadata);
+      console.log(snapshot);
+      console.log("Uploaded a blob or file!");
+
+      const downloadURL = await getDownloadURL(storageRef);
+      console.log(downloadURL);
+
+      downloadURLs.push(downloadURL);
+    }
+
+    callback({
+      statusCode: 200,
+      message: "OK",
+      data: downloadURLs,
+    });
+  } catch (error: any) {
+    console.log(error);
+    callback({
+      statusCode: 500,
+      message: error.message,
+      data: null,
+    });
   }
 }
 
@@ -82,14 +128,14 @@ export async function singUp(userData: userType, callback: Function) {
 // READ
 export async function retrieveData(collectionName: string, callback: Function) {
   const q = query(
-    collection(firestore, collectionName),
+    collection(firestore, collectionName)
     // where("isDiscount", "==", true)
     // where("stock", ">", 0)
   );
-  
+
   const snapshot = await getDocs(q);
 
-    // .filter((doc)=> doc.data().stock > 0)
+  // .filter((doc)=> doc.data().stock > 0)
 
   const data = snapshot.docs.map((doc) => ({
     id: doc.id,
@@ -147,13 +193,20 @@ export async function getCartData(userId: string, callback: Function) {
       where("userId", "==", userId)
     );
     const cartSnapshot = await getDocs(cartQuery);
-    const cartData = cartSnapshot.docs.map((cartDoc) => ({
-      id: cartDoc.id,
-      ...cartDoc.data(),
-    })as cartType);
+    const cartData = cartSnapshot.docs.map(
+      (cartDoc) =>
+        ({
+          id: cartDoc.id,
+          ...cartDoc.data(),
+        } as cartType)
+    );
 
     if (cartData.length === 0) {
-      callback({ statusCode: 404, message: "You have no items in your cart", data: null });
+      callback({
+        statusCode: 404,
+        message: "You have no items in your cart",
+        data: null,
+      });
       return;
     }
 
@@ -174,6 +227,40 @@ export async function getCartData(userId: string, callback: Function) {
       statusCode: 200,
       message: "Data found successfully",
       data: { cartData, productData },
+    });
+  } catch (error) {
+    console.error("Error fetching cart data:", error);
+    callback({ statusCode: 500, message: "Internal server error", data: null });
+  }
+}
+
+export async function getOrderData(userId: string, callback: Function) {
+  try {
+    const orderQuery = query(
+      collection(firestore, "orders"),
+      where("userId", "==", userId)
+    );
+    const orderSnapshot = await getDocs(orderQuery);
+    const orderData = orderSnapshot.docs.map(
+      (orderDoc) =>
+        ({
+          id: orderDoc.id,
+          ...orderDoc.data(),
+        } as cartType)
+    );
+
+    if (orderData.length === 0) {
+      callback({
+        statusCode: 404,
+        message: "You haven't ordered yet",
+        data: null,
+      });
+    }
+
+    callback({
+      statusCode: 200,
+      message: "Data found successfully",
+      data: { orderData },
     });
   } catch (error) {
     console.error("Error fetching cart data:", error);
@@ -252,4 +339,3 @@ export async function deleteDataById(
     });
   }
 }
-

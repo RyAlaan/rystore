@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
@@ -24,8 +25,8 @@ const CartPage = () => {
   const [failed, setFailed] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [selectAll, setSelectAll] = useState<boolean>(false);
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedSubTotal, setSelectedSubTotal] = useState<number>(0);
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const { data: session } = useSession();
 
   const { data, error, isLoading } = useSWR(
@@ -131,7 +132,7 @@ const CartPage = () => {
   useEffect(() => {
     if (
       selectedItems.length !== productData.length ||
-      productData.length === 0
+      productData.length == 0
     ) {
       setSelectAll(false);
     } else {
@@ -139,6 +140,14 @@ const CartPage = () => {
     }
     console.log(selectedItems);
   }, [selectedItems, productData]);
+
+  useEffect(() => {
+    const subTotalArray: number[] = [];
+    selectedItems.map((index) => {
+      subTotalArray.push(subTotal[index]);
+    });
+    setSelectedSubTotal(subTotalArray.reduce((a, b) => a + b, 0));
+  }, [selectedItems, subTotal]);
 
   useEffect(() => {
     const total: number[] = [];
@@ -171,78 +180,69 @@ const CartPage = () => {
   };
 
   const handleCheckout = async () => {
-    setLoading(true);
-    const selectedProducts = selectedItems.map((index) => {
-      if (index >= 0 && index <= productData.length) {
-        return productData[index];
+    const selectedCart = selectedItems.map((index) => {
+      if (selectedItems.length == 0) {
+        setFailed("Please Select Product");
+      } else {
+        return cartData[index];
       }
     });
 
-    const selectedQuantity = selectedItems.map((index) => {
-      if (index >= 0 && index <= productData.length) {
-        return quantities[index];
-      }
-    });
-
-    const selectedTotalPrice = selectedItems.map((index) => {
-      if (index >= 0 && index <= productData.length) {
+    const selectedSubTotal = selectedItems.map((index) => {
+      if (selectedItems.length == 0) {
+        setFailed("Please Select Product");
+      } else {
         return subTotal[index];
       }
     });
-
-    if (selectedItems.length > 0) {
-      const result = await fetch("/api/orders/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          orderCode: "RY251023000001",
-          orderStatus: "Awaiting Payment",
-          totalPrice: totalPrice,
-          userid: session?.user?.id,
-          image: null,
-        }),
-      });
-
-      if (result.status === 200) {
-        for (const product of selectedProducts) {
-          const resAddDetailOrder = await fetch("/api/orders/orderDetail", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              orderCode: "RY251023000001",
-              productId: product?.id,
-              quantity: selectedQuantity[selectedProducts.indexOf(product)],
-              totalPrice: selectedTotalPrice[selectedProducts.indexOf(product)],
-            }),
+    setLoading(true);
+    const result = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        orderCode: "RY0411000003",
+        userId: session?.user?.id,
+        orderStatus: "Awaiting Payment",
+        totalPrice: totalPrice,
+        image: null,
+      }),
+    });
+    if (result.status == 200) {
+      let curIdx = 0;
+      for (const cart of selectedCart) {
+        const resDetail = await fetch("/api/orders/orderDetail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderCode: "RY0411000003",
+            productId: cart?.productId,
+            quantity: cart?.quantity,
+            subTotal: selectedSubTotal[curIdx],
+          }),
+        });
+        curIdx++;
+        resDetail.status;
+        if (resDetail.status == 200) {
+          const resDelete = await fetch("/api/cart/" + cart?.id, {
+            method: "DELETE",
           });
-          
-          if (resAddDetailOrder.status === 200) {
-            const resDeleteCart = await fetch(`/api/cart/${cartData[selectedProducts.indexOf(product)].id}`, {
-              method: "DELETE",
-            });
-            console.log(resDeleteCart.status);
-            
-            if (resDeleteCart.status === 200) {
-              setSuccess("Create order successfully");
-              window.location.reload();
-            } else {
-              setFailed("Cannot create Detail Order");
-            }
+          if (resDelete.status == 200) {
+            // return redirect("/checkout/" + "RY0411000003");
+            setSuccess("Checkout Success");
+          } else {
+            setFailed("failed delete cart");
           }
+        } else {
+          setFailed("failed create order detail");
         }
-      } else {
-        setFailed("Cannot create order");
       }
     } else {
-      setFailed("Please select product");
+      setFailed("failed create order");
     }
-
-    console.log(selectedProducts[0]);
-
     setLoading(false);
   };
 

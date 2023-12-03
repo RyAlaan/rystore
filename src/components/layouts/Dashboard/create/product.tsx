@@ -11,28 +11,99 @@ const CreateProductLayout = () => {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [imageData, setImageData] = useState([
-    { name: "image1", label: "Image 1", value: "", hidden: false },
-    { name: "image2", label: "Image 2", value: "", hidden: true },
-    { name: "image3", label: "Image 3", value: "", hidden: true },
-    { name: "image4", label: "Image 4", value: "", hidden: true },
-    { name: "image5", label: "Image 5", value: "", hidden: true },
-    { name: "imageBuangan", label: "Image 5", value: "", hidden: true },
+    {
+      name: "image1",
+      label: "Image 1",
+      value: null,
+      hidden: false,
+      fileName: "",
+      filePath: "",
+    },
+    {
+      name: "image2",
+      label: "Image 2",
+      value: null,
+      hidden: true,
+      fileName: "",
+      filePath: "",
+    },
+    {
+      name: "image3",
+      label: "Image 3",
+      value: null,
+      hidden: true,
+      fileName: "",
+      filePath: "",
+    },
+    {
+      name: "image4",
+      label: "Image 4",
+      value: null,
+      hidden: true,
+      fileName: "",
+      filePath: "",
+    },
+    {
+      name: "image5",
+      label: "Image 5",
+      value: null,
+      hidden: true,
+      fileName: "",
+      filePath: "",
+    },
+    {
+      name: "imageBuangan",
+      label: "Image 5",
+      value: null,
+      hidden: true,
+      fileName: "",
+      filePath: "",
+    },
   ]);
+  const [selectedImage, setSelectedImage] = useState<string>("");
+  const [file, setFile] = useState<File | null>();
 
   const handleInputChange = (event: any, index: number) => {
     const { value } = event.target;
+    const file = event.target.files[0];
     const updatedImageData = [...imageData];
 
-    updatedImageData[index].value = value;
+    updatedImageData[index].name = file;
+
+    const rawUrl = URL.createObjectURL(file);
+    const parts = rawUrl.split("/");
+    const fileName = parts[parts.length - 1];
+
+    updatedImageData[index].filePath = rawUrl;
+    updatedImageData[index].fileName = fileName;
 
     if (value && index < updatedImageData.length - 2) {
       updatedImageData[index + 1].hidden = false;
     } else {
       updatedImageData[index + 1].hidden = true;
     }
+    // const { value } = event.target;
+    // const updatedImageData = [...imageData];
 
-    setImageData(updatedImageData);
+    // updatedImageData[index].value = value;
+
+    // if (value && index < updatedImageData.length - 2) {
+    //   updatedImageData[index + 1].hidden = false;
+    // } else {
+    //   updatedImageData[index + 1].hidden = true;
+    // }
+
+    // const file = event.target.files[0];
+
+    // setImageData(updatedImageData);
   };
+  //   (e) => {
+  //   if (e.target.files) {
+  //     const file = e.target.files[0];
+  //     setSelectedImage(URL.createObjectURL(file));
+  //     setFile(file);
+  //   }
+  // }
 
   const handleCreateProduct = async (event: any) => {
     event.preventDefault();
@@ -73,7 +144,7 @@ const CreateProductLayout = () => {
       setSuccess(response.message);
     } else {
       setError(response.message);
-    }  
+    }
 
     setIsLoading(false);
   };
@@ -151,18 +222,36 @@ const CreateProductLayout = () => {
           min={0}
           required={true}
         />
-        {/* cannot be negative*/}
-        <Form type="textarea" name="description" label="Description" />
+        {/* cannot be negative */}
+        {/* <Form type="textarea" name="description" label="Description" /> */}
+        <textarea
+          name="description"
+          id="description"
+          className="border border-[#ccc] rounded-md w-full mb-4 text-black px-2"
+          placeholder="Image description"
+        ></textarea>
         {imageData.map((field, index) => (
-          <Form
-            type="text"
-            name={field.name}
-            label={field.label}
+          <label
             key={index}
-            className={field.hidden ? "hidden" : "flex"}
-            value={field.value}
-            onChange={(e) => handleInputChange(e, index)}
-          />
+            className={field.hidden ? "hidden" : "flex flex-row gap-x-4"}
+          >
+            <input
+              type="file"
+              name={field.name}
+              accept="image/*"
+              hidden
+              onChange={(e) => {
+                handleInputChange(e, index);
+              }}
+            />
+            <div className="border-2 w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center">
+              {field && field.fileName && field.fileName[index] ? (
+                <img src={field.fileName[index]} alt="" className="w-full" />
+              ) : (
+                <span>Select Image</span>
+              )}
+            </div>
+          </label>
         ))}
         {/* max image link 5 */}
         <div className="flex flex-row pt-5 gap-x-3 w-full justify-between">

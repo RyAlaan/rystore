@@ -5,9 +5,7 @@ import { useRouter } from "next/router";
 const Sidebar: React.FC = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  console.log(session?.user.role);
-  console.log(router.pathname);
-  
+
 
   return (
     <div className="sidebar w-1/6 hidden lg:flex border-r-4">

@@ -14,8 +14,6 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const query = req.query;
-    console.log(query.discount);
-    
   switch (req.method) {
     case "POST":
       await createData(
@@ -53,7 +51,9 @@ export default async function handler(
       break;
 
     default:
-      res.status(400).json({ message: "Bad Request", statusCode: 400, data:null });
+      res
+        .status(400)
+        .json({ message: "Bad Request", statusCode: 400, data: null });
       break;
   }
 }
