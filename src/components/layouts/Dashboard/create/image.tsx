@@ -16,7 +16,7 @@ const CrateImageLayout = () => {
   const [failed, setFailed] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [imageLinks, setImageLinks] = useState<string[]>([]);
-  const [imageData, setImageData] = useState<imageDataType[]>([
+  const [imageData, setImageData] = useState<imgDataType[]>([
     {
       name: "image1",
       label: "Image 1",
@@ -155,7 +155,7 @@ const CrateImageLayout = () => {
               }`}
             >
               {field.file ? (
-                <Image
+                <img
                   src={URL.createObjectURL(field.file)}
                   alt=""
                   className="w-full"

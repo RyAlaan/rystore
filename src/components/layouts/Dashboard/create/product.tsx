@@ -20,7 +20,7 @@ const CreateProductLayout = () => {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [imageLinks, setImageLinks] = useState<string[]>([]);
-  const [imageData, setImageData] = useState<imageDataType[]>([
+  const [imageData, setImageData] = useState<imgDataType[]>([
     {
       name: "image1",
       label: "Image 1",
@@ -124,7 +124,7 @@ const CreateProductLayout = () => {
       const response = await result.json();
       console.log(response);
       setImageLinks(response.data);
-      
+
       if (response.statusCode === 200) {
         const discount =
           event.target.isDiscount.value === "true"
@@ -320,7 +320,7 @@ const CreateProductLayout = () => {
               }`}
             >
               {field.file ? (
-                <Image
+                <img
                   src={URL.createObjectURL(field.file)}
                   alt=""
                   className="w-full"

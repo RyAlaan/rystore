@@ -41,7 +41,7 @@ const TableUser = ({
       )}
     >
       <div className="image w-14">
-        <Image
+        <img
           src={user.image ? user.image : "https://placehold.co/56"}
           className="object-cover"
           alt=""

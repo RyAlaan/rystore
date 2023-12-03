@@ -114,7 +114,7 @@ const CreateUserLayout = () => {
           />
           <div className="border-2 w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center">
             {selectedImage ? (
-              <Image src={selectedImage} alt="" className="w-full" />
+              <img src={selectedImage} alt="" className="w-full" />
             ) : (
               <span>Select Image</span>
             )}

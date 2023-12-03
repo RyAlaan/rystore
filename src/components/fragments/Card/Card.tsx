@@ -24,7 +24,7 @@ const Card = ({ product }: { product: productType }) => {
   return (
     <div className="w-20 md:w-48 container">
       <div className="rounded-md w-20 md:w-48  overflow-hidden relative">
-        <Image
+        <img
           src={product.images[0]}
           alt=""
           className="rounded-md aspect-square object-cover w-20 md:w-48  "

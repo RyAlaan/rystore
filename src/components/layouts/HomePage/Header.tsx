@@ -32,13 +32,31 @@ export default function Header() {
         id="Hero"
       >
         <SwiperSlide className="object-cover overflow-hidden">
-          <Image src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
+          <img
+            src={`/images/headerImage.png`}
+            width={500}
+            height={100}
+            className="w-full rounded-sm"
+            alt=""
+          />
         </SwiperSlide>
         <SwiperSlide className="object-cover">
-          <Image src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
+          <img
+            src={`/images/headerImage.png`}
+            width={500}
+            height={100}
+            className="w-full rounded-sm"
+            alt=""
+          />
         </SwiperSlide>
         <SwiperSlide className="object-cover">
-          <Image src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
+          <img
+            src={`/images/headerImage.png`}
+            width={500}
+            height={100}
+            className="w-full rounded-sm"
+            alt=""
+          />
         </SwiperSlide>
       </Swiper>
     </>

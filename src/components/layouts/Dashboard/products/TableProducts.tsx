@@ -43,7 +43,7 @@ const TableProducts = ({
       )}
     >
       <div className="image w-14">
-        <Image
+        <img
           src={product.images ? product.images[0] : "https://placehold.co/56"}
           className="object-cover"
           alt=""

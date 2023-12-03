@@ -110,7 +110,7 @@ const ImageModal = (props: imageModalType) => {
             className={`border-2 border-secondary w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center `}
           >
             {imageData.file ? (
-              <Image
+              <img
                 src={URL.createObjectURL(imageData.file)}
                 alt=""
                 className="w-full"

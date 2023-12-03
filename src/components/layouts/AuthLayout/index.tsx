@@ -13,12 +13,20 @@ const AuthLayout = (props: { children: React.ReactElement }) => {
   return (
     <>
       <div className="hidden lg:flex w-1/2 pt-6">
-        <Image src={`/images/SideImage.jpg`} alt="" className="w-full"/>
+        <img
+          width={1000}
+          height={1000}
+          src={`/images/SideImage.jpg`}
+          alt=""
+          className="w-full"
+        />
       </div>
-      <div className="w-full flex flex-col align-middle justify-center h-[100%] lg:w-1/2">
+      <div className="w-full flex flex-col align-middle justify-center h-screen lg:h-[100%] lg:w-1/2">
         <div className="flex-flex-col w-fit self-center">
           {router.pathname === "/auth/login" && (
-            <h2 className="text-4xl font-bolder">Login to your account</h2>
+            <h2 className="text-4xl font-bolder self-center">
+              Login to your account
+            </h2>
           )}
           {router.pathname === "/auth/register" && (
             <h2 className="text-4xl font-bolder">Create an account</h2>

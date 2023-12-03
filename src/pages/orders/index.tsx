@@ -165,7 +165,7 @@ const OrderPage = () => {
 
   return (
     <div className="flex flex-col font-poppins px-2 lg:px-8 gap-y-5 bg-white">
-      <Message success={success} failed={failed}/>
+      <Message success={success} failed={failed} />
       <div
         className={clsx(
           `px-20 py-12 w-fit border-4 rounded-md self-center bg-slate-100 absolute`,
@@ -192,7 +192,7 @@ const OrderPage = () => {
               className={`border-2 border-secondary w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center `}
             >
               {imageData.file ? (
-                <Image
+                <img
                   src={URL.createObjectURL(imageData.file)}
                   alt=""
                   className="w-full"
@@ -237,7 +237,11 @@ const OrderPage = () => {
                 <p className="w-44 text-center">{order.orderStatus}</p>
                 <div className="w-44 text-center flex justify-center">
                   {order.image !== null ? (
-                    <Image src={order.image} alt="" className="h-14 rounded-sm " />
+                    <img
+                      src={order.image}
+                      alt=""
+                      className="h-14 rounded-sm "
+                    />
                   ) : (
                     <div className="h-14"></div>
                   )}

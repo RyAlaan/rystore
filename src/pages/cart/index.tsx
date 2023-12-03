@@ -283,7 +283,7 @@ const CartPage = () => {
                   />
                   <div className="hidden lg:flex lg:justify-between lg:w-full">
                     <div className="flex flex-row gap-x-2 items-center w-44">
-                      <Image
+                      <img
                         src={product.images[0]}
                         alt=""
                         className="h-14 rounded-sm"
@@ -372,7 +372,7 @@ const CartPage = () => {
                   </div>
                   <div className="lg:hidden flex flex-row justify-between w-full">
                     <div className="flex flex-col justify-between gap-x-2">
-                      <Image
+                      <img
                         src={product.images[0]}
                         alt=""
                         className="h-16 w-16 rounded-sm"

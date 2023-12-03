@@ -53,7 +53,7 @@ const AboutPage = () => {
           </p>
         </div>
         <div className="hidden lg:flex lg:w-1/3">
-          <Image src={`/images/about image.png`} alt="" />
+          <img src={`/images/about image.png`} alt="" />
         </div>
       </div>
       <div className="tile py-10 xl:px-20 flex flex-row justify-between gap-x-14">

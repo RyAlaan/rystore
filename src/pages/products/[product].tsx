@@ -95,7 +95,7 @@ const ProductDetail = () => {
           {product && product.images ? (
             product.images.map((image, index) =>
               image !== "" ? (
-                <Image
+                <img
                   src={image}
                   alt=""
                   key={index}
@@ -110,7 +110,7 @@ const ProductDetail = () => {
           )}
         </div>
         <div className="mainImage">
-          <Image
+          <img
             src={product?.images?.[0] ? product?.images?.[0] : ""}
             alt=""
             className="w-[510px] aspect-square rounded-xl overflow-hidden"
