@@ -111,7 +111,7 @@ const ProductDetail = () => {
         </div>
         <div className="mainImage">
           <Image
-            src={product?.images?.[0]}
+            src={product?.images?.[0] ? product?.images?.[0] : ""}
             alt=""
             className="w-[510px] aspect-square rounded-xl overflow-hidden"
           />
