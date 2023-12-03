@@ -30,9 +30,13 @@ const Featured = () => {
         </div>
         <div className="w-full flex flex-col gap-[30px] justify-center md:justify-normal">
           <div className="w-full relative">
-            <Image src="https://placehold.co/600x285" className="w-full" alt="" />
+            <Image
+              src="https://placehold.co/600x285"
+              className="w-full"
+              alt=""
+            />
             <div className="absolute bottom-5 left-5 w-48 z-30">
-              <h4 className="text-white bolder">Women's Collections</h4>
+              <h4 className="text-white bolder">Women&apos;s Collections</h4>
               <p className="text-white text-xs w-[192px] h-[32px] pt-1">
                 Featured woman collections that give you another vibe.
               </p>
@@ -49,7 +53,9 @@ const Featured = () => {
               <Image src="https://placehold.co/285" className="w-full" alt="" />
               <div className="absolute bottom-5 left-5 w-48 z-30">
                 <h4 className="text-white bolder">Speakers</h4>
-                <p className="text-white text-xs w-[192px] h-[32px] pt-1">Amazon wireless speakers</p>
+                <p className="text-white text-xs w-[192px] h-[32px] pt-1">
+                  Amazon wireless speakers
+                </p>
                 <Link
                   href={"/"}
                   className="underline text-white text-sm font-bold"
@@ -62,7 +68,9 @@ const Featured = () => {
               <Image src="https://placehold.co/285" className="w-full" alt="" />
               <div className="absolute bottom-5 left-5 w-48 z-30">
                 <h4 className="text-white bolder">Perfume</h4>
-                <p className="text-white text-xs w-[192px] h-[32px] pt-1">GUCCI INTENSE OUD EDP</p>
+                <p className="text-white text-xs w-[192px] h-[32px] pt-1">
+                  GUCCI INTENSE OUD EDP
+                </p>
                 <Link
                   href={"/"}
                   className="underline text-white text-sm font-bold"

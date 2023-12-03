@@ -14,12 +14,12 @@ const FlashSale = () => {
 
   useEffect(() => {
     setProducts(data?.data);
-  }, []);
+  }, [data]);
 
   return (
     <>
       <div className="" id="FlashSale">
-        <SectionTitle>Today's</SectionTitle>
+        <SectionTitle>Today&apos;s</SectionTitle>
         <div className="pt-2 flex items-end justify-between">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
             Flash Sales

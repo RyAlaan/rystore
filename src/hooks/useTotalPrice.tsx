@@ -7,7 +7,7 @@ const useTotalPrice = (discount : number, price : number) => {
         const discountedPrice =
         price - (discount / 100) * price;
         setTotalPrice(discountedPrice);
-     }, []);
+     }, [discount, price]);
 
      return totalPrice
 }

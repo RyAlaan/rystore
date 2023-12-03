@@ -259,7 +259,7 @@ const CartPage = () => {
                   <p className="w-44 text-center">Action</p>
                 </div>
                 <div className="lg:hidden">
-                  '<p>Product Detail</p>
+                  <p>Product Detail</p>
                 </div>
               </div>
               {productData.map((product, index) => (
