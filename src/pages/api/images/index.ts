@@ -23,19 +23,15 @@ export default async function handler(
 
       form.parse(req, async (err: any, fields: any, files: any) => {
         if (err) {
-          console.log(err);
           res
             .status(400)
             .json({ message: "Invalid request", statusCode: 400, data: err });
           return;
         }
 
-        console.log(fields);
-        console.log(files);
 
         const fileFieldNames = Object.keys(files);
 
-        console.log(fileFieldNames);
 
         if (fileFieldNames.length > 0) {
           try {
@@ -50,7 +46,6 @@ export default async function handler(
               }
             }
 
-            console.log(uploadFile);
 
             const uploadImageName: string[] = [];
 
@@ -61,7 +56,6 @@ export default async function handler(
               }
             }
 
-            console.log(uploadImageName);
 
             const result = await uploadImage(
               fields.folder,
@@ -80,11 +74,8 @@ export default async function handler(
               }
             );
 
-            console.log(result);
 
-            console.log("success");
           } catch (error) {
-            console.log(error);
             res.status(500).json({
               message: "Error uploading images",
               statusCode: 500,

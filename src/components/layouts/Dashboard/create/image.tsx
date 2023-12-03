@@ -149,7 +149,7 @@ const CrateImageLayout = () => {
               onChange={(event) => handleInputChange(event, index)}
             />
             <div
-              className={`border-2 w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center ${
+              className={`border-2 w-40 aspect-video border-dashed rounded-md flex-col justify-center items-center ${
                 field.hidden ? "hidden" : "flex"
               }`}
             >

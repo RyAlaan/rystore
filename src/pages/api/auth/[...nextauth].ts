@@ -103,8 +103,6 @@ const authOptions: NextAuthOptions = {
         session.user.phone = token.phone
       }
 
-      console.log(session);
-
       return Promise.resolve(session);
     },
   },

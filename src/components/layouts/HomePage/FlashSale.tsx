@@ -11,11 +11,9 @@ const FlashSale = () => {
   const [products, setProducts] = useState([]);
 
   const { data, error, isLoading } = useSWR("/api/products?discount=true", fetcher);
-  console.log(data);
 
   useEffect(() => {
     setProducts(data?.data);
-    console.log(products);
   }, []);
 
   return (

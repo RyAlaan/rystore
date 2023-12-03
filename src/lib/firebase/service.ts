@@ -33,7 +33,6 @@ export async function createData(
       dataUpdated: serverTimestamp(),
     });
     callback({ statusCode: 200, message: "Register success", data: docRef });
-    console.log(docRef.id);
   } catch (error: any) {
     callback({ statusCode: 500, message: error.message, data: null });
   }
@@ -45,9 +44,6 @@ export async function uploadImage(
   images: any[],
   callback: Function
 ) {
-  console.log(folder);
-  console.log(imageNames);
-  console.log(images);
 
   try {
     const downloadURLs: string[] = [];
@@ -58,7 +54,6 @@ export async function uploadImage(
 
       const fileBuffer = await fsPromises.readFile(image.path);
 
-      console.log("fileBuffer", fileBuffer.length, "bytes"); //  'fileBuffer' 845101 'bytes'
 
       const storagePath = `${folder}/${imageName}`; 
       const storageRef = ref(storage, storagePath);
@@ -67,12 +62,9 @@ export async function uploadImage(
         contentType: "image/png",
       };
 
-      const snapshot = await uploadBytes(storageRef, fileBuffer, metadata);
-      console.log(snapshot);
-      console.log("Uploaded a blob or file!");
+      await uploadBytes(storageRef, fileBuffer, metadata);
 
       const downloadURL = await getDownloadURL(storageRef);
-      console.log(downloadURL);
 
       downloadURLs.push(downloadURL);
     }
@@ -83,7 +75,6 @@ export async function uploadImage(
       data: downloadURLs,
     });
   } catch (error: any) {
-    console.log(error);
     callback({
       statusCode: 500,
       message: error.message,
@@ -275,9 +266,6 @@ export async function updateDataById(
   data: { data: userType } | { data: productType },
   callback: Function
 ) {
-  console.log(collectionName);
-  console.log(id);
-  console.log(data);
   try {
     const snapshot = await getDoc(doc(firestore, collectionName, id));
     const dataRef = snapshot.data();
@@ -287,8 +275,6 @@ export async function updateDataById(
         ...data,
         dataUpdated: serverTimestamp(),
       };
-
-      console.log(updateData);
 
       await updateDoc(doc(firestore, collectionName, id), updateData).then(
         () => {

@@ -2,152 +2,224 @@ import Form from "@/components/fragments/Form";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/components/elements/Button";
 import SelectInput from "@/components/fragments/Select";
+
+interface imageDataType {
+  name: string;
+  label: string;
+  file: File | null;
+  imageName: string;
+  hidden: boolean;
+}
 
 const CreateProductLayout = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  const [imageData, setImageData] = useState([
+  const [imageLinks, setImageLinks] = useState<string[]>([]);
+  const [imageData, setImageData] = useState<imageDataType[]>([
     {
       name: "image1",
       label: "Image 1",
-      value: null,
+      file: null,
+      imageName: "",
       hidden: false,
-      fileName: "",
-      filePath: "",
     },
     {
       name: "image2",
       label: "Image 2",
-      value: null,
+      file: null,
+      imageName: "",
       hidden: true,
-      fileName: "",
-      filePath: "",
     },
     {
       name: "image3",
       label: "Image 3",
-      value: null,
+      file: null,
+      imageName: "",
       hidden: true,
-      fileName: "",
-      filePath: "",
     },
     {
       name: "image4",
       label: "Image 4",
-      value: null,
+      file: null,
+      imageName: "",
       hidden: true,
-      fileName: "",
-      filePath: "",
     },
     {
       name: "image5",
       label: "Image 5",
-      value: null,
+      file: null,
+      imageName: "",
       hidden: true,
-      fileName: "",
-      filePath: "",
     },
     {
-      name: "imageBuangan",
-      label: "Image 5",
-      value: null,
+      name: "image6",
+      label: "Image 6",
+      file: null,
+      imageName: "",
       hidden: true,
-      fileName: "",
-      filePath: "",
     },
   ]);
-  const [selectedImage, setSelectedImage] = useState<string>("");
-  const [file, setFile] = useState<File | null>();
 
-  const handleInputChange = (event: any, index: number) => {
-    const { value } = event.target;
-    const file = event.target.files[0];
+  const handleInputChange = (e: any, index: number) => {
+    setIsLoading(true);
+    console.log("Input event:", e);
     const updatedImageData = [...imageData];
 
-    updatedImageData[index].name = file;
+    const fileInput = e.target;
 
-    const rawUrl = URL.createObjectURL(file);
-    const parts = rawUrl.split("/");
-    const fileName = parts[parts.length - 1];
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
 
-    updatedImageData[index].filePath = rawUrl;
-    updatedImageData[index].fileName = fileName;
+      console.log(file);
 
-    if (value && index < updatedImageData.length - 2) {
-      updatedImageData[index + 1].hidden = false;
+      updatedImageData[index].file = file;
+
+      const rawUrl = URL.createObjectURL(file);
+      const parts = rawUrl.split("/");
+      const fileName = parts[parts.length - 1];
+
+      updatedImageData[index].imageName = fileName;
+
+      if (index < updatedImageData.length - 2) {
+        updatedImageData[index + 1].hidden = false;
+      } else {
+        updatedImageData[index + 1].hidden = true;
+      }
+
+      setImageData(updatedImageData);
     } else {
-      updatedImageData[index + 1].hidden = true;
+      console.error("Invalid file input");
     }
-    // const { value } = event.target;
-    // const updatedImageData = [...imageData];
-
-    // updatedImageData[index].value = value;
-
-    // if (value && index < updatedImageData.length - 2) {
-    //   updatedImageData[index + 1].hidden = false;
-    // } else {
-    //   updatedImageData[index + 1].hidden = true;
-    // }
-
-    // const file = event.target.files[0];
-
-    // setImageData(updatedImageData);
+    setIsLoading(false);
   };
-  //   (e) => {
-  //   if (e.target.files) {
-  //     const file = e.target.files[0];
-  //     setSelectedImage(URL.createObjectURL(file));
-  //     setFile(file);
-  //   }
-  // }
 
   const handleCreateProduct = async (event: any) => {
     event.preventDefault();
-    setIsLoading(true);
     setSuccess("");
     setError("");
-    const discount =
-      event.target.isDiscount.value === "true"
-        ? event.target.discount.value
-        : null;
-    const data = {
-      name: event.target.name.value,
-      price: parseInt(event.target.price.value),
-      category: event.target.category.value,
-      stock: parseInt(event.target.stock.value),
-      isDiscount: event.target.isDiscount.value ? true : false,
-      discount: parseInt(discount),
-      description: event.target.description.value,
-      people: 0,
-      images: [
-        event.target.image1.value,
-        event.target.image2.value,
-        event.target.image3.value,
-        event.target.image4.value,
-        event.target.image5.value,
-      ],
-    };
-    const result = await fetch("/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+    setIsLoading(true);
+
+    const formData = new FormData();
+
+    imageData.forEach((field, index) => {
+      if (field.file) {
+        formData.append(`file_${index}`, field.file);
+        formData.append(`imageName_${index}`, field.imageName);
+      }
     });
 
-    const response = await result.json();
-    if (response.status === 200) {
-      setSuccess(response.message);
-    } else {
-      setError(response.message);
-    }
+    formData.append("folder", "images/products");
 
-    setIsLoading(false);
+    try {
+      const result = await fetch("/api/images", {
+        method: "POST",
+        body: formData,
+      });
+
+      const response = await result.json();
+      console.log(response);
+      setImageLinks(response.data);
+      
+      if (response.statusCode === 200) {
+        const discount =
+          event.target.isDiscount.value === "true"
+            ? event.target.discount.value
+            : null;
+
+        const data = {
+          name: event.target.name.value,
+          price: parseInt(event.target.price.value),
+          category: event.target.category.value,
+          stock: parseInt(event.target.stock.value),
+          isDiscount: event.target.isDiscount.value ? true : false,
+          discount: parseInt(discount),
+          description: event.target.description.value,
+          people: 0,
+          images: [
+            imageLinks[0],
+            imageLinks[1],
+            imageLinks[2],
+            imageLinks[3],
+            imageLinks[4],
+          ],
+        };
+
+        const result = await fetch("/api/products", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const response = await result.json();
+        console.log(response);
+        if (response.status === 200) {
+          setSuccess("Product added successfully");
+        } else {
+          setError(response.message);
+        }
+      } else {
+        console.log(response);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    console.log(imageLinks);
+  }, [imageLinks]);
+
+  // const handleCreateProduct = async (event: any) => {
+  //   event.preventDefault();
+  //   setIsLoading(true);
+  //   setSuccess("");
+  //   setError("");
+  //   const discount =
+  //     event.target.isDiscount.value === "true"
+  //       ? event.target.discount.value
+  //       : null;
+  //   const data = {
+  //     name: event.target.name.value,
+  //     price: parseInt(event.target.price.value),
+  //     category: event.target.category.value,
+  //     stock: parseInt(event.target.stock.value),
+  //     isDiscount: event.target.isDiscount.value ? true : false,
+  //     discount: parseInt(discount),
+  //     description: event.target.description.value,
+  //     people: 0,
+  //     images: [
+  //       event.target.image1.value,
+  //       event.target.image2.value,
+  //       event.target.image3.value,
+  //       event.target.image4.value,
+  //       event.target.image5.value,
+  //     ],
+  //   };
+  //   const result = await fetch("/api/products", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
+
+  //   const response = await result.json();
+  //   if (response.status === 200) {
+  //     setSuccess(response.message);
+  //   } else {
+  //     setError(response.message);
+  //   }
+
+  //   setIsLoading(false);
+  // };
 
   return (
     <div className="w-full lg:w-5/6 flex flex-col py-6 px-5 font-poppins">
@@ -231,22 +303,27 @@ const CreateProductLayout = () => {
           placeholder="Image description"
         ></textarea>
         {imageData.map((field, index) => (
-          <label
-            key={index}
-            className={field.hidden ? "hidden" : "flex flex-row gap-x-4"}
-          >
+          <label className="flex md:flex-row gap-x-3" key={index}>
+            {" "}
             <input
               type="file"
               name={field.name}
               accept="image/*"
-              hidden
-              onChange={(e) => {
-                handleInputChange(e, index);
-              }}
+              required={index === 0}
+              className="hidden"
+              onChange={(event) => handleInputChange(event, index)}
             />
-            <div className="border-2 w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center">
-              {field && field.fileName && field.fileName[index] ? (
-                <img src={field.fileName[index]} alt="" className="w-full" />
+            <div
+              className={`border-2 w-40 aspect-video border-dashed rounded-md flex-col justify-center items-center lg:flex-row gap-x-3 ${
+                field.hidden ? "hidden" : "flex"
+              }`}
+            >
+              {field.file ? (
+                <img
+                  src={URL.createObjectURL(field.file)}
+                  alt=""
+                  className="w-full"
+                />
               ) : (
                 <span>Select Image</span>
               )}

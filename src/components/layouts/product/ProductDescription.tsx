@@ -18,8 +18,6 @@ const ProductDescription = ({ product }: { product: productType }) => {
     }
   }, []);
 
-  console.log(product.images)
-
   return (
     <div className="flex flex-col gap-y-1 border-b-4 pb-6">
       <h2 className="text-2xl font-bold">{product.name}</h2>
