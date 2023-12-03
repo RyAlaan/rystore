@@ -2,6 +2,7 @@ import Button from "@/components/elements/Button";
 import Form from "@/components/fragments/Form";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -113,7 +114,7 @@ const CreateUserLayout = () => {
           />
           <div className="border-2 w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center">
             {selectedImage ? (
-              <img src={selectedImage} alt="" className="w-full" />
+              <Image src={selectedImage} alt="" className="w-full" />
             ) : (
               <span>Select Image</span>
             )}

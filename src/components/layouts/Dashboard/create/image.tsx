@@ -1,5 +1,6 @@
 import Button from "@/components/elements/Button";
 import Message from "@/components/fragments/Message";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 interface imageDataType {
@@ -149,12 +150,12 @@ const CrateImageLayout = () => {
               onChange={(event) => handleInputChange(event, index)}
             />
             <div
-              className={`border-2 w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center ${
+              className={`border-2 w-40 aspect-video border-dashed rounded-md flex-col justify-center items-center ${
                 field.hidden ? "hidden" : "flex"
               }`}
             >
               {field.file ? (
-                <img
+                <Image
                   src={URL.createObjectURL(field.file)}
                   alt=""
                   className="w-full"

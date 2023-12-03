@@ -3,6 +3,7 @@ import { productType } from "@/types/productType";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -42,7 +43,7 @@ const TableProducts = ({
       )}
     >
       <div className="image w-14">
-        <img
+        <Image
           src={product.images ? product.images[0] : "https://placehold.co/56"}
           className="object-cover"
           alt=""

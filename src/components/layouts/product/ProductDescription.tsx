@@ -16,9 +16,7 @@ const ProductDescription = ({ product }: { product: productType }) => {
         product.price - (product.discount / 100) * product.price;
       setTotalPrice(discountedPrice);
     }
-  }, []);
-
-  console.log(product.images)
+  }, [product.discount, product.price, product.isDiscount]);
 
   return (
     <div className="flex flex-col gap-y-1 border-b-4 pb-6">

@@ -1,5 +1,5 @@
 
-const SectionTitle = (props :{children : string}) => {
+const SectionTitle = (props :{children : any}) => {
     const {children} = props
 
   return (

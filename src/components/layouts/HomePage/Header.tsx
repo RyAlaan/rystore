@@ -11,6 +11,7 @@ import style from "./slider.module.css";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import Image from "next/image";
 
 export default function Header() {
   return (
@@ -31,13 +32,13 @@ export default function Header() {
         id="Hero"
       >
         <SwiperSlide className="object-cover overflow-hidden">
-          <img src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
+          <Image src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
         </SwiperSlide>
         <SwiperSlide className="object-cover">
-          <img src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
+          <Image src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
         </SwiperSlide>
         <SwiperSlide className="object-cover">
-          <img src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
+          <Image src={`/images/headerImage.png`} className="w-full rounded-sm" alt="" />
         </SwiperSlide>
       </Swiper>
     </>

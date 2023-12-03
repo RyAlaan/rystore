@@ -30,8 +30,6 @@ const UpdateUserLayout = () => {
     fetcher
   );
 
-  console.log(data?.data);
-
   useEffect(() => {
     if (data?.data) {
       setUser({
@@ -43,8 +41,6 @@ const UpdateUserLayout = () => {
       });
     }
   }, [data]);
-
-  console.log(user);
 
   const handleUpdateUser = async (event: any) => {
     event.preventDefault();
@@ -61,7 +57,6 @@ const UpdateUserLayout = () => {
       phone: event.target.phone.value,
       image: event.target.image.value,
     };
-    console.log(data);
     const result = await fetch("/api/users/" + route.query.user, {
       method: "PUT",
       headers: {

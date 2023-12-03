@@ -3,6 +3,7 @@ import { userType } from "@/types/userType";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -40,7 +41,7 @@ const TableUser = ({
       )}
     >
       <div className="image w-14">
-        <img
+        <Image
           src={user.image ? user.image : "https://placehold.co/56"}
           className="object-cover"
           alt=""

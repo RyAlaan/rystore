@@ -5,7 +5,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 const UsersHeader = ({ users }: { users: userType[] }) => {
-  console.log(users);
 
   return (
     <div className="w-5/6 flex flex-col py-6 px-5 font-poppins">

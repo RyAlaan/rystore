@@ -27,7 +27,6 @@ export default async function handler(
           message: string;
           data: orderType[] | null;
         }) => {
-          console.log(req.body);
           res.status(statusCode).json({ statusCode, message, data });
         }
       );
