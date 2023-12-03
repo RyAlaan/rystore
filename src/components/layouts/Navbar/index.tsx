@@ -112,9 +112,6 @@ const Navbar = () => {
         <Link href="/cart" className="bg-transparent p-0">
           <FontAwesomeIcon icon={faCartShopping} className="text-black" />
         </Link>
-        <Link href="/orders" className="bg-transparent p-0">
-          <FontAwesomeIcon icon={faBarcode} className="text-black" />
-        </Link>
         <Link href="/" className="bg-transparent p-0">
           <FontAwesomeIcon icon={faBars} className="text-black" />
         </Link>

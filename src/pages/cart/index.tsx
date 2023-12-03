@@ -160,7 +160,7 @@ const CartPage = () => {
     const roundedPrice = totalPrice.toFixed(2);
 
     setTotalPrice(selectedSubTotal + shipping);
-  }, [selectedItems, shipping, selectedSubTotal]);
+  }, [selectedItems, shipping, selectedSubTotal, subTotal, totalPrice]);
 
   console.log(totalPrice);
   const handleDelete = async (id: string) => {
