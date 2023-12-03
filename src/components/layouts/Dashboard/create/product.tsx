@@ -20,7 +20,7 @@ const CreateProductLayout = () => {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [imageLinks, setImageLinks] = useState<string[]>([]);
-  const [imageData, setImageData] = useState<imgDataType[]>([
+  const [imageData, setImageData] = useState<imageDataType[]>([
     {
       name: "image1",
       label: "Image 1",
@@ -177,50 +177,6 @@ const CreateProductLayout = () => {
   useEffect(() => {
     console.log(imageLinks);
   }, [imageLinks]);
-
-  // const handleCreateProduct = async (event: any) => {
-  //   event.preventDefault();
-  //   setIsLoading(true);
-  //   setSuccess("");
-  //   setError("");
-  //   const discount =
-  //     event.target.isDiscount.value === "true"
-  //       ? event.target.discount.value
-  //       : null;
-  //   const data = {
-  //     name: event.target.name.value,
-  //     price: parseInt(event.target.price.value),
-  //     category: event.target.category.value,
-  //     stock: parseInt(event.target.stock.value),
-  //     isDiscount: event.target.isDiscount.value ? true : false,
-  //     discount: parseInt(discount),
-  //     description: event.target.description.value,
-  //     people: 0,
-  //     images: [
-  //       event.target.image1.value,
-  //       event.target.image2.value,
-  //       event.target.image3.value,
-  //       event.target.image4.value,
-  //       event.target.image5.value,
-  //     ],
-  //   };
-  //   const result = await fetch("/api/products", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-
-  //   const response = await result.json();
-  //   if (response.status === 200) {
-  //     setSuccess(response.message);
-  //   } else {
-  //     setError(response.message);
-  //   }
-
-  //   setIsLoading(false);
-  // };
 
   return (
     <div className="w-full lg:w-5/6 flex flex-col py-6 px-5 font-poppins">
