@@ -1,5 +1,6 @@
 import Button from "@/components/elements/Button";
 import clsx from "clsx";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface imageModalType {
@@ -109,7 +110,7 @@ const ImageModal = (props: imageModalType) => {
             className={`border-2 border-secondary w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center `}
           >
             {imageData.file ? (
-              <img
+              <Image
                 src={URL.createObjectURL(imageData.file)}
                 alt=""
                 className="w-full"

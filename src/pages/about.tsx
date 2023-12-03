@@ -5,6 +5,7 @@ import {
   faStore,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 
 const AboutPage = () => {
   const tiles = [
@@ -52,7 +53,7 @@ const AboutPage = () => {
           </p>
         </div>
         <div className="hidden lg:flex lg:w-1/3">
-          <img src={`/images/about image.png`} alt="" />
+          <Image src={`/images/about image.png`} alt="" />
         </div>
       </div>
       <div className="tile py-10 xl:px-20 flex flex-row justify-between gap-x-14">

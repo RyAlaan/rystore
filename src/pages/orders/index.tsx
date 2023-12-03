@@ -6,6 +6,7 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
@@ -191,7 +192,7 @@ const OrderPage = () => {
               className={`border-2 border-secondary w-40 aspect-video border-dashed rounded-md flex flex-col justify-center items-center `}
             >
               {imageData.file ? (
-                <img
+                <Image
                   src={URL.createObjectURL(imageData.file)}
                   alt=""
                   className="w-full"
@@ -236,7 +237,7 @@ const OrderPage = () => {
                 <p className="w-44 text-center">{order.orderStatus}</p>
                 <div className="w-44 text-center flex justify-center">
                   {order.image !== null ? (
-                    <img src={order.image} alt="" className="h-14 rounded-sm " />
+                    <Image src={order.image} alt="" className="h-14 rounded-sm " />
                   ) : (
                     <div className="h-14"></div>
                   )}

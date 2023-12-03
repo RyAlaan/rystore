@@ -1,5 +1,6 @@
 import Button from "@/components/elements/Button";
 import Message from "@/components/fragments/Message";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 interface imageDataType {
@@ -154,7 +155,7 @@ const CrateImageLayout = () => {
               }`}
             >
               {field.file ? (
-                <img
+                <Image
                   src={URL.createObjectURL(field.file)}
                   alt=""
                   className="w-full"

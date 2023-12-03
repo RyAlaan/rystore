@@ -10,6 +10,7 @@ import Button from "@/components/elements/Button";
 import ProductDescription from "@/components/layouts/product/ProductDescription";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 const ProductDetail = () => {
   const { query } = useRouter();
@@ -94,7 +95,7 @@ const ProductDetail = () => {
           {product && product.images ? (
             product.images.map((image, index) =>
               image !== "" ? (
-                <img
+                <Image
                   src={image}
                   alt=""
                   key={index}
@@ -109,7 +110,7 @@ const ProductDetail = () => {
           )}
         </div>
         <div className="mainImage">
-          <img
+          <Image
             src={product?.images?.[0]}
             alt=""
             className="w-[510px] aspect-square rounded-xl overflow-hidden"

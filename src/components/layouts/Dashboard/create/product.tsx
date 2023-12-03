@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Button from "@/components/elements/Button";
 import SelectInput from "@/components/fragments/Select";
+import Image from "next/image";
 
 interface imageDataType {
   name: string;
@@ -319,7 +320,7 @@ const CreateProductLayout = () => {
               }`}
             >
               {field.file ? (
-                <img
+                <Image
                   src={URL.createObjectURL(field.file)}
                   alt=""
                   className="w-full"

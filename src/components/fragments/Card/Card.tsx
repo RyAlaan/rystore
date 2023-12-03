@@ -1,6 +1,7 @@
 import { productType } from "@/types/productType";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import Link from "next/link";
 import { title } from "process";
 import { useEffect, useState } from "react";
@@ -23,7 +24,7 @@ const Card = ({ product }: { product: productType }) => {
   return (
     <div className="w-20 md:w-48 container">
       <div className="rounded-md w-20 md:w-48  overflow-hidden relative">
-        <img
+        <Image
           src={product.images[0]}
           alt=""
           className="rounded-md aspect-square object-cover w-20 md:w-48  "

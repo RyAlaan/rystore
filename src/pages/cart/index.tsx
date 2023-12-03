@@ -9,6 +9,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -273,7 +274,7 @@ const CartPage = () => {
                   />
                   <div className="hidden lg:flex lg:justify-between lg:w-full">
                     <div className="flex flex-row gap-x-2 items-center w-44">
-                      <img
+                      <Image
                         src={product.images[0]}
                         alt=""
                         className="h-14 rounded-sm"
@@ -362,7 +363,7 @@ const CartPage = () => {
                   </div>
                   <div className="lg:hidden flex flex-row justify-between w-full">
                     <div className="flex flex-col justify-between gap-x-2">
-                      <img
+                      <Image
                         src={product.images[0]}
                         alt=""
                         className="h-16 w-16 rounded-sm"
