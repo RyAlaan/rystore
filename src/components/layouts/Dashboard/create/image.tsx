@@ -16,7 +16,7 @@ const CrateImageLayout = () => {
   const [failed, setFailed] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [imageLinks, setImageLinks] = useState<string[]>([]);
-  const [imageData, setImageData] = useState<imgDataType[]>([
+  const [imageData, setImageData] = useState<imageDataType[]>([
     {
       name: "image1",
       label: "Image 1",
