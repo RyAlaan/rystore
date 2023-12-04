@@ -46,7 +46,7 @@ const Card = ({ product }: { product: productType }) => {
         >
           {product.name}
         </Link>
-        <div className="flex flex-row gap-x-2">
+        <div className="flex flex-col md:flex-row gap-x-2">
           <p className="text-sm text-secondary" id="count">
             {product.discount
               ? totalPrice.toLocaleString("en-EN", {

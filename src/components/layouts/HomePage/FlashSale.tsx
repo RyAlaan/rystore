@@ -18,13 +18,13 @@ const FlashSale = () => {
 
   return (
     <>
-      <div className="" id="FlashSale">
+      <div className="flex flex-col gap-y-5" id="FlashSale">
         <SectionTitle>Today&apos;s</SectionTitle>
-        <div className="pt-2 flex items-end justify-between">
+        <div className="pt-2 flex flex-col lg:flex-row lg:items-end justify-between gap-y-2">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
             Flash Sales
           </h1>
-          <Countdown targetDate={"10/6/23 12:00:00"} />
+          <Countdown targetDate={"12/6/23 12:00:00"} />
         </div>
       </div>
       <div className="overflow-x-auto w-full">
@@ -34,7 +34,7 @@ const FlashSale = () => {
           ))}
         </div>
       </div>
-      <div className="w-full flex justify-center py-16">
+      <div className="w-full flex justify-center py-6">
         <Link
           href="/"
           className="bg-secondary text-white px-4 py-3 md:px-8 md:py-4 justify-self-center rounded-md"

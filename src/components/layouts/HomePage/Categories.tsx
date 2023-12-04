@@ -92,7 +92,7 @@ const Categories: React.FC = () => {
         <Swiper
           {...options}
           loop={true}
-          slidesPerView={6}
+          slidesPerView={"auto"}
           autoplay={{
             delay: 1500,
             disableOnInteraction: false,

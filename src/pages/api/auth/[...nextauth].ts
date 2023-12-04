@@ -9,7 +9,12 @@ interface SessionData {
   user?: {
     email?: string;
     image?: string;
+    fisrtname?:string;
+    lastname?:string;
     fullname?: string;
+    role?:string;
+    address?:string;
+    phone?:number | string
   };
   expires: string;
 }
@@ -18,15 +23,10 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: "CXExh62P7UK4uEBl5rfIIOanEoU=",
   providers: [
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: {
           label: "Email",
@@ -41,7 +41,6 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        // Add logic here to look up the user from the credentials supplied
         const { email, password } = credentials as {
           email: string;
           password: string;
@@ -50,14 +49,12 @@ const authOptions: NextAuthOptions = {
         const user: any = await signIn({ email });
 
         if (user) {
-          // Any object returned will be saved in `user` property of the JWT
           const passwordConfirm = await compare(password, user.password);
           if (passwordConfirm) {
             return user;
           }
           return user;
         } else {
-          // If you return null then an error will be displayed advising the user to check their details.
           return null;
         }
       },
@@ -73,13 +70,13 @@ const authOptions: NextAuthOptions = {
         token.fullname = user.fullname;
         token.role = user.role;
         token.address = user.address;
-        token.phone = user.phone
+        token.phone = user.phone;
       }
       return token;
     },
     async session({ session, token }: any): Promise<SessionData> {
       if ("id" in token) {
-        session.user.id = token.id
+        session.user.id = token.id;
       }
       if ("email" in token) {
         session.user.email = token.email;
@@ -97,10 +94,10 @@ const authOptions: NextAuthOptions = {
         session.user.role = token.role;
       }
       if ("address" in token) {
-        session.user.address = token.address
+        session.user.address = token.address;
       }
       if ("phone" in token) {
-        session.user.phone = token.phone
+        session.user.phone = token.phone;
       }
 
       return Promise.resolve(session);

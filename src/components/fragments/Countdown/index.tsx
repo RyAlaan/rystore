@@ -46,32 +46,36 @@ const Countdown = ({ targetDate }: { targetDate: string }) => {
   return (
     <div className="flex flex-row items-center gap-x-2 self-end ml-9">
       <div className="flex flex-col items-center">
-        <h4 className="text-xs font-semibold">Days</h4>
-        <p className="text-3xl text-black font-semibold">{days}</p>
+        <h4 className="text-sm lg:text-md font-semibold">Days</h4>
+        <p className="text-xl lg:text-3xl text-black font-semibold">{days}</p>
       </div>
       <div className="p-2">
         <div className="rounded-full h-1 aspect-square mb-3 bg-black"></div>
         <div className="rounded-full h-1 aspect-square bg-black"></div>
       </div>
       <div className="flex flex-col items-center">
-        <h4 className="text-xs font-semibold">Hours</h4>
-        <p className="text-3xl text-black font-semibold">{hours}</p>
+        <h4 className="text-sm lg:text-md font-semibold">Hours</h4>
+        <p className="text-xl lg:text-3xl text-black font-semibold">{hours}</p>
       </div>
       <div className="p-2">
         <div className="rounded-full h-1 aspect-square mb-3 bg-black"></div>
         <div className="rounded-full h-1 aspect-square bg-black"></div>
       </div>
       <div className="flex flex-col items-center">
-        <h4 className="text-xs font-semibold">Minutes</h4>
-        <p className="text-3xl text-black font-semibold">{minutes}</p>
+        <h4 className="text-sm lg:text-md font-semibold">Minutes</h4>
+        <p className="text-xl lg:text-3xl text-black font-semibold">
+          {minutes}
+        </p>
       </div>
       <div className="p-2">
         <div className="rounded-full h-1 aspect-square mb-3 bg-black"></div>
         <div className="rounded-full h-1 aspect-square bg-black"></div>
       </div>
       <div className="flex flex-col items-center">
-        <h4 className="text-xs font-semibold">Seconds</h4>
-        <p className="text-3xl text-black font-semibold">{seconds}</p>
+        <h4 className="text-sm lg:text-md font-semibold">Seconds</h4>
+        <p className="text-xl lg:text-3xl text-black font-semibold">
+          {seconds}
+        </p>
       </div>
     </div>
   );

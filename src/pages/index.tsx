@@ -7,7 +7,7 @@ import Featured from "@/components/layouts/HomePage/Featured";
 const HomePage = () => {
   return (
       <div className="flex flex-col font-poppins px-3 overflow-x-hidden">
-        <div className="mt-12 py-8 px-8">
+        <div className="mt-12 py-8 lg:px-8">
           <div className="">
             <Header />
           </div>

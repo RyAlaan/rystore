@@ -6,8 +6,6 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 const LoginPage = () => {
-  const router = useRouter();
-
   const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const { push, query } = useRouter();
@@ -69,7 +67,7 @@ const LoginPage = () => {
               className="text-center text-bold px-4 py-3 rounded-sm text-white"
               
             >
-              Sign In
+              {loading ? "Loading..." : "Login"}
             </Button>
           </form>
           </>

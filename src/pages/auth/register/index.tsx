@@ -1,5 +1,6 @@
 import Button from "@/components/elements/Button";
 import Form from "@/components/fragments/Form";
+import Message from "@/components/fragments/Message";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -8,6 +9,7 @@ const RegisterPage = () => {
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("")
 
   const handleRegister = async (event: any) => {
     event.preventDefault();
@@ -30,6 +32,7 @@ const RegisterPage = () => {
     });
 
     if (result.status === 200) {
+      setSuccess("Resgistration Successful");
       push("/auth/login");
     } else {
       const errorData = await result.json();
@@ -43,7 +46,7 @@ const RegisterPage = () => {
       <div className="flex flex-row-reverse items-center justify-center w-full">
         <AuthLayout>
           <>
-            {error && <p className="text-center text-red-600">{error}</p>}
+            <Message failed={error} success={success}></Message>
             <form
               className="flex justify-center align-center flex-col gap-x-8 w-96 mt-4"
               onSubmit={handleRegister}
