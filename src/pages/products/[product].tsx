@@ -90,8 +90,8 @@ const ProductDetail = () => {
 
   return (
     <div className="flex flex-col font-poppins">
-      <div className="lg:pb-14 lg:px-32 flex flex-col lg:flex-row justify-between">
-        <div className="sideImage flex flex-row md:flex-col gap-y-4 w-fit">
+      <div className="px-4 gap-y-5 lg:pb-14 lg:px-32 flex flex-col lg:flex-row justify-between">
+        <div className="sideImage overflow-auto gap-x-2 flex flex-row md:flex-col gap-y-4 w-fit order-2 lg:order-first">
           {product && product.images ? (
             product.images.map((image, index) =>
               image !== "" ? (
@@ -109,14 +109,14 @@ const ProductDetail = () => {
             <div></div>
           )}
         </div>
-        <div className="mainImage">
+        <div className="mainImage order-first lg:order-2">
           <img
             src={product?.images?.[0] ? product?.images?.[0] : ""}
             alt=""
             className="w-[510px] aspect-square rounded-xl overflow-hidden"
           />
         </div>
-        <div className="description lg:w-1/3">
+        <div className="description order-last lg:w-1/3">
           {product && product.description ? (
             <ProductDescription product={product} />
           ) : (

@@ -1,11 +1,6 @@
 import Button from "@/components/elements/Button";
-import Form from "@/components/fragments/Form";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import Image from "next/image";
-
 const AuthLayout = (props: { children: React.ReactElement }) => {
   const { children } = props;
   const router = useRouter();
@@ -21,17 +16,19 @@ const AuthLayout = (props: { children: React.ReactElement }) => {
           className="w-full"
         />
       </div>
-      <div className="w-full flex flex-col align-middle justify-center h-screen lg:h-[100%] lg:w-1/2">
-        <div className="flex-flex-col w-fit self-center">
+      <div className="w-full flex flex-col items-center lg:justify-center h-screen lg:h-full lg:w-1/2 px-10 lg:px-0 lg:py-0">
+        <div className="flex flex-col w-fit justify-center self-center h-full">
           {router.pathname === "/auth/login" && (
-            <h2 className="text-4xl font-bolder self-center">
+            <h2 className="text-3xl lg:text-4xl font-bolder self-center line-clamp-2">
               Login to your account
             </h2>
           )}
           {router.pathname === "/auth/register" && (
-            <h2 className="text-4xl font-bolder">Create an account</h2>
+            <h2 className="text-3xl lg:text-4xl font-bolder self-center line-clamp-2">
+              Create an account
+            </h2>
           )}
-          <p className="py-4">Enter your detail below</p>
+          <p className="py-4 self-center">Enter your detail below</p>
           {children}
           <div className="text-center pt-8 text-slate-400">
             {router.pathname === "/auth/login" && (

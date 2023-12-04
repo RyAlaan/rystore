@@ -37,9 +37,9 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="w-full flex flex-row px-4 md:px-8 py-2 justify-between border-b-2 fixed font-poppins bg-white z-[999]">
+    <div className="w-full flex flex-row px-4 md:px-8 py-2 justify-between border-b-2 fixed font-poppins bg-white z-[999] items-center">
       <h2 className="hidden md:flex text-2xl font-semibold">Rystore</h2>
-      <div className="fixed bottom-0 left-0 gap-x-9 items-center justify-between w-full px-10 py-2 flex flex-row bg-white border-t-2 lg:w-auto lg:py-0 lg:border-none lg:static">
+      <div className="fixed bottom-0 left-0 gap-x-3 items-center justify-between w-full px-4 py-2 flex flex-row bg-white border-t-2 lg:w-auto lg:py-0 lg:border-none lg:static">
         {Nav.map((item, index) => (
           <Link href={item.to} key={index}>
             <div

@@ -45,7 +45,7 @@ const LoginPage = () => {
           <>
           {error && <p className="text-center text-red-600">{error}</p>}
           <form
-            className="flex justify-center align-center flex-col gap-x-8 w-96 mt-4"
+            className="flex justify-center align-center flex-col gap-x-8 mt-4 w-full lg:w-96"
             onSubmit={handleLogin}
           >
             <Form

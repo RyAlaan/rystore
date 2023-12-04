@@ -20,7 +20,7 @@ const FlashSale = () => {
     <>
       <div className="flex flex-col gap-y-5" id="FlashSale">
         <SectionTitle>Today&apos;s</SectionTitle>
-        <div className="pt-2 flex flex-col lg:flex-row lg:items-end justify-between gap-y-2">
+        <div className="pt-2 flex flex-col lg:flex-row lg:items-center justify-between gap-y-2">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
             Flash Sales
           </h1>
@@ -41,7 +41,6 @@ const FlashSale = () => {
         >
           View All Products
         </Link>
-        {/* Ntar jangan lupa di ganti hrefnya */}
       </div>
     </>
   );

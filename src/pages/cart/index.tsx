@@ -312,7 +312,7 @@ const CartPage = () => {
                       </p>
                       {product.isDiscount === true &&
                       product.discount !== undefined ? (
-                        <div className="flex gap-x-2 items-center">
+                        <div className="flex gap-x-2 items-center justify-center">
                           <div className="bg-red-300 text-red-700 font-bold rounded-sm p-1 text-sm">
                             {product.discount}%
                           </div>
@@ -330,7 +330,7 @@ const CartPage = () => {
                         ""
                       )}
                     </div>
-                    <div className="flex flex-row items-center w-44">
+                    <div className="flex flex-row items-center justify-center w-44">
                       <div className="flex flex-row rounded-md overflow-hidden">
                         <button
                           className="py-2 px-3 border hover:border-secondary hover:text-white hover:bg-secondary"
@@ -353,22 +353,24 @@ const CartPage = () => {
                         </button>
                       </div>{" "}
                     </div>
-                    <div className="flex flex-row items-center w-44">
-                      <div className="">
+                    <div className="flex flex-row items-center justify-center w-44">
+                      <p className="text-center">
                         {subTotal[index] !== undefined
                           ? subTotal[index].toLocaleString("en-EN", {
                               style: "currency",
                               currency: "USD",
                             })
                           : "N/A"}
-                      </div>
+                      </p>
                     </div>
-                    <button onClick={() => handleDelete(cartData[index].id)}>
-                      <FontAwesomeIcon
-                        icon={faTrash}
-                        className="bg-secondary text-white p-3 rounded-md"
-                      ></FontAwesomeIcon>
-                    </button>
+                    <div className="flex flex-row items-center justify-center w-44">
+                      <button onClick={() => handleDelete(cartData[index].id)}>
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          className="bg-secondary text-white p-3 rounded-md"
+                        ></FontAwesomeIcon>
+                      </button>
+                    </div>
                   </div>
                   <div className="lg:hidden flex flex-row justify-between w-full">
                     <div className="flex flex-col justify-between gap-x-2">

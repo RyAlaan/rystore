@@ -42,13 +42,13 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center overflow-hidden font-poppins h-fit w-full">
+    <div className="flex items-center justify-center overflow-hidden font-poppins h-fit w-full self-center">
       <div className="flex flex-row-reverse items-center justify-center w-full">
         <AuthLayout>
           <>
             <Message failed={error} success={success}></Message>
             <form
-              className="flex justify-center align-center flex-col gap-x-8 w-96 mt-4"
+              className="flex justify-center align-center flex-col gap-x-8 w-full lg:w-96 mt-4"
               onSubmit={handleRegister}
             >
               <div className="flex justify-between gap-x-2">

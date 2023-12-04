@@ -44,7 +44,7 @@ const Countdown = ({ targetDate }: { targetDate: string }) => {
   });
 
   return (
-    <div className="flex flex-row items-center gap-x-2 self-end ml-9">
+    <div className="w-full lg:w-fit flex flex-row items-center justify-between lg:justify-normal gap-x-2 self-end ml-9">
       <div className="flex flex-col items-center">
         <h4 className="text-sm lg:text-md font-semibold">Days</h4>
         <p className="text-xl lg:text-3xl text-black font-semibold">{days}</p>

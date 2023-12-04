@@ -19,8 +19,8 @@ const ProductDescription = ({ product }: { product: productType }) => {
   }, [product.discount, product.price, product.isDiscount]);
 
   return (
-    <div className="flex flex-col gap-y-1 border-b-4 pb-6">
-      <h2 className="text-2xl font-bold">{product.name}</h2>
+    <div className="flex flex-col gap-y-3 border-b-4 pb-6 mt-2">
+      <h2 className="text-3xl line-clamp-2 lg:text-2xl lg:line-clamp-2 font-bold">{product.name}</h2>
       <div className="rating flex flex-row gap-x-2">
         <div className="stars">
           <FontAwesomeIcon icon={faStar} className="text-[#FFAD33]" />
