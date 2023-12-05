@@ -9,9 +9,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
@@ -139,7 +137,6 @@ const CartPage = () => {
     } else {
       setSelectAll(true);
     }
-    console.log(selectedItems);
   }, [selectedItems, productData]);
 
   useEffect(() => {
@@ -162,7 +159,6 @@ const CartPage = () => {
     setTotalPrice(selectedSubTotal + shipping);
   }, [selectedItems, shipping, selectedSubTotal, subTotal, totalPrice]);
 
-  console.log(totalPrice);
   const handleDelete = async (id: string) => {
     setLoading(true);
     const result = await fetch(`/api/cart/${id}`, {
@@ -249,7 +245,7 @@ const CartPage = () => {
 
   return (
     <div className="flex flex-col font-poppins">
-      <div className="px-2 lg:px-8 flex flex-col justify-between gap-y-3">
+      <div className="px-2 lg:px-8 flex flex-col justify-between gap-y-3 mt-12 md:mt-0">
         <Message success={success} failed={failed} />
         <div className="flex flex-col gap-y-20 w-full pb-10 lg:pb-36">
           <div className="flex flex-col w-full gap-y-6">
@@ -390,7 +386,7 @@ const CartPage = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col w-1/2 justify-between">
+                    <div className="flex flex-col w-1/2 justify-end items-end">
                       <div className="flex flex-col">
                         <Link
                           href={"/products/" + product.id}
@@ -398,7 +394,7 @@ const CartPage = () => {
                         >
                           {product.name}
                         </Link>
-                        <div className="flex gap-x-2 items-center">
+                        <div className="flex gap-x-2 items-center justify-center">
                           <p
                             className={clsx(
                               product.isDiscount === true
@@ -471,7 +467,7 @@ const CartPage = () => {
             </div>
             <UpdateCart updateCart={updateCart} />
           </div>
-          <div className="flex flex-col lg:flex-row justify-between w-full gap-y-4 lg:gap-x-44">
+          <div className="flex flex-col lg:flex-row justify-between w-full gap-y-4 px-4 lg:gap-x-44">
             <Coupon />
             <CartCard
               totalPrice={totalPrice}

@@ -18,7 +18,7 @@ const AppShell = (props: AppShellProps) => {
     <main>
       {!disableNavbar.includes(pathname) && <Navbar />}
       {!disableBreadcumb.includes(pathname) && <Breadcumb />}
-      {children}
+      <div className="flex flex-col ">{children}</div>
       {!disableNavbar.includes(pathname) && <Footer />}
     </main>
   );

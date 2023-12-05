@@ -67,15 +67,12 @@ const CreateProductLayout = () => {
 
   const handleInputChange = (e: any, index: number) => {
     setIsLoading(true);
-    console.log("Input event:", e);
     const updatedImageData = [...imageData];
 
     const fileInput = e.target;
 
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-
-      console.log(file);
 
       updatedImageData[index].file = file;
 
@@ -122,7 +119,6 @@ const CreateProductLayout = () => {
       });
 
       const response = await result.json();
-      console.log(response);
       setImageLinks(response.data);
 
       if (response.statusCode === 200) {
@@ -158,25 +154,20 @@ const CreateProductLayout = () => {
         });
 
         const response = await result.json();
-        console.log(response);
         if (response.status === 200) {
           setSuccess("Product added successfully");
         } else {
           setError(response.message);
         }
       } else {
-        console.log(response);
+        setError(response.message);
       }
     } catch (error) {
-      console.log(error);
+      setError("Something went wrong");
     } finally {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    console.log(imageLinks);
-  }, [imageLinks]);
 
   return (
     <div className="w-full lg:w-5/6 flex flex-col py-6 px-5 font-poppins">

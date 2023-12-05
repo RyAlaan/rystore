@@ -63,15 +63,12 @@ const CrateImageLayout = () => {
 
   const handleInputChange = (e: any, index: number) => {
     setLoading(true);
-    console.log("Input event:", e);
     const updatedImageData = [...imageData];
 
     const fileInput = e.target;
 
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-
-      console.log(file);
 
       updatedImageData[index].file = file;
 
@@ -118,7 +115,6 @@ const CrateImageLayout = () => {
       });
 
       const response = await result.json();
-      console.log(response);
     } catch (error) {
       console.error("Error uploading images:", error);
     } finally {
@@ -126,9 +122,6 @@ const CrateImageLayout = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(imageLinks);
-  }, [imageLinks]);
 
   return (
     <div className="px-10 mt-10 w-full">

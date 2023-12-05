@@ -90,33 +90,35 @@ const ProductDetail = () => {
 
   return (
     <div className="flex flex-col font-poppins">
-      <div className="px-4 gap-y-5 lg:pb-14 lg:px-32 flex flex-col lg:flex-row justify-between">
-        <div className="sideImage overflow-auto gap-x-2 flex flex-row md:flex-col gap-y-4 w-fit order-2 lg:order-first">
-          {product && product.images ? (
-            product.images.map((image, index) =>
-              image !== "" ? (
-                <img
-                  src={image}
-                  alt=""
-                  key={index}
-                  className="w-20 aspect-square rounded-md overflow-hidden"
-                />
-              ) : (
-                <div key={index}></div>
+      <div className="px-4 gap-y-5 gap-x-5 lg:pb-14 lg:px-12 mt-16 md:mt-0 flex flex-col lg:flex-row">
+        <div className="w-full gap-x-5 gap-y-5 flex flex-col-reverse md:flex-row pb-5 border-b-2 lg:border-0">
+          <div className="sideImage md:h-[510px] overflow-auto overflow-y-hidden md:overflow-hidden md:overflow-y-auto gap-x-2 flex flex-row- md:flex-col gap-y-4 w-fit">
+            {product && product.images ? (
+              product.images.map((image, index) =>
+                image !== "" ? (
+                  <img
+                    src={image}
+                    alt=""
+                    key={index}
+                    className="w-20 aspect-square rounded-md overflow-hidden hover:scale-110 duration-300 cursor-pointer"
+                  />
+                ) : (
+                  <div key={index}></div>
+                )
               )
-            )
-          ) : (
-            <div></div>
-          )}
+            ) : (
+              <div></div>
+            )}
+          </div>
+          <div className="mainImage ">
+            <img
+              src={product?.images?.[0] ? product?.images?.[0] : ""}
+              alt=""
+              className="w-[510px] aspect-square rounded-xl overflow-hidden"
+            />
+          </div>
         </div>
-        <div className="mainImage order-first lg:order-2">
-          <img
-            src={product?.images?.[0] ? product?.images?.[0] : ""}
-            alt=""
-            className="w-[510px] aspect-square rounded-xl overflow-hidden"
-          />
-        </div>
-        <div className="description order-last lg:w-1/3">
+        <div className="description lg:w-1/3">
           {product && product.description ? (
             <ProductDescription product={product} />
           ) : (
@@ -131,7 +133,9 @@ const ProductDetail = () => {
                 >
                   -
                 </button>
-                <div className="py-2 px-6 border-y">{quantity}</div>
+                <div className="py-2 px-6 border-y items-center justify-center">
+                  {quantity}
+                </div>
                 <button
                   className="py-2 px-3 border hover:border-secondary hover:text-white hover:bg-secondary"
                   onClick={increaseValue}

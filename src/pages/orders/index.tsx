@@ -6,7 +6,6 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
@@ -27,7 +26,6 @@ const OrderPage = () => {
 
   const handleInputChange = (e: any) => {
     setLoading(true);
-    console.log("Input event:", e);
 
     const fileInput = e.target;
 
@@ -69,15 +67,10 @@ const OrderPage = () => {
       });
 
       const response = await result.json();
-      console.log(response.data[0]);
 
       if (response.data[0]) {
         try {
-          console.log(orderId);
-          
           const data = orderData.find((order) => order.id === orderId);
-          console.log(orderData.map((order) => order.id));
-          
 
           if (
             data &&
@@ -87,8 +80,6 @@ const OrderPage = () => {
             data.image = response.data[0];
             data.orderStatus = "Awaiting Confirmation";
 
-            console.log(data);
-    
             const result = await fetch(`/api/orders/${orderId}`, {
               method: "PUT",
               body: JSON.stringify(data),
@@ -97,7 +88,7 @@ const OrderPage = () => {
               },
             });
             if (result.status === 200) {
-              setSuccess("Image Uploaded Successfully")
+              setSuccess("Image Uploaded Successfully");
               setImageModalVisible(!isImageModalVisible);
             }
           } else {
@@ -164,7 +155,7 @@ const OrderPage = () => {
   }
 
   return (
-    <div className="flex flex-col font-poppins px-2 lg:px-8 gap-y-5 bg-white">
+    <div className="flex flex-col w-full font-poppins px-2 lg:px-8 mt-12 md:mt-0 gap-y-5 bg-white">
       <Message success={success} failed={failed} />
       <div
         className={clsx(
@@ -212,9 +203,9 @@ const OrderPage = () => {
           </Button>
         </form>
       </div>{" "}
-      <div className="flex w-full px-10 py-6 shadow-sm gap-x-2 bg-white">
-        <p className="w-20 text-center">Num</p>
-        <div className="flex flex-row w-full justify-between">
+      <div className="flex flex-col w-full overflow-x-auto">
+        <div className="flex px-10 py-6 shadow-sm gap-x-2 bg-white w-[1264px]">
+          <p className="w-20 text-center">Num</p>
           <p className="w-44 text-center">Order Code</p>
           <p className="w-44 text-center">Full Name</p>
           <p className="w-44 text-center">Order Status</p>
@@ -222,16 +213,14 @@ const OrderPage = () => {
           <p className="w-44 text-center">Total Price</p>
           <p className="w-44 text-center">Actions</p>
         </div>
-      </div>
-      <div className="bg-white">
-        {orderData &&
-          orderData.map((order, index) => (
-            <div
-              key={index}
-              className="flex w-full px-10 py-6 shadow-sm gap-x-2 items-center "
-            >
-              <p className="w-20 text-right">{index + 1}</p>
-              <div className="flex flex-row w-full justify-between items-center">
+        <div className="flex flex-col px-10 py-6 shadow-sm gap-x-2 bg-white w-[1264px]">
+          {orderData &&
+            orderData.map((order, index) => (
+              <div
+                key={index}
+                className="flex w-full py-6 shadow-sm gap-x-2 items-center"
+              >
+                <p className="w-20 text-left">{index + 1}</p>
                 <p className="w-44 text-center">{order.orderCode}</p>
                 <p className="w-44 text-center">{session?.user.fullname}</p>
                 <p className="w-44 text-center">{order.orderStatus}</p>
@@ -274,8 +263,8 @@ const OrderPage = () => {
                   )}
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
     </div>
   );

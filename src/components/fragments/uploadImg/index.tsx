@@ -25,7 +25,6 @@ const ImageModal = (props: imageModalType) => {
 
   const handleInputChange = (e: any) => {
     setLoading(true);
-    console.log("Input event:", e);
 
     const fileInput = e.target;
 
@@ -45,42 +44,6 @@ const ImageModal = (props: imageModalType) => {
     }
     setLoading(false);
   };
-
-  // const handleImageSubmit = async (e: any) => {
-  //   e.preventDefault();
-  //   setSuccess("");
-  //   setFailed("");
-  //   setLoading(true);
-
-  //   const formData = new FormData();
-
-  //   imageData.forEach((field, index) => {
-  //     if (field.file) {
-  //       formData.append(`file_${index}`, field.file);
-  //       formData.append(`imageName_${index}`, field.imageName);
-  //     }
-  //   });
-
-  //   formData.append("folder", "images/products");
-
-  //   try {
-  //     const result = await fetch("/api/images", {
-  //       method: "POST",
-  //       body: formData,
-  //     });
-
-  //     const response = await result.json();
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error("Error uploading images:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  useEffect(() => {
-    console.log(imageLinks);
-  }, [imageLinks]);
 
   return (
     <div

@@ -1,9 +1,7 @@
 import { productType } from "@/types/productType";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 import Link from "next/link";
-import { title } from "process";
 import { useEffect, useState } from "react";
 
 const Card = ({ product }: { product: productType }) => {
@@ -22,12 +20,12 @@ const Card = ({ product }: { product: productType }) => {
   }, [product.isDiscount, product.price, product.discount]);
 
   return (
-    <div className="w-20 md:w-48 container">
-      <div className="rounded-md w-20 md:w-48  overflow-hidden relative">
+    <div className="w-24 md:w-36 lg:48 container">
+      <div className="rounded-md w-24 md:w-36 lg:48  overflow-hidden relative">
         <img
           src={product.images[0]}
           alt=""
-          className="rounded-md aspect-square object-cover w-20 md:w-48  "
+          className="rounded-md aspect-square object-cover w-24 md:w-36 lg:48"
         />
         {product.isDiscount == true && (
           <div
@@ -38,7 +36,7 @@ const Card = ({ product }: { product: productType }) => {
           </div>
         )}
       </div>
-      <div className="pt-2 w-20 md:w-48  ">
+      <div className="pt-2 w-24 md:w-36 lg:48">
         <Link
           href={`/products/${product.id}`}
           className="text-sm line-clamp-2"
