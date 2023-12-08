@@ -14,6 +14,8 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const query = req.query;
+  console.log(query);
+  
   switch (req.method) {
     case "POST":
       await createData(

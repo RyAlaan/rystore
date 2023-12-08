@@ -6,6 +6,8 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
+  orderBy,
   query,
   serverTimestamp,
   updateDoc,
@@ -44,7 +46,6 @@ export async function uploadImage(
   images: any[],
   callback: Function
 ) {
-
   try {
     const downloadURLs: string[] = [];
 
@@ -54,8 +55,7 @@ export async function uploadImage(
 
       const fileBuffer = await fsPromises.readFile(image.path);
 
-
-      const storagePath = `${folder}/${imageName}`; 
+      const storagePath = `${folder}/${imageName}`;
       const storageRef = ref(storage, storagePath);
 
       const metadata = {
@@ -118,27 +118,36 @@ export async function singUp(userData: userType, callback: Function) {
 
 // READ
 export async function retrieveData(collectionName: string, callback: Function) {
-  const q = query(
-    collection(firestore, collectionName)
-    // where("isDiscount", "==", true)
-    // where("stock", ">", 0)
-  );
+  try {
+    const ref = collection(firestore, collectionName);
+    const q = query(
+      ref,
+      // where("isDiscount", "==", "true"),
+      // where("discount", ">", 0),
+      limit(20)
+    );
 
-  const snapshot = await getDocs(q);
+    const snapshot = await getDocs(q);
 
-  // .filter((doc)=> doc.data().stock > 0)
+    const data = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
-  const data = snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-
-  if (data) {
-    callback({ statusCode: 200, message: "Data found successfuly", data });
-  } else {
-    callback({ statusCode: 404, message: "Data not found", data: null });
+    if (data.length > 0) {
+      callback({ statusCode: 200, message: "Data found successfully", data });
+    } else {
+      callback({ statusCode: 404, message: "Data not found", data: null });
+    }
+  } catch (error) {
+    callback({
+      statusCode: 500,
+      message: "Error retrieving data : " + error,
+      data: null,
+    });
   }
 }
+
 
 export async function retrieveDataById(
   collectionName: string,
