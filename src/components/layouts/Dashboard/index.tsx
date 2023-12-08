@@ -1,4 +1,3 @@
-import Breadcumb from "../../fragments/Breadcumb";
 import Sidebar from "../Sidebar";
 
 const DashboardTemplate = (props: { children: React.ReactElement }) => {
