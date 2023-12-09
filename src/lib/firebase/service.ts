@@ -117,17 +117,24 @@ export async function singUp(userData: userType, callback: Function) {
 }
 
 // READ
-export async function retrieveData(collectionName: string, callback: Function) {
+export async function retrieveData(
+  collectionName: string,
+  callback: Function,
+  q?: object
+) {
   try {
     const ref = collection(firestore, collectionName);
-    const q = query(
-      ref,
-      // where("isDiscount", "==", "true"),
-      // where("discount", ">", 0),
-      limit(20)
-    );
 
-    const snapshot = await getDocs(q);
+    const snapshot = await getDocs(
+      q
+        ? query(
+            ref,
+            ...Object.entries(q).map(([key, value]) =>
+              where(key, "==", value == "true" ? true : false)
+            )
+          )
+        : ref
+    );
 
     const data = snapshot.docs.map((doc) => ({
       id: doc.id,
@@ -140,6 +147,8 @@ export async function retrieveData(collectionName: string, callback: Function) {
       callback({ statusCode: 404, message: "Data not found", data: null });
     }
   } catch (error) {
+    console.log(error);
+
     callback({
       statusCode: 500,
       message: "Error retrieving data : " + error,

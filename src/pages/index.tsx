@@ -3,6 +3,7 @@ import FlashSale from "@/components/layouts/HomePage/FlashSale";
 import Categories from "@/components/layouts/HomePage/Categories";
 import Ads from "@/components/layouts/HomePage/Ads";
 import Featured from "@/components/layouts/HomePage/Featured";
+import ProductsSection from "@/components/layouts/HomePage/ProductsSection";
 
 const HomePage = () => {
   return (
@@ -24,7 +25,7 @@ const HomePage = () => {
             <Ads />
           </div>
           <div className="pt-[70px]">
-            {/* <ProductsSection /> */}
+            <ProductsSection />
           </div>
           <div className="py-16 md:py-36">
             <Featured />

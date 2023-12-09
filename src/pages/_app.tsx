@@ -1,4 +1,5 @@
 import AppShell from "@/components/layouts/AppShell/AppShell";
+import { SidebarProfider } from "@/context/SidebarContext";
 import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
@@ -10,14 +11,16 @@ export default function App({
 }: AppProps) {
   return (
     <>
-    <SessionProvider session={session}>
-    <Head>
-      <title>RyStore</title>
-    </Head>
-      <AppShell>
-        <Component {...pageProps} />
-      </AppShell>
-    </SessionProvider>
+      <SessionProvider session={session}>
+        <SidebarProfider>
+          <Head>
+            <title>RyStore</title>
+          </Head>
+          <AppShell>
+            <Component {...pageProps} />
+          </AppShell>
+        </SidebarProfider>
+      </SessionProvider>
     </>
   );
 }

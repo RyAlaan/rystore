@@ -14,8 +14,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const query = req.query;
-  console.log(query);
-  
+
   switch (req.method) {
     case "POST":
       await createData(
@@ -48,7 +47,8 @@ export default async function handler(
           data: productType[] | null;
         }) => {
           res.status(statusCode).json({ statusCode, message, data });
-        }
+        },
+        query
       );
       break;
 
