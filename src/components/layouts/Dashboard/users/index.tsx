@@ -7,7 +7,7 @@ import Link from "next/link";
 const UsersHeader = ({ users }: { users: userType[] }) => {
 
   return (
-    <div className="w-full lg:w-5/6 flex flex-col py-6 px-5 font-poppins">
+    <div className="w-full  flex flex-col py-6 px-5 font-poppins">
       <div className="w-full flex justify-end">
         <Link href={"/dashboard/create/user"} className="bg-blue-500 text-white px-4 py-2 rounded-md">
           Add User <FontAwesomeIcon icon={faPlus} />
