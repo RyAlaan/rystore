@@ -81,7 +81,7 @@ const Sidebar: React.FC = () => {
   // );
   return (
     <div className="h-[calc(100vh-120px)]">
-      <div className="h-full flex flex-col bg-white border-r shadow-sm">
+      <div className="h-full flex flex-col justify-between bg-white border-r shadow-sm">
         <div className="p-4 gap-x-3 flex justify-between items-center rounded">
           <p className={clsx("font-semibold", !show && "hidden")}>LoremIpsum</p>
           <button className="rounded-lg hover:bg-gray-100 flex flex-col items-center">
@@ -91,6 +91,11 @@ const Sidebar: React.FC = () => {
             ></FontAwesomeIcon>
           </button>
         </div>
+        <ul>
+          <li>
+            <div className=""><FontAwesomeIcon icon></FontAwesomeIcon></div>
+          </li>
+        </ul>
         <div className="border-t flex flex-row p-4 items-center gap-x-4 self-end">
           <div className="p-2 rounded bg-red-200">
             <p className="font-semibold text-red-600">DA</p>
