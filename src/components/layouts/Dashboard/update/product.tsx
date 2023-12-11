@@ -19,7 +19,7 @@ const UpdateProductLayout = () => {
   const [product, setProduct] = useState({
     name: "",
     price: 0,
-    category: "camera",
+    category: "",
     stock: 0,
     isDiscount: false,
     discount: 0,
@@ -147,8 +147,8 @@ const UpdateProductLayout = () => {
             <option value="computer">Computer</option>
             <option value="smartphone">Smartphone</option>
             <option value="headphone">Headphone</option>
-            <option value="Gamepad">Gamepad</option>
-            <option value="SmartWatch">Smartwatch</option>
+            <option value="gamepad">Gamepad</option>
+            <option value="smartwatch">Smartwatch</option>
           </SelectInput>
           {/* Camera, Smartphone, Computer, headphone, Gamepad, SmartWatch*/}
         </div>
@@ -159,8 +159,8 @@ const UpdateProductLayout = () => {
             label="Is Discount ?"
             className="w-full md:w-1/2"
           >
-            <option value={"true"}>true</option>
             <option value={"false"}>false</option>
+            <option value={"true"}>true</option>
           </SelectInput>
           {/* true or false */}
           <Form

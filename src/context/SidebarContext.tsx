@@ -14,7 +14,7 @@ interface sidebarProfiderProps {
 export const SidebarProfider: React.FC<sidebarProfiderProps> = ({
   children,
 }) => {
-  const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  const [showSidebar, setShowSidebar] = useState<boolean>(false);
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);

@@ -130,11 +130,22 @@ export async function retrieveData(
         ? query(
             ref,
             ...Object.entries(q).map(([key, value]) =>
-              where(key, "==", value == "true" ? true : false)
+              where(
+                key as string,
+                "==",
+                value == "true"
+                  ? true
+                  : value == "false"
+                  ? false
+                  : (value as string)
+              )
             )
           )
         : ref
     );
+
+    console.log(q);
+    console.log();
 
     const data = snapshot.docs.map((doc) => ({
       id: doc.id,

@@ -14,9 +14,11 @@ const AppShell = (props: AppShellProps) => {
   const { children } = props;
   const { pathname } = useRouter();
 
+  const isDashboardPage = pathname.includes("/dashboard");
+
   return (
     <main>
-      {!disableNavbar.includes(pathname) && <Navbar />}
+      {!isDashboardPage && !disableNavbar.includes(pathname) && <Navbar />}
       {!disableBreadcumb.includes(pathname) && <Breadcumb />}
       <div className="flex flex-col ">{children}</div>
       {!disableNavbar.includes(pathname) && <Footer />}
