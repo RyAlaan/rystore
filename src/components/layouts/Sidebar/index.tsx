@@ -1,14 +1,13 @@
 import { useSidebar } from "@/context/SidebarContext";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
   faBackwardStep,
   faBagShopping,
-  faBars,
   faBarsProgress,
   faBoxesStacked,
   faEllipsisVertical,
   faForwardStep,
   faHouse,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
@@ -55,11 +54,11 @@ const Sidebar: React.FC = () => {
           <div className="p-4 flex justify-between items-center rounded">
             <p
               className={clsx(
-                "font-semibold overflow-hidden transition-all duration-500",
+                "font-bold text-2xl overflow-hidden transition-all duration-500",
                 showSidebar ? "w-32" : "w-0"
               )}
             >
-              Rystore
+              RyStore
             </p>
             <button
               className="rounded-lg w-10 aspect-square items-center text-center hover:bg-red-500 hover:text-white p-2"
@@ -93,11 +92,7 @@ const Sidebar: React.FC = () => {
                     router.route !== list.link && "group-hover:text-red-600"
                   )}
                 >
-                  <FontAwesomeIcon
-                    icon={list.icon}
-                    className={clsx("p-4")}
-                    // "p-4 group-hover:text-red-600"
-                  />
+                  <FontAwesomeIcon icon={list.icon} className={clsx("p-4")} />
                   <p
                     className={clsx(
                       "font-semibold overflow-hidden transition-all ",
@@ -110,7 +105,7 @@ const Sidebar: React.FC = () => {
                 {!showSidebar && (
                   <div
                     className={clsx(
-                      "relative items-center justify-center flex flex-col rounded-md -left-40 transform-all duration-500 group-hover:translate-x-56 z-10",
+                      "relative px-4 flex flex-col items-center justify-center rounded-md -left-56 transform-all duration-500 lg:group-hover:translate-x-64 z-10",
                       router.route == list.link
                         ? "bg-red-500 text-white"
                         : "bg-red-100 text-red-600"

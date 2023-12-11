@@ -7,9 +7,11 @@ const DashboardUsers = () => {
   const { data, isLoading, error } = useSWR("/api/users", fetcher);
 
   return (
-    <DashboardTemplate>
-      <UsersHeader users={isLoading ? [] : data?.data} />
-    </DashboardTemplate>
+    <div className="">
+      <DashboardTemplate>
+        <UsersHeader users={isLoading ? [] : data?.data} />
+      </DashboardTemplate>
+    </div>
   );
 };
 

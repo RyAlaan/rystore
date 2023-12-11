@@ -15,8 +15,7 @@ const ProductsSection = () => {
   );
 
   useEffect(() => {
-    setProducts(data?.data);
-    console.log(data?.data);
+    setProducts(data?.data.slice(0, 14));
   }, [data]);
 
 
@@ -32,19 +31,18 @@ const ProductsSection = () => {
           View Our Products
         </h1>
       </div>
-      <div className="pt-8 flex flex-row gap-x-6">
+      <div className="px-8 pt-8 md:px-0 max-h-[650px] md:max-h-[520px] overflow-hidden flex flex-row flex-wrap justify-between gap-x-10 gap-y-6">
         {products?.map((product: productType, index: number) => (
           <Card key={index} product={product} />
         ))}
       </div>
       <div className="w-full flex justify-center pt-16">
         <Link
-          href="/"
+          href="/product"
           className="bg-secondary text-white px-4 py-3 md:px-8 md:py-4 justify-self-center rounded-md"
         >
           View All Products
         </Link>
-        {/* Ntar jangan lupa di ganti hrefnya */}
       </div>
     </>
   );

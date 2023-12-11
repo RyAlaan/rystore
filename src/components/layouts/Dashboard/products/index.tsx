@@ -1,53 +1,61 @@
 import { productType } from "@/types/productType";
-import TableProducts from "./TableProducts";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
+import SearchBox from "@/components/fragments/SearchBox";
+import Card from "@/components/fragments/Card/Card";
+import CardProduct from "./CardProduct";
 
 const ProductsDashboard = ({ products }: { products: productType[] }) => {
+  const router = useRouter();
+
+  const categories = [
+    "All",
+    "Camera",
+    "Cellphone",
+    "Computer",
+    "Gamepad",
+    "Headphone",
+    "Smartwatch",
+  ];
+
+  const handleSearch = (value: string) => {
+    router.push(`/dashboard/products?q=${value}`);
+  };
+
   return (
-    <div className="w-full flex flex-col py-6 px-5 font-poppins">
-      <div className="w-full flex justify-end">
+    <div className="w-[calc(100%-72px)] self-end overflow-hidden">
+      <div className="flex flex-row justify-between px-4 w-full pt-5 gap-x-10">
+        <SearchBox
+          placeholder="Search products"
+          className="w-full rounded-full border-2"
+        />
         <Link
           href={"/dashboard/create/product"}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md"
+          className="border border-black text-black rounded-full items-center flex flex-row px-4 gap-x-2"
         >
-          Add product {" "} <FontAwesomeIcon icon={faPlus} />
+          <p className="hidden md:flex">Add product</p>
+          <FontAwesomeIcon icon={faPlus} className="aspect-square" />
         </Link>
       </div>
-      <div className="w-full  rounded-md px-2 py-2 flex flex-row justify-between">
-        <div className="image w-14 text-center">
-          <p className="text-md font-semibold">Image</p>
-        </div>
-        <div className="w-40 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Name</p>
-        </div>
-        <div className="w-20 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Price</p>
-        </div>
-        <div className="w-16 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Stocks</p>
-        </div>
-        <div className="w-20 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">isDiscount</p>
-        </div>
-        <div className="w-14 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Discount</p>
-        </div>
-        <div className="w-28 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Rating</p>
-        </div>
-        <div className="w-28 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Actions</p>
-        </div>
-      </div>
-      <div className="h-96 overflow-auto">
-        {products.map((product, index) => (
-          <TableProducts
+      <div className="w-full overflow-auto flex flex-row gap-x-6 py-4 pl-4 ">
+        {categories.map((category, index) => (
+          <Link
             key={index}
-            product={product}
-            className={index % 2 === 1 ? "" : "bg-neutral-200"}
-          />
+            href={
+              "/dashboard/products" +
+              (category === "All" ? "" : `?category=${category.toLowerCase()}`)
+            }
+            className="bg-slate-100 text-black rounded-b-full rounded-r-full items-center w-fit flex flex-row px-4 py-1 gap-x-2"
+          >
+            <p>{category}</p>
+          </Link>
+        ))}
+      </div>
+      <div className="w-full flex flex-wrap justify-betwen gap-5 py-8 px-4">
+        {products?.map((product: productType, index: number) => (
+          <CardProduct key={index} product={product} />
         ))}
       </div>
     </div>
