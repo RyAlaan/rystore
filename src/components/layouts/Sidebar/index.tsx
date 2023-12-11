@@ -48,7 +48,8 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <div className="h-[calc(100vh-115px)] sticky border-t-2">
+    // [calc(100vh-75px)]
+    <div className="h-screen sticky z-[9999] top-0">
       <div className="h-full flex flex-col justify-between bg-white border-r shadow-sm">
         <div className="">
           <div className="p-4 flex justify-between items-center rounded">

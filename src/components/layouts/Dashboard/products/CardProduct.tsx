@@ -36,10 +36,7 @@ const CardProduct = ({
   };
 
   return (
-    <Link
-      href={`/dashboard/update/product/${product.id}`}
-      className="w-44 py-3 flex flex-col items-center border gap-y-2 rounded-2xl px-4"
-    >
+    <div className="w-44 py-3 flex flex-col items-center border gap-y-2 rounded-2xl px-4">
       <div className="w-36 aspect-square overflow-hidden rounded-2xl">
         <img
           src={product.images ? product.images[0] : "https://placehold.co/56"}
@@ -48,7 +45,12 @@ const CardProduct = ({
         />
       </div>
       <div className="w-full flex flex-col">
-        <p className="line-clamp-1 font-semibold w-full">{product.name}</p>
+        <Link
+          href={`/dashboard/update/product/${product.id}`}
+          className="line-clamp-1 font-semibold w-full"
+        >
+          {product.name}
+        </Link>
         <div className="flex flex-row gap-x-3">
           <p
             className={product.isDiscount ? "line-through text-slate-500" : ""}
@@ -96,7 +98,7 @@ const CardProduct = ({
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
