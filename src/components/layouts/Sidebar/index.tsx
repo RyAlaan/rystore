@@ -2,9 +2,13 @@ import { useSidebar } from "@/context/SidebarContext";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
   faBackwardStep,
+  faBagShopping,
   faBars,
+  faBarsProgress,
+  faBoxesStacked,
   faEllipsisVertical,
   faForwardStep,
+  faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
@@ -18,8 +22,13 @@ const Sidebar: React.FC = () => {
   const { data: session } = useSession();
   const lists = [
     {
+      name: "Home",
+      icon: faHouse,
+      link: "/",
+    },
+    {
       name: "Dashboard",
-      icon: faBars,
+      icon: faBarsProgress,
       link: "/dashboard",
     },
     {
@@ -29,18 +38,18 @@ const Sidebar: React.FC = () => {
     },
     {
       name: "Products",
-      icon: faEllipsisVertical,
+      icon: faBoxesStacked,
       link: "/dashboard/products",
     },
     {
       name: "Orders",
-      icon: faEllipsisVertical,
+      icon: faBagShopping,
       link: "/dashboard/orders",
     },
   ];
 
   return (
-    <div className="h-[calc(100vh-115px)] ">
+    <div className="h-[calc(100vh-115px)] sticky border-t-2">
       <div className="h-full flex flex-col justify-between bg-white border-r shadow-sm">
         <div className="">
           <div className="p-4 flex justify-between items-center rounded">
