@@ -12,7 +12,7 @@ const Breadcumb = () => {
 
   return (
     <div className="hidden md:flex flex-col font-poppins px-3">
-      <div className="mt-12 px-5 py-2 md:py-8 flex justify-between">
+      <div className="mt-12 px-5 py-2 md:py-5 flex justify-between">
         <p className="font-light text-tertiary">
           <Link href={"/"}>Home</Link>
           {paths.map((path, index) => (

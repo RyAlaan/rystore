@@ -1,3 +1,5 @@
+import { useSidebar } from "@/context/SidebarContext";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
   faBackwardStep,
   faBars,
@@ -7,107 +9,134 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 
 const Sidebar: React.FC = () => {
-  const [show, setShow] = useState<boolean>(true);
+  const { showSidebar, toggleSidebar } = useSidebar();
   const router = useRouter();
   const { data: session } = useSession();
-  console.log(session?.user.role);
-  
+  const lists = [
+    {
+      name: "Dashboard",
+      icon: faBars,
+      link: "/dashboard",
+    },
+    {
+      name: "Users",
+      icon: faUser,
+      link: "/dashboard/users",
+    },
+    {
+      name: "Products",
+      icon: faEllipsisVertical,
+      link: "/dashboard/products",
+    },
+    {
+      name: "Orders",
+      icon: faEllipsisVertical,
+      link: "/dashboard/orders",
+    },
+  ];
 
-  // return (
-  //   <div className="sidebar w-1/6 hidden lg:flex h-[calc(100vh-120px)] border-r-4">
-  //     <ul className="px-8 pt-12">
-  //       {session?.user.role ? (
-  //         <li>
-  //           <Link href={"/dashboard"} className="font-semibold">
-  //             Dashboard
-  //           </Link>
-  //           <ul className="pl-10 py-3">
-  //             <li className="text-stone-400">
-  //               <Link href={"/dashboard/users"}>Users</Link>
-  //             </li>
-  //             <li className="text-stone-400">
-  //               <Link href={"/dashboard/products"}>Products</Link>
-  //             </li>
-  //             <li className="text-stone-400">
-  //               <Link href={"/dashboard/orders"}>Orders</Link>
-  //             </li>
-  //             <li className="text-stone-400">
-  //               <Link href={"/dashboard/transaction"}>Transactions</Link>
-  //             </li>
-  //           </ul>
-  //         </li>
-  //       ) : (
-  //         ""
-  //       )}
-
-  //       <li>
-  //         <p className="font-semibold">Manage My Account</p>
-  //         <ul className="pl-10 py-3">
-  //           <li className="text-stone-400">
-  //             <Link href={"/profile"}>My Profile</Link>
-  //           </li>
-  //           <li className="text-stone-400">
-  //             <Link href={"/profile/address"}>Address Book</Link>
-  //           </li>
-  //           <li className="text-stone-400">
-  //             <Link href={"/profile/payment"}>My Payment Options</Link>
-  //           </li>
-  //         </ul>
-  //       </li>
-  //       <li>
-  //         <p className="font-semibold">
-  //           <Link href={"/orders"}>My Orders</Link>
-  //         </p>
-  //         <ul className="pl-10 py-3">
-  //           <li className="text-stone-400">
-  //             <Link href={"/orders/returns"}>My Returns</Link>
-  //           </li>
-  //           <li className="text-stone-400">
-  //             <Link href={"/orders/cancellations"}>My Cancellations</Link>
-  //           </li>
-  //         </ul>
-  //       </li>
-  //       <li>
-  //         <p className="font-semibold">
-  //           <Link href={"/wishlist"}>My Wishlists</Link>
-  //         </p>
-  //       </li>
-  //     </ul>
-  //   </div>
-  // );
   return (
-    <div className="h-[calc(100vh-120px)]">
+    <div className="h-[calc(100vh-115px)] ">
       <div className="h-full flex flex-col justify-between bg-white border-r shadow-sm">
-        <div className="p-4 gap-x-3 flex justify-between items-center rounded">
-          <p className={clsx("font-semibold", !show && "hidden")}>LoremIpsum</p>
-          <button className="rounded-lg hover:bg-gray-100 flex flex-col items-center">
-            <FontAwesomeIcon
-              icon={show ? faBackwardStep : faForwardStep}
-              className="px-3 py-2"
-            ></FontAwesomeIcon>
-          </button>
+        <div className="">
+          <div className="p-4 flex justify-between items-center rounded">
+            <p
+              className={clsx(
+                "font-semibold overflow-hidden transition-all duration-500",
+                showSidebar ? "w-32" : "w-0"
+              )}
+            >
+              Rystore
+            </p>
+            <button
+              className="rounded-lg w-10 aspect-square items-center text-center hover:bg-red-500 hover:text-white p-2"
+              onClick={toggleSidebar}
+            >
+              <FontAwesomeIcon
+                className="text-center"
+                icon={showSidebar ? faBackwardStep : faForwardStep}
+              />
+            </button>
+          </div>
+          <div className="px-4 gap-y-2 flex flex-col">
+            {lists.map((list, index) => (
+              <Link
+                key={index}
+                href={list.link}
+                className={clsx(
+                  router.route == list.link && "bg-red-500 text-white",
+                  router.route != list.link
+                    ? "hover:bg-red-50"
+                    : "hover:red-500",
+                  !showSidebar && "w-10",
+                  " flex justify-between rounded group"
+                )}
+              >
+                <div
+                  className={clsx(
+                    "flex items-center w-full z-[99]",
+                    showSidebar ? "justify-normal" : "justify-center gap-x-0",
+
+                    router.route !== list.link && "group-hover:text-red-600"
+                  )}
+                >
+                  <FontAwesomeIcon
+                    icon={list.icon}
+                    className={clsx("p-4")}
+                    // "p-4 group-hover:text-red-600"
+                  />
+                  <p
+                    className={clsx(
+                      "font-semibold overflow-hidden transition-all ",
+                      showSidebar ? "w-full" : "w-0"
+                    )}
+                  >
+                    {list.name}
+                  </p>
+                </div>
+                {!showSidebar && (
+                  <div
+                    className={clsx(
+                      "relative items-center justify-center flex flex-col rounded-md -left-40 transform-all duration-500 group-hover:translate-x-56 z-10",
+                      router.route == list.link
+                        ? "bg-red-500 text-white"
+                        : "bg-red-100 text-red-600"
+                    )}
+                  >
+                    <p className="font-semibold m-2">{list.name}</p>
+                  </div>
+                )}
+              </Link>
+            ))}
+          </div>
         </div>
-        <ul>
-          <li>
-            <div className=""><FontAwesomeIcon icon></FontAwesomeIcon></div>
-          </li>
-        </ul>
-        <div className="border-t flex flex-row p-4 items-center gap-x-4 self-end">
-          <div className="p-2 rounded bg-red-200">
+
+        <div className="border-t flex flex-row items-center justify-center p-2">
+          <div className="p-2 rounded bg-red-200 w-10 aspect-square text-center">
             <p className="font-semibold text-red-600">DA</p>
           </div>
-          <div className="w-52 ml-3">
+          <div
+            className={clsx(
+              "flex flex-col overflow-hidden",
+              showSidebar ? "w-full ml-3" : "w-0"
+            )}
+          >
             <p className="font-semibold">{session?.user.fullname}</p>
             <p className="text-stone-400">{session?.user.email}</p>
           </div>
-          <div className="">
-          <button className="px-3 py-2">
-            <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
-          </button>
+          <div
+            className={clsx(
+              "flex flex-col gap-y-1 overflow-hidden",
+              showSidebar ? "w-fit ml-3" : "w-0 ml-0"
+            )}
+          >
+            <button className="p-2">
+              <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
+            </button>
           </div>
         </div>
       </div>

@@ -10,8 +10,8 @@ import { productType } from "@/types/productType";
 const FlashSale = () => {
   const [products, setProducts] = useState([]);
 
-  const { data, error, isLoading } = useSWR("/api/products?discount=true", fetcher);
-
+  const { data, error, isLoading } = useSWR("/api/products?isDiscount=true", fetcher);
+  
   useEffect(() => {
     setProducts(data?.data);
   }, [data]);

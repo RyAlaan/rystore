@@ -88,22 +88,25 @@ const Categories: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex jusitfy-between py-10">
+      <div className="flex jusitfy-between py-10 w-full">
         <Swiper
           {...options}
           loop={true}
           slidesPerView={"auto"}
+          spaceBetween={-1050}
+          pagination={{
+            clickable: true,
+          }}
           autoplay={{
-            delay: 1500,
+            delay: 2000,
             disableOnInteraction: false,
           }}
-          centeredSlides={true}
           modules={[Autoplay, Navigation]}
-          ref={onSwiperInit}
+          // ref={onSwiperInit}
           className="w-full py-10"
         >
           {categories.map((category, index) => (
-            <SwiperSlide key={index} className="w-full">
+            <SwiperSlide key={index} className="w-48">
               <Tile title={category.title} href="/">
                 {<category.icon />}
               </Tile>

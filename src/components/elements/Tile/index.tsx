@@ -1,11 +1,4 @@
-import CameraSVG from "@/assets/svg/categories/Camera";
-import CellPhoneSVG from "@/assets/svg/categories/CellPhone";
-import ComputerSVG from "@/assets/svg/categories/Computer";
-import GamepadSVG from "@/assets/svg/categories/Gamepad";
-import HeadphoneSVG from "@/assets/svg/categories/Headphone";
-import SmartwatchSVG from "@/assets/svg/categories/SmartWatch";
 import Link from "next/link";
-import { useState } from "react";
 
 const Tile = (props: {
   href: string;
