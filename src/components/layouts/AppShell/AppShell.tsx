@@ -7,7 +7,7 @@ type AppShellProps = {
   children: React.ReactNode;
 };
 
-const disableNavbar = ["/404"];
+const disableNavbar = ["/404", "/dashboard"];
 const disableBreadcumb = ["/", "/404", "/auth/login", "/auth/register"];
 
 const AppShell = (props: AppShellProps) => {
@@ -20,7 +20,7 @@ const AppShell = (props: AppShellProps) => {
     <main>
       {!isDashboardPage && !disableNavbar.includes(pathname) && <Navbar />}
       {!disableBreadcumb.includes(pathname) && <Breadcumb />}
-      <div className="flex flex-col ">{children}</div>
+      <div className="flex flex-col">{children}</div>
       {!disableNavbar.includes(pathname) && <Footer />}
     </main>
   );

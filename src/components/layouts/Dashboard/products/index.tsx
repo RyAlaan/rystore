@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import SearchBox from "@/components/fragments/SearchBox";
-import Card from "@/components/fragments/Card/Card";
 import CardProduct from "./CardProduct";
 
 const ProductsDashboard = ({ products }: { products: productType[] }) => {
