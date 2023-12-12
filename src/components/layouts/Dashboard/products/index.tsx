@@ -25,8 +25,8 @@ const ProductsDashboard = ({ products }: { products: productType[] }) => {
   };
 
   return (
-    <div className="w-[calc(100%-72px)] self-end overflow-hidden">
-      <div className="flex flex-row justify-between px-4 w-full pt-5 gap-x-10">
+    <div className="w-[calc(100%-72px)] h-screen md:h-[calc(100vh-66px)] bg-white self-end overflow-hidden">
+      <div className="flex flex-row justify-between px-4 w-full pt-5 gap-x-10 ">
         <SearchBox
           placeholder="Search products"
           className="w-full rounded-full border-2"
@@ -53,7 +53,7 @@ const ProductsDashboard = ({ products }: { products: productType[] }) => {
           </Link>
         ))}
       </div>
-      <div className="w-full flex flex-wrap justify-betwen gap-5 py-8 px-4">
+      <div className="w-full flex flex-wrap justify-betwen gap-5 py-8 px-4 h-[calc(100vh-100px)] md:h-[calc(100vh-200px)] overflow-y-auto">
         {products?.map((product: productType, index: number) => (
           <CardProduct key={index} product={product} />
         ))}

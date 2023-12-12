@@ -3,45 +3,48 @@ import TableUser from "./TableUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import SearchBox from "@/components/fragments/SearchBox";
 
 const UsersHeader = ({ users }: { users: userType[] }) => {
 
   return (
-    <div className="w-full  flex flex-col py-6 px-5 font-poppins">
-      <div className="w-full flex justify-end">
-        <Link href={"/dashboard/create/user"} className="bg-blue-500 text-white px-4 py-2 rounded-md">
-          Add User <FontAwesomeIcon icon={faPlus} />
-        </Link>
-      </div>
-      <div className="w-full  rounded-md px-2 py-2 flex flex-row justify-between">
-        <div className="image w-14 text-center">
-          <p className="text-md font-semibold">Image</p>
-        </div>
-        <div className="w-40 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Full Name</p>
-        </div>
-        <div className="w-40 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Email</p>
-        </div>
-        <div className="w-28 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Role</p>
-        </div>
-        <div className="w-36 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Phone</p>
-        </div>
-        <div className="w-28 h-full flex flex-col justify-center text-center">
-          <p className="text-md font-semibold">Actions</p>
-        </div>
-      </div>
-      <div className="w-full h-96 overflow-auto">
-        {users.map((user, index) => (
-          <TableUser
-            key={index}
-            user={user}
-            className={index % 2 === 1 ? "" : "bg-neutral-200"}
+    <div className="w-[calc(100%-72px)] self-end">
+      <div className="flex flex-col sticky top-0 bg-white">
+        <div className="flex flex-row justify-between px-4 w-full pt-5 gap-x-10 ">
+          <SearchBox
+            placeholder="Search users"
+            className="w-full rounded-full border-2"
           />
-        ))}
+          <Link
+            href={"/dashboard/create/users"}
+            className="border border-black text-black rounded-full items-center flex flex-row px-4 gap-x-2"
+          >
+            <p className="hidden md:flex">Add users</p>
+            <FontAwesomeIcon icon={faPlus} className="aspect-square" />
+          </Link>
+        </div>
+        {/* <div className="w-full overflow-auto flex flex-row gap-x-6 py-4 pl-4 ">
+          {categories.map((category, index) => (
+            <Link
+              key={index}
+              href={
+                "/dashboard/products" +
+                (category === "All"
+                  ? ""
+                  : `?category=${category.toLowerCase()}`)
+              }
+              className="bg-slate-100 text-black rounded-b-full rounded-r-full items-center w-fit flex flex-row px-4 py-1 gap-x-2"
+            >
+              <p>{category}</p>
+            </Link>
+          ))}
+        </div> */}
       </div>
+      {/* <div className="w-full flex flex-wrap justify-betwen gap-5 py-8 px-4">
+        {products?.map((product: productType, index: number) => (
+          <CardProduct key={index} product={product} />
+        ))}
+      </div> */}
     </div>
   );
 };

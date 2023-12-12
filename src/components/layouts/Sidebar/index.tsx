@@ -48,7 +48,7 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <div className="h-[calc(100vh-66px)] fixed z-50 bg-white">
+    <div className="h-screen md:h-[calc(100vh-66px)] absolute z-[99999] bg-white">
       <div className="h-full flex flex-col justify-between bg-white border-r shadow-sm">
         <div className="">
           <div className="p-4 flex justify-between items-center rounded">
