@@ -1,10 +1,13 @@
 import { productType } from "@/types/productType";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import SearchBox from "@/components/fragments/SearchBox";
 import CardProduct from "./CardProduct";
+import clsx from "clsx";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
 
 const ProductsDashboard = ({ products }: { products: productType[] }) => {
   const router = useRouter();
@@ -20,16 +23,37 @@ const ProductsDashboard = ({ products }: { products: productType[] }) => {
   ];
 
   const handleSearch = (value: string) => {
-    router.push(`/dashboard/products?q=${value}`);
+    router.push(`/dashboard/products?name=${value}`);
   };
 
   return (
     <div className="w-[calc(100%-72px)] h-screen md:h-[calc(100vh-66px)] bg-white self-end overflow-hidden">
       <div className="flex flex-row justify-between px-4 w-full pt-5 gap-x-10 ">
-        <SearchBox
-          placeholder="Search products"
-          className="w-full rounded-full border-2"
-        />
+        <form
+          action="POST"
+          className={clsx(
+            "flex overflow-hidden flex-row text-sm max-w-sm border-2 rounded-full"
+          )}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const target = e.target as typeof e.target & {
+              search: { value: string };
+            };
+            handleSearch(target.search.value);
+          }}
+        >
+          <Button type="submit" className="bg-white rounded-none px-2">
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="text-primary"
+            />
+          </Button>
+          <Input
+            type="text"
+            placeholder="Search products"
+            className="rounded-none py-1 w-full max-w-sm"
+          />
+        </form>
         <Link
           href={"/dashboard/create/product"}
           className="border border-black text-black rounded-full items-center flex flex-row px-4 gap-x-2"
