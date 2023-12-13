@@ -36,7 +36,7 @@ const CardProduct = ({
   };
 
   return (
-    <div className="w-44 py-3 flex flex-col items-center border gap-y-2 rounded-2xl px-4">
+    <div className="w-44 py-3 h-fit flex flex-col items-center border gap-y-2 rounded-2xl px-4">
       <div className="w-36 aspect-square overflow-hidden rounded-2xl">
         <img
           src={product.images ? product.images[0] : "https://placehold.co/56"}
@@ -91,7 +91,7 @@ const CardProduct = ({
             </p>
           </div>
           <div
-            className="flex flex-col items-center justify-center bg-secondary text-white w-8 rounded-md aspect-square"
+            className="flex flex-col items-center justify-center bg-secondary text-white w-8 rounded-md aspect-square cursor-pointer"
             onClick={() => deleteFunction(product.id)}
           >
             <FontAwesomeIcon icon={faTrash} />
