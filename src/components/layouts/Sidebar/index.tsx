@@ -1,4 +1,5 @@
 import { useSidebar } from "@/context/SidebarContext";
+import useInitial from "@/hooks/useInitial";
 import {
   faBackwardStep,
   faBagShopping,
@@ -121,7 +122,9 @@ const Sidebar: React.FC = () => {
 
         <div className="border-t flex flex-row items-center justify-center p-2">
           <div className="p-2 rounded bg-red-200 w-10 aspect-square text-center">
-            <p className="font-semibold text-red-600">DA</p>
+            <p className="font-semibold text-red-600">
+              {session?.user.fullname && useInitial(session?.user.fullname)}
+            </p>
           </div>
           <div
             className={clsx(

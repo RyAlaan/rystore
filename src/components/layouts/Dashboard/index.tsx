@@ -5,8 +5,8 @@ const DashboardTemplate = (props: { children: React.ReactElement }) => {
 
   return (
     <div className="md:border-t-2 flex flex-row w-full">
-      <Sidebar />
-      <div className="flex flex-col w-full justify-end">{children}</div>
+      <Sidebar/>
+      <div className="flex justify-end w-full">{children}</div>
     </div>
   );
 };

@@ -5,8 +5,8 @@ export type userType = {
   fullname: string;
   role: string;
   address?: string;
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   image?: string;
   id: string;
   password: string;
