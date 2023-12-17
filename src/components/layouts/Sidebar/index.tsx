@@ -47,9 +47,7 @@ const Sidebar: React.FC = () => {
       link: "/dashboard/orders",
     },
   ];
-  const initials = session?.user.fullname
-    ? useInitial(session?.user.fullname)
-    : "";
+  const initials = useInitial(session?.user.fullname)
 
   return (
     <div className="h-screen md:h-[calc(100vh-66px)] absolute z-[99999] bg-white">

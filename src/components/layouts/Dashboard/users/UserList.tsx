@@ -16,7 +16,7 @@ const UserList = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const initials = user.fullname ? useInitial(user.fullname) : "";
+  const initials = useInitial(user.fullname) 
 
   const deleteFunction = async (id: string) => {
     setLoading(true);
