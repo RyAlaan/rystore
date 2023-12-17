@@ -16,7 +16,6 @@ const UserList = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const initials = useInitial(user.fullname) 
 
   const deleteFunction = async (id: string) => {
     setLoading(true);
@@ -46,7 +45,7 @@ const UserList = ({
       <div className="flex flex-row gap-x-5">
         <div className="p-2 rounded bg-red-200 w-10 h-10 text-center">
           <p className="font-semibold text-red-600">
-            {initials}
+            {useInitial(user.fullname)}
           </p>
         </div>
         <div className={clsx("flex flex-col overflow-hidden w-56 px-4")}>

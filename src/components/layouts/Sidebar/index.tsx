@@ -47,7 +47,6 @@ const Sidebar: React.FC = () => {
       link: "/dashboard/orders",
     },
   ];
-  const initials = useInitial(session?.user.fullname)
 
   return (
     <div className="h-screen md:h-[calc(100vh-66px)] absolute z-[99999] bg-white">
@@ -123,7 +122,9 @@ const Sidebar: React.FC = () => {
 
         <div className="border-t flex flex-row items-center justify-center p-2">
           <div className="p-2 rounded bg-red-200 w-10 aspect-square text-center">
-            <p className="font-semibold text-red-600">{initials}</p>
+            <p className="font-semibold text-red-600">
+              {useInitial(session?.user.fullname)}
+            </p>
           </div>
           <div
             className={clsx(
