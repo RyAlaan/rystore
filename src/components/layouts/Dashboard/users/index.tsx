@@ -5,7 +5,7 @@ import Link from "next/link";
 import SearchBox from "@/components/fragments/SearchBox";
 import UserList from "./UserList";
 
-const UsersHeader = ({ users }: { users: userType[] }) => {
+const UserDashboard = ({ users }: { users: userType[] }) => {
   return (
     <div className="w-[calc(100%-72px)] h-screen md:h-[calc(100vh-66px)] self-end">
       <div className="flex flex-row justify-between px-4 w-full py-5 gap-x-10 ">
@@ -30,4 +30,4 @@ const UsersHeader = ({ users }: { users: userType[] }) => {
   );
 };
 
-export default UsersHeader;
+export default UserDashboard;

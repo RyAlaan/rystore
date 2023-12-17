@@ -42,14 +42,16 @@ const UserList = ({
         "w-full  rounded-md px-2 py-2 flex flex-row items-center gap-x-5 justify-between"
       )}
     >
-      <div className="p-2 rounded bg-red-200 w-10 h-10 text-center">
-        <p className="font-semibold text-red-600">
-          {user.fullname && useInitial(user.fullname)}
-        </p>
-      </div>
-      <div className={clsx("flex flex-col overflow-hidden w-56 px-4")}>
-        <p className="font-semibold line-clamp-1">{user.fullname}</p>
-        <p className="text-stone-400 line-clamp-1">{user.email}</p>
+      <div className="flex flex-row gap-x-5">
+        <div className="p-2 rounded bg-red-200 w-10 h-10 text-center">
+          <p className="font-semibold text-red-600">
+            {user.fullname && useInitial(user.fullname)}
+          </p>
+        </div>
+        <div className={clsx("flex flex-col overflow-hidden w-56 px-4")}>
+          <p className="font-semibold line-clamp-1">{user.fullname}</p>
+          <p className="text-stone-400 line-clamp-1">{user.email}</p>
+        </div>
       </div>
       <div className="w-40 flex flex-row items-center justify-center">
         <div

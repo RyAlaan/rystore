@@ -13,9 +13,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const query = req.query;
-  console.log(query);
-  
+  const query = req.query;  
 
   switch (req.method) {
     case "POST":

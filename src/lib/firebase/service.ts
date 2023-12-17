@@ -144,9 +144,6 @@ export async function retrieveData(
         : ref
     );
 
-    console.log(q);
-    console.log();
-
     const data = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -158,8 +155,6 @@ export async function retrieveData(
       callback({ statusCode: 404, message: "Data not found", data: null });
     }
   } catch (error) {
-    console.log(error);
-
     callback({
       statusCode: 500,
       message: "Error retrieving data : " + error,

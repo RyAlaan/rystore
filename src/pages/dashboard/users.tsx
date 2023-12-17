@@ -1,5 +1,5 @@
 import DashboardTemplate from "@/components/layouts/Dashboard";
-import UsersHeader from "@/components/layouts/Dashboard/users";
+import UserDashboard from "@/components/layouts/Dashboard/users";
 import { fetcher } from "@/lib/swr/fetcher";
 import useSWR from "swr";
 
@@ -9,7 +9,7 @@ const DashboardUsers = () => {
   return (
     <div className="">
       <DashboardTemplate>
-        <UsersHeader users={isLoading ? [] : data?.data} />
+        <UserDashboard users={isLoading ? [] : data?.data} />
       </DashboardTemplate>
     </div>
   );
