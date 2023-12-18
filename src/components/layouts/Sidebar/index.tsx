@@ -15,6 +15,7 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Sidebar: React.FC = () => {
   const { showSidebar, toggleSidebar } = useSidebar();
@@ -47,6 +48,11 @@ const Sidebar: React.FC = () => {
       link: "/dashboard/orders",
     },
   ];
+  let userName = "RY";
+
+  useEffect(() => {
+    userName = session?.user?.name;
+  }, [session?.user?.name]);
 
   return (
     <div className="h-screen md:h-[calc(100vh-66px)] absolute z-[99999] bg-white">
@@ -123,7 +129,8 @@ const Sidebar: React.FC = () => {
         <div className="border-t flex flex-row items-center justify-center p-2">
           <div className="p-2 rounded bg-red-200 w-10 aspect-square text-center">
             <p className="font-semibold text-red-600">
-              {useInitial(session?.user.fullname)}
+              {/* {session !== null ? useInitial(session?.user.fullname) : "RY"} */}
+              {useInitial(userName)}
             </p>
           </div>
           <div
