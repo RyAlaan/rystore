@@ -4,20 +4,23 @@ import {
   faCartShopping,
   faHome,
   faListCheck,
+  faMagnifyingGlass,
   faRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { signOut, useSession } from "next-auth/react";
-import SearchBox from "@/components/fragments/SearchBox";
+import { useRouter } from "next/router";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
 
 const Navbar = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
-
+  const router = useRouter();
   const Nav = [
     {
       name: "Home",
@@ -35,6 +38,10 @@ const Navbar = () => {
       icon: faHome,
     },
   ];
+
+  const handleSearch = (value: string) => {
+    router.push(`/products?name=${value}`);
+  };
 
   return (
     <div className="w-full flex flex-row px-4 md:px-8 py-2 justify-between border-b-2 fixed font-poppins bg-white z-[999] items-center">
@@ -96,10 +103,32 @@ const Navbar = () => {
           </Link>
         )}
       </div>
-      <SearchBox
-        className="w-fit border"
-        placeholder="What are you looking for?"
-      />
+      <form
+        action="POST"
+        className={clsx(
+          "flex overflow-hidden flex-row text-sm max-w-sm border-2 rounded-full"
+        )}
+        onSubmit={(e) => {
+          e.preventDefault();
+          const target = e.target as typeof e.target & {
+            search: { value: string };
+          };
+          if (target.search) {
+            handleSearch(target.search.value);
+          }
+        }}
+      >
+        <Button type="submit" className="bg-white rounded-none px-2">
+          <FontAwesomeIcon icon={faMagnifyingGlass} className="text-primary" />
+        </Button>
+        <Input
+          type="text"
+          placeholder="Search products"
+          name="search"
+          className="rounded-none py-1 w-full max-w-sm"
+        />
+      </form>
+
       <div className="buttons flex flex-row pl-2 gap-x-4 md:gap-x-6">
         <Link href="/" className="bg-transparent">
           <FontAwesomeIcon icon={faHeart} className="text-black" />

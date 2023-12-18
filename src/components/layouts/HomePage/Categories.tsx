@@ -14,32 +14,32 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 const categories: { title: string; href: string; icon: React.FC }[] = [
   {
     title: "Camera",
-    href: "/camera",
+    href: "/products?category=camera",
     icon: CameraSVG,
   },
   {
     title: "Cellphone",
-    href: "/cellphone",
+    href: "/products?category=cellphone",
     icon: CellPhoneSVG,
   },
   {
     title: "Computer",
-    href: "/computer",
+    href: "/products?category=computer",
     icon: ComputerSVG,
   },
   {
     title: "Gamepad",
-    href: "/gamepad",
+    href: "/products?category=gamepad",
     icon: GamepadSVG,
   },
   {
     title: "Headphone",
-    href: "/headphone",
+    href: "/products?category=headphone",
     icon: HeadphoneSVG,
   },
   {
     title: "Smartwatch",
-    href: "/smartwatch",
+    href: "/products?category=smartwatch",
     icon: SmartwatchSVG,
   },
 ];
@@ -107,7 +107,7 @@ const Categories: React.FC = () => {
         >
           {categories.map((category, index) => (
             <SwiperSlide key={index} className="w-48">
-              <Tile title={category.title} href="/">
+              <Tile title={category.title} href={category.href}>
                 {<category.icon />}
               </Tile>
             </SwiperSlide>

@@ -23,7 +23,7 @@ const Featured = () => {
             <p className="text-white text-xs w-[192px] h-[32px] pt-1">
               Black and white version of the PS5 coming out on sale
             </p>
-            <Link href={"/"} className="underline text-white text-sm font-bold">
+            <Link href={"/products"} className="underline text-white text-sm font-bold">
               Shop Now
             </Link>
           </div>
@@ -37,7 +37,7 @@ const Featured = () => {
                 Featured woman collections that give you another vibe.
               </p>
               <Link
-                href={"/"}
+                href={"/products"}
                 className="underline text-white text-sm font-bold"
               >
                 Shop Now
@@ -53,7 +53,7 @@ const Featured = () => {
                   Amazon wireless speakers
                 </p>
                 <Link
-                  href={"/"}
+                  href={"/products"}
                   className="underline text-white text-sm font-bold"
                 >
                   Shop Now
@@ -68,7 +68,7 @@ const Featured = () => {
                   GUCCI INTENSE OUD EDP
                 </p>
                 <Link
-                  href={"/"}
+                  href={"/products"}
                   className="underline text-white text-sm font-bold"
                 >
                   Shop Now

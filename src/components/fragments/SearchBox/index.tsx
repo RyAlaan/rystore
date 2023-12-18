@@ -4,7 +4,7 @@ import Input from "../../elements/Input";
 import clsx from "clsx";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const SearchBox = (props: { className?: string, placeholder :string }) => {
+const SearchBox = (props: { className?: string, placeholder :string, onSubmit ? : (value: string) => void }) => {
   const { className, placeholder } = props;
 
   return (

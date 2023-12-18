@@ -24,7 +24,7 @@ const FlashSale = () => {
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
             Flash Sales
           </h1>
-          <Countdown targetDate={"12/6/23 12:00:00"} />
+          <Countdown targetDate={"1/18/24 12:00:00"} />
         </div>
       </div>
       <div className="overflow-x-auto w-full">
@@ -36,7 +36,7 @@ const FlashSale = () => {
       </div>
       <div className="w-full flex justify-center py-6">
         <Link
-          href="/"
+          href="/products"
           className="bg-secondary text-white px-4 py-3 md:px-8 md:py-4 justify-self-center rounded-md"
         >
           View All Products

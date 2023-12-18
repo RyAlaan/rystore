@@ -18,9 +18,9 @@ const HomePage = () => {
           <div className="pt-8 border-y mb-5">
             <Categories />
           </div>
-          <div className="pt-[70px] pb-[120px]">
-            {/* <BestPoruduct /> */}
-          </div>
+          {/* <div className="pt-[70px] pb-[120px]">
+            <BestPoruduct />
+          </div> */}
           <div className="">
             <Ads />
           </div>

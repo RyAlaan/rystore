@@ -38,7 +38,7 @@ const ProductsSection = () => {
       </div>
       <div className="w-full flex justify-center pt-16">
         <Link
-          href="/product"
+          href="/products"
           className="bg-secondary text-white px-4 py-3 md:px-8 md:py-4 justify-self-center rounded-md"
         >
           View All Products
