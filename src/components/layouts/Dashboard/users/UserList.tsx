@@ -1,4 +1,3 @@
-import useInitial from "@/hooks/useInitial";
 import { userType } from "@/types/userType";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +15,24 @@ const UserList = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const useInitial = (name: string) => {
+    const words = name.split(" ");
+    const totalWords = words.length;
+    let initial = "";
+
+    if (totalWords === 1) {
+      initial = words[0].charAt(0).toUpperCase();
+    } else if (totalWords === 2) {
+      initial =
+        words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
+    } else {
+      initial =
+        words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
+    }
+
+    return initial;
+  };
 
   const deleteFunction = async (id: string) => {
     setLoading(true);
