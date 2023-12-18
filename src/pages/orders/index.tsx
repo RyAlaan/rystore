@@ -150,10 +150,6 @@ const OrderPage = () => {
     setOrderId(id);
   };
 
-  if (isLoading) {
-    return <div className="">Loading...</div>;
-  }
-
   return (
     <div className="flex flex-col w-full font-poppins px-2 lg:px-8 mt-12 md:mt-0 gap-y-5 bg-white">
       <Message success={success} failed={failed} />

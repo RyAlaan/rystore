@@ -177,69 +177,70 @@ const CartPage = () => {
   };
 
   const handleCheckout = async () => {
-    const selectedCart = selectedItems.map((index) => {
-      if (selectedItems.length == 0) {
-        setFailed("Please Select Product");
-      } else {
-        return cartData[index];
-      }
-    });
+        const randNum = Math.floor(Math.random() * 1000000000);
 
-    const selectedSubTotal = selectedItems.map((index) => {
-      if (selectedItems.length == 0) {
-        setFailed("Please Select Product");
-      } else {
-        return subTotal[index];
-      }
-    });
-    setLoading(true);
-    const result = await fetch("/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        orderCode: "RY0411000003",
-        userId: session?.user?.id,
-        orderStatus: "Awaiting Payment",
-        totalPrice: totalPrice,
-        image: null,
-      }),
-    });
-    if (result.status == 200) {
-      let curIdx = 0;
-      for (const cart of selectedCart) {
-        const resDetail = await fetch("/api/orders/orderDetail", {
+        const selectedCart = selectedItems.map((index) => {
+          if (selectedItems.length == 0) {
+            setFailed("Please Select Product");
+          } else {
+            return cartData[index];
+          }
+        });
+
+        const selectedSubTotal = selectedItems.map((index) => {
+          if (selectedItems.length == 0) {
+            setFailed("Please Select Product");
+          } else {
+            return subTotal[index];
+          }
+        });
+        setLoading(true);
+        const result = await fetch("/api/orders", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            orderCode: "RY0411000003",
-            productId: cart?.productId,
-            quantity: cart?.quantity,
-            subTotal: selectedSubTotal[curIdx],
+            orderCode: "RY" + randNum,
+            userId: session?.user?.id,
+            orderStatus: "Awaiting Payment",
+            totalPrice: totalPrice,
+            image: null,
           }),
         });
-        curIdx++;
-        resDetail.status;
-        if (resDetail.status == 200) {
-          const resDelete = await fetch("/api/cart/" + cart?.id, {
-            method: "DELETE",
-          });
-          if (resDelete.status == 200) {
-            // return redirect("/checkout/" + "RY0411000003");
-            setSuccess("Checkout Success");
-          } else {
-            setFailed("failed delete cart");
+        if (result.status == 200) {
+          let curIdx = 0;
+          for (const cart of selectedCart) {
+            const resDetail = await fetch("/api/orders/orderDetail", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                orderCode: "RY" + randNum,
+                productId: cart?.productId,
+                quantity: cart?.quantity,
+                subTotal: selectedSubTotal[curIdx],
+              }),
+            });
+            curIdx++;
+            resDetail.status;
+            if (resDetail.status == 200) {
+              const resDelete = await fetch("/api/cart/" + cart?.id, {
+                method: "DELETE",
+              });
+              if (resDelete.status == 200) {
+                setSuccess("Checkout Success");
+              } else {
+                setFailed("failed delete cart");
+              }
+            } else {
+              setFailed("failed create order detail");
+            }
           }
         } else {
-          setFailed("failed create order detail");
+          setFailed("failed create order");
         }
-      }
-    } else {
-      setFailed("failed create order");
-    }
     setLoading(false);
   };
 

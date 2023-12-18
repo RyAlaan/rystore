@@ -123,7 +123,7 @@ const Sidebar: React.FC = () => {
         <div className="border-t flex flex-row items-center justify-center p-2">
           <div className="p-2 rounded bg-red-200 w-10 aspect-square text-center">
             <p className="font-semibold text-red-600">
-              {useInitial(session?.user.fullname)}
+              {session && useInitial(session?.user.fullname)}
             </p>
           </div>
           <div
